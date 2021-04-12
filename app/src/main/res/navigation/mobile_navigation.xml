@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_preferiti"
         android:name="com.example.drinkup.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_preferiti"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
