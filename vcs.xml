@@ -6,6 +6,10 @@
           <option name="url" value="https://github.com/aprovasi2/drinkUP.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://github.com" />
+          <option name="userName" value="a.provasi2@campus.unimib.it" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="C:\Users\andre\Desktop" />
