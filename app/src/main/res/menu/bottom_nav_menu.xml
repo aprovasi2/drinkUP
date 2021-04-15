@@ -13,8 +13,13 @@
         android:title="@string/title_preferiti" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_profilo"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:title="@string/title_profilo" />
+
+    <item
+        android:id="@+id/navigation_maps"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:title="@string/title_maps" />
 
 </menu>

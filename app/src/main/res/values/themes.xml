@@ -7,6 +7,7 @@
         <item name="backgroundTint">#FFBB80</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorBackgroundFloating">#FD9539</item>
+        <item name="colorOnBackground">#FFC107</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>

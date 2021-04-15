@@ -2,5 +2,6 @@
     <string name="app_name">drinkUP</string>
     <string name="title_home">Home</string>
     <string name="title_preferiti">Preferiti</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_profilo">Profilo</string>
+    <string name="title_maps">Maps</string>
 </resources>
