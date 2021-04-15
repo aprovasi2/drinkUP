@@ -14,12 +14,12 @@
 
     <item
         android:id="@+id/navigation_profilo"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/icon_user"
         android:title="@string/title_profilo" />
 
     <item
         android:id="@+id/navigation_maps"
-        android:icon="@android:drawable/ic_menu_mapmode"
+        android:icon="@drawable/icon_map"
         android:title="@string/title_maps" />
 
 </menu>
