@@ -8,17 +8,19 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="45dp"
+        tools:layout_editor_absoluteY="145dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical"
             android:paddingLeft="40dp"
+            android:paddingTop="40dp"
             android:paddingRight="40dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="40dp"
-            android:gravity="center">
+            android:paddingBottom="40dp">
 
             <ImageButton
                 android:id="@+id/imageButton"
