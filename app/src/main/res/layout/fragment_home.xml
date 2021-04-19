@@ -9,8 +9,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="45dp"
-        tools:layout_editor_absoluteY="145dp">
+        android:fillViewport="true"
+        >
 
         <LinearLayout
             android:layout_width="fill_parent"

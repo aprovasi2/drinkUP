@@ -7,14 +7,10 @@
     tools:context=".ui.home.HomeFragment">
 
     <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="683dp"
-        android:layout_height="363dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -30,9 +26,7 @@
                 android:id="@+id/imageButton"
                 android:layout_width="320dp"
                 android:layout_height="200dp"
-                android:layout_marginBottom="70dp"
-                android:rotation="0"
-                android:rotationY="0"
+                android:layout_marginRight="70dp"
                 android:src="@android:drawable/stat_sys_data_bluetooth" />
 
             <ImageButton
