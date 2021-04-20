@@ -4,23 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/imgpsh_fullsize_anim"
     tools:context=".ui.home.HomeFragment">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        >
+        android:layout_marginBottom="50dp"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingLeft="40dp"
-            android:paddingTop="40dp"
-            android:paddingRight="40dp"
-            android:paddingBottom="40dp">
+            android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/imageButton"
