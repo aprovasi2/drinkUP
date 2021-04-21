@@ -28,11 +28,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
 
+
         imagebuttonebeer = (ImageButton) root.findViewById(R.id.imageButtonBeer);
         imagebuttonebeer.setOnClickListener(this);
 
         imagebuttonedrink = (ImageButton) root.findViewById(R.id.imageButtonDrink);
         imagebuttonedrink.setOnClickListener(this);
+
+
 
         return root;
     }
