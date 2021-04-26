@@ -53,6 +53,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
 
 
+
+
+
                 break;
             case R.id.imageButtonBeer:
                 Toast.makeText(this.getContext(), "cliccatobeer", Toast.LENGTH_LONG).show();
