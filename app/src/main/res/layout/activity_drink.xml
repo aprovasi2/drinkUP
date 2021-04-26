@@ -58,22 +58,22 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/textView_Alchool"
+                    android:id="@+id/textView_Alchool_Drink"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/textView_Ingredienti"
+                    android:id="@+id/textView_Ingredienti_Drink"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/textView_Preparazione"
+                    android:id="@+id/textView_Preparazione_Drink"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/imageView_Drink"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#E12020"
