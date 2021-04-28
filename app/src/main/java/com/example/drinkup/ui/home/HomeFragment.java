@@ -46,19 +46,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.imageButtonDrink:
-                //Toast.makeText(this.getContext(), "cliccatodrink", Toast.LENGTH_LONG).show();
-                //fare riferimento a questo
-                //https://stackoverflow.com/questions/15478105/start-an-activity-from-a-fragment
+               //azione da compiere dopo aver cliccato bottone drink
                 Intent intent = new Intent(getActivity(), ActivityDrink.class);
 
                 startActivity(intent);
-
-
-
-
-
                 break;
+
             case R.id.imageButtonBeer:
+                //azione da compiere dopo aver cliccato bottone beer
                 Toast.makeText(this.getContext(), "cliccatobeer", Toast.LENGTH_LONG).show();
                 break;
 
