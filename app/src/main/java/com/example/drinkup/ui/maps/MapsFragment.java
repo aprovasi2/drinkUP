@@ -59,6 +59,7 @@ public class MapsFragment extends Fragment {
 
                 // For dropping a marker at a point on the Map
                 LatLng sydney = new LatLng(-34, 151);
+                LatLng milan = new LatLng(45.464664, 9.188540);
                 googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
                 googleMap.getUiSettings().isScrollGesturesEnabled();
                 googleMap.getUiSettings().isZoomControlsEnabled();
@@ -66,7 +67,8 @@ public class MapsFragment extends Fragment {
 
 
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(milan).zoom(20).build();
+
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });

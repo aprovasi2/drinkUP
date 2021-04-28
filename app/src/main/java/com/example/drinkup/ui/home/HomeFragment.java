@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 //fare riferimento a questo
                 //https://stackoverflow.com/questions/15478105/start-an-activity-from-a-fragment
                 Intent intent = new Intent(getActivity(), ActivityDrink.class);
+                
                 startActivity(intent);
 
 
