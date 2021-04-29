@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             updateGUI(location);
         if (locationManager != null && locationManager.isProviderEnabled(providerId))
 
-            
+
             locationManager.requestLocationUpdates(providerId, MIN_PERIOD, MIN_DIST, locationListener);
     }
 

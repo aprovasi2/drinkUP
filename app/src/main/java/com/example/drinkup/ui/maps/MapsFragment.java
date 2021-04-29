@@ -86,6 +86,8 @@ public class MapsFragment extends Fragment {
                 googleMap.getUiSettings().isZoomControlsEnabled();
                 googleMap.getUiSettings().setZoomControlsEnabled(true);
                 googleMap.getUiSettings().setMapToolbarEnabled(true);
+                googleMap.getUiSettings().isMyLocationButtonEnabled();
+                googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 
 
                 // For zooming automatically to the location of the marker
