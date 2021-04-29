@@ -36,8 +36,8 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
 
-    public static double longitude;
-    public static double latitude;
+    public static double longitude = 20;
+    public static double latitude = 30;
     private GoogleMap googleMap;
     private String providerId = LocationManager.GPS_PROVIDER;
     private Geocoder geo = null;
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         public void onProviderEnabled(String provider) {
 // attivo GPS su dispositivo
             // updateText(R.id.enabled, "TRUE");
+
         }
 
         @Override
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onLocationChanged(Location location) {
-            // updateGUI(location);
+            updateGUI(location);
         }
 
     };
@@ -106,56 +107,18 @@ public class MainActivity extends AppCompatActivity {
         if (location != null)
             updateGUI(location);
         if (locationManager != null && locationManager.isProviderEnabled(providerId))
-            //updateText(R.id.enabled, "TRUE");
 
-
+            
             locationManager.requestLocationUpdates(providerId, MIN_PERIOD, MIN_DIST, locationListener);
     }
 
     private void updateGUI(Location location) {
         Date timestamp = new Date(location.getTime());
-        //updateText(R.id.timestamp, timestamp.toString());
-        double latitude = location.getLatitude();
-        // updateText(R.id.latitude, String.valueOf(latitude));
-        double longitude = location.getLongitude();
-        //updateText(R.id.longitude, String.valueOf(longitude));
-        new AddressSolver().execute(location);
-    }
 
+        latitude = location.getLatitude();
 
-    public class AddressSolver extends AsyncTask<Location, Void, String> {
-        @Override
-        protected String doInBackground(Location... params) {
-            Location pos = params[0];
-            double latitude = pos.getLatitude();
-            double longitude = pos.getLongitude();
-            List<Address> addresses = null;
-            try {
-                addresses = geo.getFromLocation(latitude, longitude, 1);
-            } catch (IOException e) {
-            }
-            if (addresses != null) {
-                if (addresses.isEmpty()) {
-                    return null;
-                } else {
-                    if (addresses.size() > 0) {
-                        StringBuffer address = new StringBuffer();
-                        Address tmp = addresses.get(0);
-                        for (int y = 0; y < tmp.getMaxAddressLineIndex(); y++)
-                            address.append(tmp.getAddressLine(y) + "\n");
-                        return address.toString();
-                    }
-                }
-            }
-            return null;
-        }
+        longitude = location.getLongitude();
 
-        @Override
-        protected void onPostExecute(String result) {
-       /* if (result!=null)
-           // updateText(R.id.where, result);
-        else
-            updateText(R.id.where, "N.A.");*/
-        }
     }
 }
+

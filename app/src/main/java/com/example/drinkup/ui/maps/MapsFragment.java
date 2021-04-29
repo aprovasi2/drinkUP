@@ -79,7 +79,7 @@ public class MapsFragment extends Fragment {
                 LatLng sydney = new LatLng(-34, 151);
                 LatLng milan = new LatLng(45.464664, 9.188540);
                 LatLng mia = new LatLng(MainActivity.latitude, MainActivity.longitude);
-                Toast.makeText(getContext(), " "+MainActivity.latitude, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), " "+MainActivity.latitude + MainActivity.longitude, Toast.LENGTH_LONG).show();
 
                 googleMap.addMarker(new MarkerOptions().position(mia).title("Marker Title").snippet("Marker Description"));
                 googleMap.getUiSettings().isScrollGesturesEnabled();
