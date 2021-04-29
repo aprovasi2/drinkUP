@@ -25,13 +25,13 @@
                 android:layout_width="320dp"
                 android:layout_height="200dp"
                 android:layout_marginRight="70dp"
-                android:src="@android:drawable/stat_sys_data_bluetooth"/>
+                android:src="@drawable/cocktail"/>
 
             <ImageButton
                 android:id="@+id/imageButtonBeer"
                 android:layout_width="320dp"
                 android:layout_height="200dp"
-                android:src="@drawable/ic_home_black_24dp" />
+                android:src="@drawable/beer" />
         </LinearLayout>
     </ScrollView>
 
