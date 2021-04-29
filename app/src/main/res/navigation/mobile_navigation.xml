@@ -15,7 +15,11 @@
         android:id="@+id/navigation_preferiti"
         android:name="com.example.drinkup.ui.preferiti.PreferitiFragment"
         android:label="@string/title_preferiti"
-        tools:layout="@layout/fragment_preferiti" />
+        tools:layout="@layout/fragment_preferiti" >
+        <action
+            android:id="@+id/action_navigation_preferiti_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profilo"
