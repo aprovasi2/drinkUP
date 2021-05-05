@@ -22,13 +22,15 @@
 
             <ImageButton
                 android:id="@+id/imageButtonDrink"
+                style="@android:style/Widget.Holo.ImageButton"
                 android:layout_width="320dp"
                 android:layout_height="200dp"
                 android:layout_marginRight="70dp"
-                android:src="@drawable/cocktail"/>
+                android:src="@drawable/cocktail" />
 
             <ImageButton
                 android:id="@+id/imageButtonBeer"
+                style="@android:style/Widget.Holo.ImageButton"
                 android:layout_width="320dp"
                 android:layout_height="200dp"
                 android:src="@drawable/beer" />
