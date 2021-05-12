@@ -10,10 +10,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.drinkup.ActivityDrink;
 import com.example.drinkup.R;
+import com.example.drinkup.ui.maps.MapsFragment;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -47,6 +49,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.imageButtonDrink:
                //azione da compiere dopo aver cliccato bottone drink
+
+
+
                 Intent intent = new Intent(getActivity(), ActivityDrink.class);
 
                 startActivity(intent);
