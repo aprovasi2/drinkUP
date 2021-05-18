@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.drinkup.models.Response;
-import com.example.drinkup.models.Drink;
+
+
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
