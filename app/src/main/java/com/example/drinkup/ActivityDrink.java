@@ -11,6 +11,7 @@ import android.content.Intent;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,14 +21,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+
+import com.example.drinkup.models.Drink;
+import com.example.drinkup.models.Response;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -40,9 +38,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
+import java.util.List;
 
 public class ActivityDrink extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG ="ActivityDrink" ;
     private Button button_Search;
     private EditText drinkDaCercare;
     private TextView nomeDrink;
@@ -72,53 +72,40 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         Toast toast = Toast.makeText(this, "ho provato a ricercare "+ricerca, Toast.LENGTH_LONG);
         toast.show();
 
+        List<Drink> drinkListWithGson = getDrinksWithGson();
 
-        /*
-        InputStream risposta= null ;
 
-        try {
+       
 
-            // Creao l'oggetto URL che rappresenta l'indirizzo della pagina da richiamare
-            URL paginaURL = new URL("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + ricerca);
-            Toast toast2 = Toast.makeText(this, "la url è  "+paginaURL, Toast.LENGTH_LONG);
+
+
+        /*for (Drink drink : drinkListWithGson) {
+            Log.d(TAG, drink.toString());
+            Toast toast2 = Toast.makeText(this, "drink1"+drink.getStrDrink(), Toast.LENGTH_LONG);
             toast2.show();
+        }*/
 
-            // creo l'oggetto HttpURLConnection e apro la connessione al server
-            HttpURLConnection client = (HttpURLConnection) paginaURL.openConnection();
-
-            // Recupero le informazioni inviate dal server
-             risposta = new BufferedInputStream(client.getInputStream());
-
-        } catch (Exception e) {
-            Toast toast3 = Toast.makeText(this, "sono in eccezione ", Toast.LENGTH_LONG);
-            toast3.show();
-
-            e.printStackTrace();
-        }
-
-
-       String datiLetti = mostroDati(risposta);
-        Toast toast3 = Toast.makeText(this, "i dati letti sono "+datiLetti, Toast.LENGTH_LONG);
-        toast3.show();*/
 
     }
 
 
 
-
-    private static String mostroDati(InputStream in) {
-        StringBuilder sb = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in));) {
-            String nextLine = "";
-            while ((nextLine = reader.readLine()) != null) {
-                sb.append(nextLine);
-            }
+    private List<Drink> getDrinksWithGson() {
+        InputStream fileInputStream = null;
+        JsonReader jsonReader;
+        try {
+            fileInputStream = this.getAssets().open("search_margarita.json");
+            jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return sb.toString();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+        Response response = new Gson().fromJson(bufferedReader, Response.class);
+
+        return response.getDrinks();
     }
+
 
 
 }
