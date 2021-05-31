@@ -95,8 +95,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             toast2.show();
         }*/
 
-
-
+        
 
 
         for (Drink drink : drinksWithDrinksApi) {

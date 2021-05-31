@@ -1,6 +1,7 @@
 package com.example.drinkup.repositories;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -9,6 +10,7 @@ import com.example.drinkup.models.Response;
 import com.example.drinkup.services.DrinksService;
 import com.example.drinkup.utils.Constants;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,7 +34,23 @@ public class DrinkRepository implements IDrinkRepository{
         call.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(@NonNull Call<Response> call, @NonNull  retrofit2.Response<Response> response) {
+                Log.d("body", "onresponse");
+                Log.d("body", response.body().getDrinks().toString());
+
+                if(response.isSuccessful()==true){
+                    Log.d("body", "il response è true");
+                }
+                else{ Log.d("body", "il response è false");
+                }
+
                 if (response.body() != null && response.isSuccessful()) {
+                    Log.d("body", response.body().toString());
+                    try {
+                        Log.d("body", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d("body", response.message());
                     List<Drink> drinkList = response.body().getDrinks();
                     responseCallback.onResponse(drinkList);
                 }
