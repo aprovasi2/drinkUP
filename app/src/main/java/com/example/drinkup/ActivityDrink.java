@@ -18,10 +18,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
 import com.example.drinkup.models.Drink;
 import com.example.drinkup.models.Response;
 import com.example.drinkup.repositories.DrinkRepository;
@@ -56,7 +58,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     private Button button_Search;
     private EditText drinkDaCercare;
     private TextView nomeDrink;
-
+    private ImageView imageViewDownload;
 
 
     @Override
@@ -64,6 +66,8 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink);
 
+
+        imageViewDownload = (ImageView) findViewById(R.id.imageView_Drink);
 
         button_Search = (Button) findViewById(R.id.button_Search);
         button_Search.setOnClickListener(this);
@@ -80,23 +84,20 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-
-
         String ricerca = drinkDaCercare.getText().toString();
         Toast toast = Toast.makeText(this, "ho provato a ricercare "+ricerca, Toast.LENGTH_LONG);
         toast.show();
 
         List<Drink> drinkListWithGson = getDrinksWithGson();
         drinkRepository.fetchDrinks(ricerca);
-
-        /*for (Drink drink : drinkListWithGson) {
+/*
+        for (Drink drink : drinkListWithGson) {
             Log.d(TAG, drink.toString());
             Toast toast2 = Toast.makeText(this, "drink1"+drink.getStrDrink(), Toast.LENGTH_LONG);
             toast2.show();
-        }*/
-
-        
-
+        }
+*/
+       imgGlide(drinkListWithGson.get(1).getStrDrinkThumb());
 
         for (Drink drink : drinksWithDrinksApi) {
             Log.d(TAG, drink.toString());
@@ -137,5 +138,25 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     public void onFailure(String msg) {
         Toast toast3 = Toast.makeText(this, "ERRORE!!", Toast.LENGTH_LONG);
         toast3.show();
+    }
+
+    public void imgGlide(String urlPassata){
+
+        String url = urlPassata;
+        String newUrl = null;
+
+        if (url != null) {
+            // This action is a possible alternative to manage HTTP addresses that don't work
+            // in the apps that target API level 28 or higher.
+            // If it doesn't work, the other option is this one:
+            // https://developer.android.com/guide/topics/manifest/application-element#usesCleartextTraffic
+            newUrl = url.replace("http://", "https://").trim();
+
+            // Download the image associated with the article
+            Glide.with(ActivityDrink.this)
+                    .load(newUrl)
+                    .into(imageViewDownload);
+        }
+
     }
 }
