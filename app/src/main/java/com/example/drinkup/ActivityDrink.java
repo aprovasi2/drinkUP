@@ -24,6 +24,9 @@ import android.widget.Toast;
 
 import com.example.drinkup.models.Drink;
 import com.example.drinkup.models.Response;
+import com.example.drinkup.repositories.DrinkRepository;
+import com.example.drinkup.repositories.IDrinkRepository;
+import com.example.drinkup.repositories.ResponseCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 
@@ -37,12 +40,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class ActivityDrink extends AppCompatActivity implements View.OnClickListener {
+public class ActivityDrink extends AppCompatActivity implements View.OnClickListener, ResponseCallback {
 
     private static final String TAG ="ActivityDrink" ;
+
+    private IDrinkRepository drinkRepository;
+
+
+    private List<Drink> drinksWithDrinksApi;
+
     private Button button_Search;
     private EditText drinkDaCercare;
     private TextView nomeDrink;
@@ -61,6 +71,8 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         nomeDrink = (TextView) findViewById(R.id.textView_Alchool_Drink);
         drinkDaCercare = (EditText) findViewById(R.id.editTextText_DrinkSearch);
 
+        drinkRepository = new DrinkRepository(this, this.getApplication());
+        drinksWithDrinksApi=new ArrayList<>();
 
     }
 
@@ -68,16 +80,14 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
+
+
         String ricerca = drinkDaCercare.getText().toString();
         Toast toast = Toast.makeText(this, "ho provato a ricercare "+ricerca, Toast.LENGTH_LONG);
         toast.show();
 
         List<Drink> drinkListWithGson = getDrinksWithGson();
-
-
-       
-
-
+        drinkRepository.fetchDrinks(ricerca);
 
         /*for (Drink drink : drinkListWithGson) {
             Log.d(TAG, drink.toString());
@@ -85,6 +95,15 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             toast2.show();
         }*/
 
+
+
+
+
+        for (Drink drink : drinksWithDrinksApi) {
+            Log.d(TAG, drink.toString());
+            Toast toast2 = Toast.makeText(this, "drink1"+drink.getStrDrink(), Toast.LENGTH_LONG);
+            toast2.show();
+        }
 
     }
 
@@ -107,5 +126,17 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     }
 
 
+    @Override
+    public void onResponse(List<Drink> drinkList) {
+       
+        drinksWithDrinksApi.addAll(drinkList);
+        Toast toast3 = Toast.makeText(this, "Drinklistapi è lungo "+drinksWithDrinksApi.size(), Toast.LENGTH_LONG);
+        toast3.show();
+    }
 
+    @Override
+    public void onFailure(String msg) {
+        Toast toast3 = Toast.makeText(this, "ERRORE!!", Toast.LENGTH_LONG);
+        toast3.show();
+    }
 }
