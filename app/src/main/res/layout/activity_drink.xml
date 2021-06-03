@@ -50,12 +50,17 @@
         <ScrollView
             android:id="@+id/ScrollView_DrinkInfo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="592dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_Nome_Drink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/textView_Alchool_Drink"
@@ -82,8 +87,38 @@
                     app:srcCompat="@drawable/image_drink"
                     tools:srcCompat="@drawable/image_drink"
                     tools:visibility="visible" />
+
+
             </LinearLayout>
         </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="99dp">
+
+            <Button
+                android:id="@+id/button_Precedente_Drink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="224dp"
+                android:layout_marginRight="224dp"
+                android:text="@string/button_precedente"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_Successivo_Drink"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button_Successivo_Drink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:text="@string/button_successivo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 

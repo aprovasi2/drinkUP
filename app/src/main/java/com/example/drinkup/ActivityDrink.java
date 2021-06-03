@@ -60,9 +60,15 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     private TextView nomeDrink;
     private ImageView imageViewDownload;
 
+    private TextView textView_Nome_Drink;
     private TextView textView_Alchool_Drink;
     private TextView textView_Ingredienti_Drink;
     private TextView textView_Preparazione_Drink;
+
+    private Button button_Successivo_Drink;
+    private Button button_Precedente_Drink;
+
+    public static int posizione = 0;
 
 
     @Override
@@ -73,11 +79,18 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         textView_Alchool_Drink = (TextView) findViewById(R.id.textView_Alchool_Drink);
         textView_Ingredienti_Drink = (TextView) findViewById(R.id.textView_Ingredienti_Drink);
         textView_Preparazione_Drink = (TextView) findViewById(R.id.textView_Preparazione_Drink);
+        textView_Nome_Drink = (TextView) findViewById(R.id.textView_Nome_Drink);
 
         imageViewDownload = (ImageView) findViewById(R.id.imageView_Drink);
 
         button_Search = (Button) findViewById(R.id.button_Search);
         button_Search.setOnClickListener(this);
+
+        button_Successivo_Drink = (Button) findViewById(R.id.button_Successivo_Drink);
+        button_Successivo_Drink.setOnClickListener(this);
+
+        button_Precedente_Drink = (Button) findViewById(R.id.button_Precedente_Drink);
+        button_Precedente_Drink.setOnClickListener(this);
 
         nomeDrink = (TextView) findViewById(R.id.textView_Alchool_Drink);
         drinkDaCercare = (EditText) findViewById(R.id.editTextText_DrinkSearch);
@@ -91,12 +104,26 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-        String ricerca = drinkDaCercare.getText().toString();
-        Toast toast = Toast.makeText(this, "ho provato a ricercare "+ricerca, Toast.LENGTH_LONG);
-        toast.show();
 
-        List<Drink> drinkListWithGson = getDrinksWithGson();
-        drinkRepository.fetchDrinks(ricerca);
+        if(v.getId() == R.id.button_Precedente_Drink){
+            posizione = posizione-1;
+            visualizzaDrink(posizione);
+        }
+        if(v.getId() == R.id.button_Successivo_Drink){
+            posizione++;
+            visualizzaDrink(posizione);
+        }
+        if(v.getId() == R.id.button_Search) {
+            posizione = 0;
+            drinksWithDrinksApi.clear();
+            String ricerca = drinkDaCercare.getText().toString();
+            Toast toast = Toast.makeText(this, "ho provato a ricercare " + ricerca, Toast.LENGTH_LONG);
+            toast.show();
+            drinkDaCercare.setText("Inserisci il nome del drink");
+            List<Drink> drinkListWithGson = getDrinksWithGson();
+            drinkRepository.fetchDrinks(ricerca);
+        }
+
 /*
         for (Drink drink : drinkListWithGson) {
             Log.d(TAG, drink.toString());
@@ -105,8 +132,6 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         }
 */
        //imgGlide(drinkListWithGson.get(1).getStrDrinkThumb());
-
-
 
     }
 
@@ -135,15 +160,19 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         drinksWithDrinksApi.addAll(drinkList);
         Toast toast3 = Toast.makeText(this, "Drinklistapi è lungo "+drinksWithDrinksApi.size(), Toast.LENGTH_LONG);
         toast3.show();
+        visualizzaDrink(posizione);
         for (Drink drink : drinksWithDrinksApi) {
             Log.d(TAG, drink.toString());
             //Toast toast2 = Toast.makeText(this, "drink1"+drink.getStrDrink(), Toast.LENGTH_LONG);
             //toast2.show();
+            /*
+            textView_Nome_Drink.setText(drink.getStrDrink());
             textView_Alchool_Drink.setText(drink.getStrAlcoholic());
             textView_Ingredienti_Drink.setText(drink.getStrIngredient1());
             textView_Preparazione_Drink.setText(drink.getStrInstructionsIT());
+             */
         }
-        drinksWithDrinksApi.clear();
+
     }
 
     @Override
@@ -170,5 +199,12 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
                     .into(imageViewDownload);
         }
 
+    }
+
+    public void visualizzaDrink(int posizione){
+        textView_Nome_Drink.setText(drinksWithDrinksApi.get(posizione).getStrDrink());
+        textView_Alchool_Drink.setText(drinksWithDrinksApi.get(posizione).getStrAlcoholic());
+        textView_Ingredienti_Drink.setText(drinksWithDrinksApi.get(posizione).getStrIngredient1());
+        textView_Preparazione_Drink.setText(drinksWithDrinksApi.get(posizione).getStrInstructionsIT());
     }
 }
