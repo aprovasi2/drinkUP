@@ -97,7 +97,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             toast2.show();
         }
 */
-       imgGlide(drinkListWithGson.get(1).getStrDrinkThumb());
+       //imgGlide(drinkListWithGson.get(1).getStrDrinkThumb());
 
         for (Drink drink : drinksWithDrinksApi) {
             Log.d(TAG, drink.toString());

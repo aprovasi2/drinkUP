@@ -10,6 +10,5 @@ import retrofit2.http.Query;
 
 public interface DrinksService {
     @GET("search")
-    Call<Response> getTopHeadlines(@Query("s") String nomeDrink,
-                                   @Header("Authorization") String apiKey);
+    Call<Response> getDrink(@Query("s") String nomeDrink);
 }

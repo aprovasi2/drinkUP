@@ -29,29 +29,19 @@ public class DrinkRepository implements IDrinkRepository{
 
     @Override
     public void fetchDrinks(String nomeDrink) {
-        Call<Response> call = drinksService.getTopHeadlines(nomeDrink, Constants.DRINKS_API_KEY);
+        Call<Response> call = drinksService.getDrink(nomeDrink);
 
         call.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(@NonNull Call<Response> call, @NonNull  retrofit2.Response<Response> response) {
-                Log.d("body", "onresponse");
-                Log.d("body", response.body().getDrinks().toString());
-
-                if(response.isSuccessful()==true){
-                    Log.d("body", "il response è true");
-                }
-                else{ Log.d("body", "il response è false");
-                }
 
                 if (response.body() != null && response.isSuccessful()) {
-                    Log.d("body", response.body().toString());
-                    try {
-                        Log.d("body", response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Log.d("body", response.message());
                     List<Drink> drinkList = response.body().getDrinks();
+                    
+                    for (Drink drink : drinkList) {
+                        Log.d("bodyDrink", drink.getStrDrink());
+
+                    }
                     responseCallback.onResponse(drinkList);
                 }
             }
