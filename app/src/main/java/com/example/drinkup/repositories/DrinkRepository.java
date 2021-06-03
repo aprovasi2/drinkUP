@@ -32,12 +32,13 @@ public class DrinkRepository implements IDrinkRepository{
         Call<Response> call = drinksService.getDrink(nomeDrink);
 
         call.enqueue(new Callback<Response>() {
+
             @Override
             public void onResponse(@NonNull Call<Response> call, @NonNull  retrofit2.Response<Response> response) {
 
                 if (response.body() != null && response.isSuccessful()) {
                     List<Drink> drinkList = response.body().getDrinks();
-                    
+
                     for (Drink drink : drinkList) {
                         Log.d("bodyDrink", drink.getStrDrink());
 

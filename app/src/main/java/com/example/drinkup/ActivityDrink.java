@@ -60,12 +60,19 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     private TextView nomeDrink;
     private ImageView imageViewDownload;
 
+    private TextView textView_Alchool_Drink;
+    private TextView textView_Ingredienti_Drink;
+    private TextView textView_Preparazione_Drink;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink);
 
+        textView_Alchool_Drink = (TextView) findViewById(R.id.textView_Alchool_Drink);
+        textView_Ingredienti_Drink = (TextView) findViewById(R.id.textView_Ingredienti_Drink);
+        textView_Preparazione_Drink = (TextView) findViewById(R.id.textView_Preparazione_Drink);
 
         imageViewDownload = (ImageView) findViewById(R.id.imageView_Drink);
 
@@ -99,11 +106,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 */
        //imgGlide(drinkListWithGson.get(1).getStrDrinkThumb());
 
-        for (Drink drink : drinksWithDrinksApi) {
-            Log.d(TAG, drink.toString());
-            Toast toast2 = Toast.makeText(this, "drink1"+drink.getStrDrink(), Toast.LENGTH_LONG);
-            toast2.show();
-        }
+
 
     }
 
@@ -128,10 +131,19 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onResponse(List<Drink> drinkList) {
-       
+
         drinksWithDrinksApi.addAll(drinkList);
         Toast toast3 = Toast.makeText(this, "Drinklistapi è lungo "+drinksWithDrinksApi.size(), Toast.LENGTH_LONG);
         toast3.show();
+        for (Drink drink : drinksWithDrinksApi) {
+            Log.d(TAG, drink.toString());
+            //Toast toast2 = Toast.makeText(this, "drink1"+drink.getStrDrink(), Toast.LENGTH_LONG);
+            //toast2.show();
+            textView_Alchool_Drink.setText(drink.getStrAlcoholic());
+            textView_Ingredienti_Drink.setText(drink.getStrIngredient1());
+            textView_Preparazione_Drink.setText(drink.getStrInstructionsIT());
+        }
+        drinksWithDrinksApi.clear();
     }
 
     @Override
