@@ -119,7 +119,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             String ricerca = drinkDaCercare.getText().toString();
             Toast toast = Toast.makeText(this, "ho provato a ricercare " + ricerca, Toast.LENGTH_LONG);
             toast.show();
-            drinkDaCercare.setText("Inserisci il nome del drink");
+            drinkDaCercare.setText("");
             List<Drink> drinkListWithGson = getDrinksWithGson();
             drinkRepository.fetchDrinks(ricerca);
         }
