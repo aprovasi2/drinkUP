@@ -68,7 +68,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     private Button button_Successivo_Drink;
     private Button button_Precedente_Drink;
 
-    public static int posizione = 0;
+    public static int posizione = 999;
 
 
     @Override
@@ -98,6 +98,9 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         drinkRepository = new DrinkRepository(this, this.getApplication());
         drinksWithDrinksApi=new ArrayList<>();
 
+        button_Precedente_Drink.setClickable(false);
+        button_Successivo_Drink.setClickable(false);
+
     }
 
 
@@ -114,7 +117,9 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             visualizzaDrink(posizione);
         }
         if(v.getId() == R.id.button_Search) {
+
             posizione = 0;
+            attivaBottoni();
             drinksWithDrinksApi.clear();
             String ricerca = drinkDaCercare.getText().toString();
             Toast toast = Toast.makeText(this, "ho provato a ricercare " + ricerca, Toast.LENGTH_LONG);
@@ -206,5 +211,13 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         textView_Alchool_Drink.setText(drinksWithDrinksApi.get(posizione).getStrAlcoholic());
         textView_Ingredienti_Drink.setText(drinksWithDrinksApi.get(posizione).getStrIngredient1());
         textView_Preparazione_Drink.setText(drinksWithDrinksApi.get(posizione).getStrInstructionsIT());
+    }
+    public void attivaBottoni(){
+        if (posizione==0)
+        {
+            button_Precedente_Drink.setClickable(true);
+            button_Successivo_Drink.setClickable(true);
+        }
+
     }
 }
