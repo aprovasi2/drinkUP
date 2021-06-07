@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">#CA4700</item>
         <item name="colorPrimaryVariant">#FA851F</item>
-        <item name="backgroundTint">#FFBB80</item>
+        <item name="backgroundTint">#FF9800</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorBackgroundFloating">#FD9539</item>
         <item name="colorOnBackground">#FFC107</item>

@@ -4,4 +4,9 @@
     <string name="title_preferiti">Preferiti</string>
     <string name="title_profilo">Profilo</string>
     <string name="title_maps">Maps</string>
+    <string name="hint_Search_Drink">Inserisci il nome del drink</string>
+    <string name="button_ricerca">Cerca</string>
+    <string name="google_maps_key">AIzaSyC6StaSpJBDH-uaHdyj5c7hE8bgfMWbuus</string>
+    <string name="title_activity_maps">Map</string>
+
 </resources>
