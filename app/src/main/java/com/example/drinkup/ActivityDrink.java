@@ -136,7 +136,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             toast2.show();
         }
 */
-       //imgGlide(drinkListWithGson.get(1).getStrDrinkThumb());
+
 
     }
 
@@ -210,6 +210,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             textView_Alchool_Drink.setText(drinksWithDrinksApi.get(posizione).getStrAlcoholic());
             textView_Ingredienti_Drink.setText(drinksWithDrinksApi.get(posizione).getStrIngredient1());
             textView_Preparazione_Drink.setText(drinksWithDrinksApi.get(posizione).getStrInstructionsIT());
+            imgGlide(drinksWithDrinksApi.get(posizione).getStrDrinkThumb());
 
     }
     public void attivaBottoni(){
