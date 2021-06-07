@@ -10,5 +10,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="button_precedente">Precedente</string>
     <string name="button_successivo">Successivo</string>
+    <string name="nome_Drink">Nome Drink</string>
+    <string name="gradazione_Drink">Gradazione</string>
 
 </resources>
