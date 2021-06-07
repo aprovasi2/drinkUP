@@ -12,5 +12,7 @@
     <string name="button_successivo">Successivo</string>
     <string name="nome_Drink">Nome Drink</string>
     <string name="gradazione_Drink">Gradazione</string>
+    <string name="ingredienti_Drink">Ingredienti</string>
+    <string name="preparazione_Drink">Preparazione</string>
 
 </resources>

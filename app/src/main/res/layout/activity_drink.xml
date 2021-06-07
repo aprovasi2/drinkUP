@@ -84,7 +84,9 @@
                         android:id="@+id/textView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/gradazione_Drink" />
+                        android:text="@string/gradazione_Drink"
+                        android:textSize="25sp"
+                        android:textStyle="bold|italic"/>
 
                     <TextView
                         android:id="@+id/textView_Alchool_Drink"
@@ -93,10 +95,26 @@
                         android:fontFamily="sans-serif-light" />
 
                     <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ingredienti_Drink"
+                        android:textSize="25sp"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
                         android:id="@+id/textView_Ingredienti_Drink"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light" />
+
+                    <TextView
+                        android:id="@+id/Preparazione"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/preparazione_Drink"
+                        android:textSize="25sp"
+                        android:textStyle="bold|italic"/>
 
                     <TextView
                         android:id="@+id/textView_Preparazione_Drink"
