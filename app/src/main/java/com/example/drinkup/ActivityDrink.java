@@ -112,20 +112,18 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             posizione = posizione-1;
             visualizzaDrink(posizione);
             attivaBottoni();
-        }
-        if(v.getId() == R.id.button_Successivo_Drink){
+        } else if(v.getId() == R.id.button_Successivo_Drink){
             posizione++;
             visualizzaDrink(posizione);
             attivaBottoni();
-        }
-        if(v.getId() == R.id.button_Search) {
+        } else if(v.getId() == R.id.button_Search) {
 
             posizione = 0;
             attivaBottoni();
             drinksWithDrinksApi.clear();
             String ricerca = drinkDaCercare.getText().toString();
-            Toast toast = Toast.makeText(this, "ho provato a ricercare " + ricerca, Toast.LENGTH_LONG);
-            toast.show();
+            //Toast toast = Toast.makeText(this, "ho provato a ricercare " + ricerca, Toast.LENGTH_LONG);
+            //toast.show();
             drinkDaCercare.setText("");
             List<Drink> drinkListWithGson = getDrinksWithGson();
             drinkRepository.fetchDrinks(ricerca);
@@ -164,21 +162,19 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     @Override
     public void onResponse(List<Drink> drinkList) {
 
-        drinksWithDrinksApi.addAll(drinkList);
-        Toast toast3 = Toast.makeText(this, "Drinklistapi è lungo "+drinksWithDrinksApi.size(), Toast.LENGTH_LONG);
-        toast3.show();
-        visualizzaDrink(posizione);
-        for (Drink drink : drinksWithDrinksApi) {
-            Log.d(TAG, drink.toString());
-            //Toast toast2 = Toast.makeText(this, "drink1"+drink.getStrDrink(), Toast.LENGTH_LONG);
-            //toast2.show();
-            /*
-            textView_Nome_Drink.setText(drink.getStrDrink());
-            textView_Alchool_Drink.setText(drink.getStrAlcoholic());
-            textView_Ingredienti_Drink.setText(drink.getStrIngredient1());
-            textView_Preparazione_Drink.setText(drink.getStrInstructionsIT());
-             */
-        }
+
+            if(drinkList != null) {
+                drinksWithDrinksApi.addAll(drinkList);
+                Log.d("piero", "piero");
+
+                //Toast toast3 = Toast.makeText(this, "Drinklistapi è lungo "+drinksWithDrinksApi.size(), Toast.LENGTH_LONG);
+                // toast3.show();
+
+                visualizzaDrink(posizione);
+            }else{
+                posizione = 9999999;
+            }
+
 
     }
 
@@ -209,13 +205,25 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     }
 
     public void visualizzaDrink(int posizione){
-        textView_Nome_Drink.setText(drinksWithDrinksApi.get(posizione).getStrDrink());
-        textView_Alchool_Drink.setText(drinksWithDrinksApi.get(posizione).getStrAlcoholic());
-        textView_Ingredienti_Drink.setText(drinksWithDrinksApi.get(posizione).getStrIngredient1());
-        textView_Preparazione_Drink.setText(drinksWithDrinksApi.get(posizione).getStrInstructionsIT());
+
+            textView_Nome_Drink.setText(drinksWithDrinksApi.get(posizione).getStrDrink());
+            textView_Alchool_Drink.setText(drinksWithDrinksApi.get(posizione).getStrAlcoholic());
+            textView_Ingredienti_Drink.setText(drinksWithDrinksApi.get(posizione).getStrIngredient1());
+            textView_Preparazione_Drink.setText(drinksWithDrinksApi.get(posizione).getStrInstructionsIT());
+
     }
     public void attivaBottoni(){
-        if (posizione==0)
+
+
+
+
+
+        if (posizione ==0 && drinksWithDrinksApi.size()==0)
+        {
+            button_Precedente_Drink.setClickable(false);
+            button_Successivo_Drink.setClickable(false);
+
+        }else if (posizione==0 && drinksWithDrinksApi.size()!=0)
         {
             button_Precedente_Drink.setClickable(false);
             button_Successivo_Drink.setClickable(true);
@@ -224,6 +232,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         {
             button_Precedente_Drink.setClickable(true);
             button_Successivo_Drink.setClickable(false);
+
         }else
         {
             button_Precedente_Drink.setClickable(true);
