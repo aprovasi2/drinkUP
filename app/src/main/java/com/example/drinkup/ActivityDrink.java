@@ -111,10 +111,12 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         if(v.getId() == R.id.button_Precedente_Drink){
             posizione = posizione-1;
             visualizzaDrink(posizione);
+            attivaBottoni();
         }
         if(v.getId() == R.id.button_Successivo_Drink){
             posizione++;
             visualizzaDrink(posizione);
+            attivaBottoni();
         }
         if(v.getId() == R.id.button_Search) {
 
@@ -215,8 +217,18 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     public void attivaBottoni(){
         if (posizione==0)
         {
+            button_Precedente_Drink.setClickable(false);
+            button_Successivo_Drink.setClickable(true);
+        }
+        else if (posizione == drinksWithDrinksApi.size()-1)
+        {
+            button_Precedente_Drink.setClickable(true);
+            button_Successivo_Drink.setClickable(false);
+        }else
+        {
             button_Precedente_Drink.setClickable(true);
             button_Successivo_Drink.setClickable(true);
+
         }
 
     }
