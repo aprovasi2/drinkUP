@@ -124,28 +124,18 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         } else if(v.getId() == R.id.button_Search) {
 
             posizione = 0;
+            //drinksWithDrinksApi.add(null);
             attivaBottoni();
             drinksWithDrinksApi.clear();
             String ricerca = drinkDaCercare.getText().toString();
-            //Toast toast = Toast.makeText(this, "ho provato a ricercare " + ricerca, Toast.LENGTH_LONG);
-            //toast.show();
             drinkDaCercare.setText("");
             List<Drink> drinkListWithGson = getDrinksWithGson();
             drinkRepository.fetchDrinks(ricerca);
-        }
 
-/*
-        for (Drink drink : drinkListWithGson) {
-            Log.d(TAG, drink.toString());
-            Toast toast2 = Toast.makeText(this, "drink1"+drink.getStrDrink(), Toast.LENGTH_LONG);
-            toast2.show();
-        }
-*/
 
+        }
 
     }
-
-
 
     private List<Drink> getDrinksWithGson() {
         InputStream fileInputStream = null;
@@ -163,21 +153,28 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         return response.getDrinks();
     }
 
-
     @Override
     public void onResponse(List<Drink> drinkList) {
 
 
             if(drinkList != null) {
                 drinksWithDrinksApi.addAll(drinkList);
-                Log.d("piero", "piero");
-
-                //Toast toast3 = Toast.makeText(this, "Drinklistapi è lungo "+drinksWithDrinksApi.size(), Toast.LENGTH_LONG);
-                // toast3.show();
-
+                
+                if(drinksWithDrinksApi.size()==1)
+                {
+                    button_Precedente_Drink.setClickable(false);
+                    button_Precedente_Drink.setEnabled(false);
+                    button_Successivo_Drink.setClickable(false);
+                    button_Successivo_Drink.setEnabled(false);
+                }
+                else{
+                    attivaBottoni();
+                }
                 visualizzaDrink(posizione);
             }else{
                 posizione = 9999999;
+                 Toast toastErrore = Toast.makeText(this, "Spiacenti! Il drink ricercato non è disponibile", Toast.LENGTH_LONG);
+                 toastErrore.show();
             }
 
 
@@ -221,17 +218,15 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     public void attivaBottoni(){
 
 
-
-
-
-        if (posizione ==0 && drinksWithDrinksApi.size()==0)
+        if (posizione==0 && drinksWithDrinksApi.size()==0)
         {
             button_Precedente_Drink.setClickable(false);
             button_Precedente_Drink.setEnabled(false);
             button_Successivo_Drink.setClickable(false);
             button_Successivo_Drink.setEnabled(false);
 
-        }else if (posizione==0 && drinksWithDrinksApi.size()!=0)
+        }
+       else if (posizione==0 && drinksWithDrinksApi.size()!=0)
         {
             button_Precedente_Drink.setClickable(false);
             button_Precedente_Drink.setEnabled(false);
