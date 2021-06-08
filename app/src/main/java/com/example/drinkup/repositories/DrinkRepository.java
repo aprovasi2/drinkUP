@@ -36,21 +36,9 @@ public class DrinkRepository implements IDrinkRepository{
             @Override
             public void onResponse(@NonNull Call<Response> call, @NonNull  retrofit2.Response<Response> response) {
 
-
-
-
                 if (response.body() != null && response.isSuccessful() ) {
 
-
-
-
                     List<Drink> drinkList = response.body().getDrinks();
-
-
-
-
-
-
                     responseCallback.onResponse(drinkList);
 
                 }

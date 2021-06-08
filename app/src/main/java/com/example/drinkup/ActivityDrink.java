@@ -59,6 +59,9 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     private EditText drinkDaCercare;
     private TextView nomeDrink;
     private TextView text_nome;
+    private TextView text_gradazione;
+    private TextView text_ingredienti;
+    private TextView text_preparazione;
     private ImageView imageViewDownload;
 
     private TextView textView_Nome_Drink;
@@ -79,13 +82,21 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
         textView_Alchool_Drink = (TextView) findViewById(R.id.textView_Alchool_Drink);
         text_nome = (TextView) findViewById(R.id.textView);
+        text_gradazione = (TextView) findViewById(R.id.text_Gradazione);
+        text_ingredienti= (TextView) findViewById(R.id.text_Ingredienti);
+        text_preparazione= (TextView) findViewById(R.id.text_Preparazione);
+        text_nome.setVisibility(View.INVISIBLE);
+        text_gradazione.setVisibility(View.INVISIBLE);
+        text_ingredienti.setVisibility(View.INVISIBLE);
+        text_preparazione.setVisibility(View.INVISIBLE);
+
 
         textView_Ingredienti_Drink = (TextView) findViewById(R.id.textView_Ingredienti_Drink);
         textView_Preparazione_Drink = (TextView) findViewById(R.id.textView_Preparazione_Drink);
         textView_Nome_Drink = (TextView) findViewById(R.id.textView_Nome_Drink);
 
         imageViewDownload = (ImageView) findViewById(R.id.imageView_Drink);
-
+        imageViewDownload.setVisibility(View.INVISIBLE);
         button_Search = (Button) findViewById(R.id.button_Search);
         button_Search.setOnClickListener(this);
 
@@ -159,7 +170,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
             if(drinkList != null) {
                 drinksWithDrinksApi.addAll(drinkList);
-                
+
                 if(drinksWithDrinksApi.size()==1)
                 {
                     button_Precedente_Drink.setClickable(false);
@@ -175,6 +186,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
                 posizione = 9999999;
                  Toast toastErrore = Toast.makeText(this, "Spiacenti! Il drink ricercato non è disponibile", Toast.LENGTH_LONG);
                  toastErrore.show();
+
             }
 
 
@@ -210,9 +222,16 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
             textView_Nome_Drink.setText(drinksWithDrinksApi.get(posizione).getStrDrink());
             textView_Alchool_Drink.setText(drinksWithDrinksApi.get(posizione).getStrAlcoholic());
-            textView_Ingredienti_Drink.setText(drinksWithDrinksApi.get(posizione).getStrIngredient1());
+            textView_Ingredienti_Drink.setText(drinksWithDrinksApi.get(posizione).getStrIngredient1()+ "\n");
+            textView_Ingredienti_Drink.append(drinksWithDrinksApi.get(posizione).getStrIngredient2()+ "\n");
             textView_Preparazione_Drink.setText(drinksWithDrinksApi.get(posizione).getStrInstructionsIT());
             imgGlide(drinksWithDrinksApi.get(posizione).getStrDrinkThumb());
+
+        text_nome.setVisibility(View.VISIBLE);
+        text_gradazione.setVisibility(View.VISIBLE);
+        text_ingredienti.setVisibility(View.VISIBLE);
+        text_preparazione.setVisibility(View.VISIBLE);
+        imageViewDownload.setVisibility(View.VISIBLE);
 
     }
     public void attivaBottoni(){

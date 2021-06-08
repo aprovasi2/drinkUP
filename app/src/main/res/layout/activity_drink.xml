@@ -5,6 +5,7 @@
     android:id="@+id/activityDrink"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/imgpsh_fullsize_anim"
     tools:context=".ActivityDrink">
 
     <ScrollView
@@ -59,7 +60,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp">
+                android:layout_marginRight="8dp"
+                android:background="@android:color/transparent"
+                app:cardBackgroundColor="@android:color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -81,12 +84,12 @@
                         android:fontFamily="sans-serif-light" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/text_Gradazione"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/gradazione_Drink"
                         android:textSize="25sp"
-                        android:textStyle="bold|italic"/>
+                        android:textStyle="bold|italic" />
 
                     <TextView
                         android:id="@+id/textView_Alchool_Drink"
@@ -95,12 +98,12 @@
                         android:fontFamily="sans-serif-light" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/text_Ingredienti"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/ingredienti_Drink"
                         android:textSize="25sp"
-                        android:textStyle="bold|italic"/>
+                        android:textStyle="bold|italic" />
 
                     <TextView
                         android:id="@+id/textView_Ingredienti_Drink"
@@ -109,12 +112,12 @@
                         android:fontFamily="sans-serif-light" />
 
                     <TextView
-                        android:id="@+id/Preparazione"
+                        android:id="@+id/text_Preparazione"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/preparazione_Drink"
                         android:textSize="25sp"
-                        android:textStyle="bold|italic"/>
+                        android:textStyle="bold|italic" />
 
                     <TextView
                         android:id="@+id/textView_Preparazione_Drink"
