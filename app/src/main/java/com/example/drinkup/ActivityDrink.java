@@ -58,6 +58,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     private Button button_Search;
     private EditText drinkDaCercare;
     private TextView nomeDrink;
+    private TextView text_nome;
     private ImageView imageViewDownload;
 
     private TextView textView_Nome_Drink;
@@ -77,6 +78,8 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_drink);
 
         textView_Alchool_Drink = (TextView) findViewById(R.id.textView_Alchool_Drink);
+        text_nome = (TextView) findViewById(R.id.textView);
+
         textView_Ingredienti_Drink = (TextView) findViewById(R.id.textView_Ingredienti_Drink);
         textView_Preparazione_Drink = (TextView) findViewById(R.id.textView_Preparazione_Drink);
         textView_Nome_Drink = (TextView) findViewById(R.id.textView_Nome_Drink);
@@ -99,7 +102,9 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         drinksWithDrinksApi=new ArrayList<>();
 
         button_Precedente_Drink.setClickable(false);
+        button_Precedente_Drink.setEnabled(false);
         button_Successivo_Drink.setClickable(false);
+        button_Successivo_Drink.setEnabled(false);
 
     }
 
@@ -222,22 +227,30 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         if (posizione ==0 && drinksWithDrinksApi.size()==0)
         {
             button_Precedente_Drink.setClickable(false);
+            button_Precedente_Drink.setEnabled(false);
             button_Successivo_Drink.setClickable(false);
+            button_Successivo_Drink.setEnabled(false);
 
         }else if (posizione==0 && drinksWithDrinksApi.size()!=0)
         {
             button_Precedente_Drink.setClickable(false);
+            button_Precedente_Drink.setEnabled(false);
             button_Successivo_Drink.setClickable(true);
+            button_Successivo_Drink.setEnabled(true);
         }
         else if (posizione == drinksWithDrinksApi.size()-1)
         {
             button_Precedente_Drink.setClickable(true);
+            button_Precedente_Drink.setEnabled(true);
             button_Successivo_Drink.setClickable(false);
+            button_Successivo_Drink.setEnabled(false);
 
         }else
         {
             button_Precedente_Drink.setClickable(true);
+            button_Precedente_Drink.setEnabled(true);
             button_Successivo_Drink.setClickable(true);
+            button_Successivo_Drink.setEnabled(true);
 
         }
 
