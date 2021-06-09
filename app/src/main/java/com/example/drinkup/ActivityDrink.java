@@ -224,10 +224,59 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     public void visualizzaDrink(int posizione){
 
+        String ingredienti = "";
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient1() != null){
+            ingredienti = drinksWithDrinksApi.get(posizione).getStrIngredient1()+"\n";
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient2() != null){
+            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient2()+"\n";
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient3() != null){
+            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient3()+"\n";
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient4() != null){
+            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient4()+"\n";
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient5() != null){
+            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient5()+"\n";
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient6() != null){
+            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient6()+"\n";
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient7() != null){
+            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient7()+"\n";
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient8() != null){
+            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient8()+"\n";
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient9() != null){
+            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient9()+"\n";
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient10() != null){
+            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient10()+"\n";
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient11() != null){
+            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient11()+"\n";
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient12() != null){
+            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient12()+"\n";
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient13() != null){
+            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient13()+"\n";
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient14() != null){
+            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient14()+"\n";
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient15() != null){
+            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient15()+"\n";
+        }
+
+        textView_Ingredienti_Drink.setText(ingredienti);
+
             textView_Nome_Drink.setText(drinksWithDrinksApi.get(posizione).getStrDrink());
             textView_Alchool_Drink.setText(drinksWithDrinksApi.get(posizione).getStrAlcoholic());
-            textView_Ingredienti_Drink.setText(drinksWithDrinksApi.get(posizione).getStrIngredient1()+ "\n");
-            textView_Ingredienti_Drink.append(drinksWithDrinksApi.get(posizione).getStrIngredient2()+ "\n");
+            //textView_Ingredienti_Drink.setText(drinksWithDrinksApi.get(posizione).getStrIngredient1()+ "\n");
+            //textView_Ingredienti_Drink.append(drinksWithDrinksApi.get(posizione).getStrIngredient2()+ "\n");
             textView_Preparazione_Drink.setText(drinksWithDrinksApi.get(posizione).getStrInstructionsIT());
             imgGlide(drinksWithDrinksApi.get(posizione).getStrDrinkThumb());
             cardView_InfoDrink.setVisibility(View.VISIBLE);
