@@ -22,7 +22,14 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_Ricerca"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                app:cardBackgroundColor="@color/material_on_primary_emphasis_high_type">
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
@@ -55,6 +62,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/CardView_InfoDrink"
                 android:layout_width="match_parent"
                 android:layout_height="611dp"
                 android:layout_marginStart="8dp"
@@ -62,7 +70,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:background="@android:color/transparent"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardBackgroundColor="?android:attr/textColorTertiaryInverse">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -73,6 +81,10 @@
                         android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
                         android:text="@string/nome_Drink"
                         android:textSize="25sp"
                         android:textStyle="bold|italic" />
@@ -81,12 +93,22 @@
                         android:id="@+id/textView_Nome_Drink"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light" />
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/text_Gradazione"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
                         android:text="@string/gradazione_Drink"
                         android:textSize="25sp"
                         android:textStyle="bold|italic" />
@@ -95,12 +117,21 @@
                         android:id="@+id/textView_Alchool_Drink"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light" />
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/text_Ingredienti"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
                         android:text="@string/ingredienti_Drink"
                         android:textSize="25sp"
                         android:textStyle="bold|italic" />
@@ -109,12 +140,21 @@
                         android:id="@+id/textView_Ingredienti_Drink"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light" />
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/text_Preparazione"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
                         android:text="@string/preparazione_Drink"
                         android:textSize="25sp"
                         android:textStyle="bold|italic" />
@@ -123,14 +163,20 @@
                         android:id="@+id/textView_Preparazione_Drink"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light" />
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="@color/black" />
 
                     <ImageView
                         android:id="@+id/imageView_Drink"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="#E12020"
+                        android:layout_marginTop="16dp"
+                        android:background="@android:drawable/screen_background_light_transparent"
                         android:visibility="visible"
                         app:srcCompat="@drawable/image_drink"
                         tools:srcCompat="@drawable/image_drink"

@@ -1,6 +1,7 @@
 package com.example.drinkup;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -63,6 +64,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     private TextView text_ingredienti;
     private TextView text_preparazione;
     private ImageView imageViewDownload;
+    private CardView cardView_InfoDrink;
 
     private TextView textView_Nome_Drink;
     private TextView textView_Alchool_Drink;
@@ -82,6 +84,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
         textView_Alchool_Drink = (TextView) findViewById(R.id.textView_Alchool_Drink);
         text_nome = (TextView) findViewById(R.id.textView);
+        cardView_InfoDrink=(CardView)findViewById(R.id.CardView_InfoDrink);
         text_gradazione = (TextView) findViewById(R.id.text_Gradazione);
         text_ingredienti= (TextView) findViewById(R.id.text_Ingredienti);
         text_preparazione= (TextView) findViewById(R.id.text_Preparazione);
@@ -89,6 +92,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         text_gradazione.setVisibility(View.INVISIBLE);
         text_ingredienti.setVisibility(View.INVISIBLE);
         text_preparazione.setVisibility(View.INVISIBLE);
+        cardView_InfoDrink.setVisibility(View.INVISIBLE);
 
 
         textView_Ingredienti_Drink = (TextView) findViewById(R.id.textView_Ingredienti_Drink);
@@ -226,6 +230,9 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             textView_Ingredienti_Drink.append(drinksWithDrinksApi.get(posizione).getStrIngredient2()+ "\n");
             textView_Preparazione_Drink.setText(drinksWithDrinksApi.get(posizione).getStrInstructionsIT());
             imgGlide(drinksWithDrinksApi.get(posizione).getStrDrinkThumb());
+            cardView_InfoDrink.setVisibility(View.VISIBLE);
+
+
 
         text_nome.setVisibility(View.VISIBLE);
         text_gradazione.setVisibility(View.VISIBLE);
