@@ -8,6 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 
+import android.content.Context;
 import android.content.Intent;
 
 import android.os.AsyncTask;
@@ -37,15 +38,22 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import com.example.drinkup.GestioneFile.*;
 
 public class ActivityDrink extends AppCompatActivity implements View.OnClickListener, ResponseCallback {
 
@@ -73,6 +81,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     private Button button_Successivo_Drink;
     private Button button_Precedente_Drink;
+    private Button button_Salva_Preferito;
 
     public static int posizione = 999;
 
@@ -110,6 +119,9 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         button_Precedente_Drink = (Button) findViewById(R.id.button_Precedente_Drink);
         button_Precedente_Drink.setOnClickListener(this);
 
+        button_Salva_Preferito = (Button) findViewById(R.id.button_Salva_Preferito);
+        button_Salva_Preferito.setOnClickListener(this);
+
         nomeDrink = (TextView) findViewById(R.id.textView_Alchool_Drink);
         drinkDaCercare = (EditText) findViewById(R.id.editTextText_DrinkSearch);
 
@@ -138,19 +150,29 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             attivaBottoni();
         } else if(v.getId() == R.id.button_Search) {
             String ricerca = drinkDaCercare.getText().toString();
-     if(ricerca.equals("")) {
-         Toast toastErroreRicerca = Toast.makeText(this, "Spiacenti! Inserire il nome del drink da cercare", Toast.LENGTH_LONG);
-         toastErroreRicerca.show();
-    }
-     else{
-         posizione = 0;
-         //drinksWithDrinksApi.add(null);
-         attivaBottoni();
-         drinksWithDrinksApi.clear();
-         drinkDaCercare.setText("");
-         List<Drink> drinkListWithGson = getDrinksWithGson();
-         drinkRepository.fetchDrinks(ricerca); }
-     }
+             if(ricerca.equals("")) {
+                 Toast toastErroreRicerca = Toast.makeText(this, "Spiacenti! Inserire il nome del drink da cercare", Toast.LENGTH_LONG);
+                 toastErroreRicerca.show();
+                }
+             else{
+                 posizione = 0;
+                 //drinksWithDrinksApi.add(null);
+                 attivaBottoni();
+                 drinksWithDrinksApi.clear();
+                 drinkDaCercare.setText("");
+                 List<Drink> drinkListWithGson = getDrinksWithGson();
+                 drinkRepository.fetchDrinks(ricerca);
+             }
+        } else if(v.getId() == R.id.button_Salva_Preferito){
+            int idDrink = drinksWithDrinksApi.get(posizione).getIdDrink();
+            //Toast toastId = Toast.makeText(this, ""+idDrink, Toast.LENGTH_LONG);
+            //toastId.show();
+            try {
+                salvaIdDrink(idDrink);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -294,6 +316,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         imageViewDownload.setVisibility(View.VISIBLE);
 
     }
+
     public void attivaBottoni(){
 
 
@@ -329,4 +352,69 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         }
 
     }
+
+    private void salvaIdDrink(int idDrink) throws IOException {
+        LibFileExt.writeFile("ElencoIdDrink", ""+idDrink);
+
+        String contenuto = leggiFile(scriviFile(idDrink));
+
+        Toast toastControllo = Toast.makeText(this, contenuto, Toast.LENGTH_LONG);
+        toastControllo.show();
+    }
+
+    private File scriviFile(int data) throws IOException {
+        File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
+        String idDrink = ""+data;
+
+        File file = new File(path, "ElencoPreferiti.txt");
+        if(!file.exists()){
+            FileOutputStream stream = new FileOutputStream(file);
+            try {
+                stream.write(idDrink.getBytes());
+            } finally {
+                stream.close();
+            }
+
+        } else{
+            FileOutputStream stream = new FileOutputStream(file, true);
+            OutputStreamWriter outWriter = new OutputStreamWriter(stream);
+            try {
+                outWriter.append(idDrink + "\n");
+            } finally {
+                outWriter.close();
+                stream.close();
+            }
+        }
+
+        return file;
+
+    }
+    private String leggiFile(File file) throws IOException {
+        int length = (int) file.length();
+
+        byte[] bytes = new byte[length];
+
+        FileInputStream in = new FileInputStream(file);
+        try {
+            in.read(bytes);
+        } finally {
+            in.close();
+        }
+        String contents = new String(bytes);
+
+        return contents;
+    }
+
+    /*
+    private void writeToFile(String data, Context context) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("ElencoIdDrink.txt", Context.MODE_PRIVATE));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+     */
 }

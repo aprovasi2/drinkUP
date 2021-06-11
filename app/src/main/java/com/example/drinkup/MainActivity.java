@@ -36,6 +36,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import com.example.drinkup.GestioneFile.*;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -109,7 +111,9 @@ public class MainActivity extends AppCompatActivity {
                     Manifest.permission.ACCESS_COARSE_LOCATION
             }, 0);
 
-           
+            MyPermission.askWritePermission(this);
+            MyPermission.askReadPermission(this);
+
             return;
         }
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);

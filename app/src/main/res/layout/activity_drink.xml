@@ -91,7 +91,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
                             <TextView
@@ -112,8 +112,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center|start"
                                 app:icon="@android:drawable/btn_star_big_on"
-                                app:iconPadding="8dp"
-                                app:iconSize="25dp" />
+                                app:iconSize="20dp" />
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
