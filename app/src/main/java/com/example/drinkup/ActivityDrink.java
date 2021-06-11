@@ -137,20 +137,24 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             visualizzaDrink(posizione);
             attivaBottoni();
         } else if(v.getId() == R.id.button_Search) {
-
-            posizione = 0;
-            //drinksWithDrinksApi.add(null);
-            attivaBottoni();
-            drinksWithDrinksApi.clear();
             String ricerca = drinkDaCercare.getText().toString();
-            drinkDaCercare.setText("");
-            List<Drink> drinkListWithGson = getDrinksWithGson();
-            drinkRepository.fetchDrinks(ricerca);
-
-
-        }
+     if(ricerca.equals("")) {
+         Toast toastErroreRicerca = Toast.makeText(this, "Spiacenti! Inserire il nome del drink da cercare", Toast.LENGTH_LONG);
+         toastErroreRicerca.show();
+    }
+     else{
+         posizione = 0;
+         //drinksWithDrinksApi.add(null);
+         attivaBottoni();
+         drinksWithDrinksApi.clear();
+         drinkDaCercare.setText("");
+         List<Drink> drinkListWithGson = getDrinksWithGson();
+         drinkRepository.fetchDrinks(ricerca); }
+     }
 
     }
+
+
 
     private List<Drink> getDrinksWithGson() {
         InputStream fileInputStream = null;
