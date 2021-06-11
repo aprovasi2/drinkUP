@@ -114,6 +114,7 @@
                                 app:icon="@android:drawable/btn_star_big_on"
                                 app:iconSize="20dp" />
                         </LinearLayout>
+                        <!-- android:background="@drawable/circle" -->
 
                     </androidx.cardview.widget.CardView>
 
