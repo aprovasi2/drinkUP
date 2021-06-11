@@ -364,7 +364,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     private File scriviFile(int data) throws IOException {
         File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
-        String idDrink = ""+data;
+        String idDrink = ""+data+"\n";
 
         File file = new File(path, "ElencoPreferiti.txt");
         if(!file.exists()){
@@ -379,7 +379,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             FileOutputStream stream = new FileOutputStream(file, true);
             OutputStreamWriter outWriter = new OutputStreamWriter(stream);
             try {
-                outWriter.append(idDrink + "\n");
+                outWriter.append(idDrink);
             } finally {
                 outWriter.close();
                 stream.close();
