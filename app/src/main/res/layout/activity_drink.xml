@@ -81,17 +81,42 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textView"
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
-                        android:text="@string/nome_Drink"
-                        android:textSize="25sp"
-                        android:textStyle="bold|italic" />
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:cardCornerRadius="0dp"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView"
+                                android:layout_width="329dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:layout_marginRight="4dp"
+                                android:text="@string/nome_Drink"
+                                android:textSize="25sp"
+                                android:textStyle="bold|italic" />
+
+                            <Button
+                                android:id="@+id/button_Salva_Preferito"
+                                android:layout_width="55dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center|start"
+                                app:icon="@android:drawable/btn_star_big_on"
+                                app:iconPadding="8dp"
+                                app:iconSize="25dp" />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
                         android:id="@+id/textView_Nome_Drink"
