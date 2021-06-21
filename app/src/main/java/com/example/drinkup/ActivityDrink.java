@@ -50,6 +50,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -63,6 +64,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
 
     private List<Drink> drinksWithDrinksApi;
+    private List<String> drinksPreferiti;
 
     private Button button_Search;
     private EditText drinkDaCercare;
@@ -127,11 +129,25 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
         drinkRepository = new DrinkRepository(this, this.getApplication());
         drinksWithDrinksApi=new ArrayList<>();
+        drinksPreferiti=new ArrayList<>();
 
         button_Precedente_Drink.setClickable(false);
         button_Precedente_Drink.setEnabled(false);
         button_Successivo_Drink.setClickable(false);
         button_Successivo_Drink.setEnabled(false);
+
+        try {
+            RecuperaDrinkPreferiti();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+       /* for(int i=0; i<drinksPreferiti.size();i++)
+        {
+            Toast toastControllo = Toast.makeText(this, drinksPreferiti.get(i), Toast.LENGTH_LONG);
+            toastControllo.show();
+        }
+*/
 
     }
 
@@ -165,12 +181,28 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
              }
         } else if(v.getId() == R.id.button_Salva_Preferito){
             int idDrink = drinksWithDrinksApi.get(posizione).getIdDrink();
-            //Toast toastId = Toast.makeText(this, ""+idDrink, Toast.LENGTH_LONG);
-            //toastId.show();
-            try {
-                salvaIdDrink(idDrink);
-            } catch (IOException e) {
-                e.printStackTrace();
+            boolean trovato=false;
+
+            for(int i=0; i<drinksPreferiti.size();i++)
+            {
+                if(Integer.parseInt(drinksPreferiti.get(i))==idDrink){
+                    trovato=true;
+                }
+            }
+
+            if(trovato==true){
+                Toast toastErroreAggiunta= Toast.makeText(this, "Il drink è già nella tua lista preferiti", Toast.LENGTH_LONG);
+                toastErroreAggiunta.show();
+            }
+            else{
+                try {
+                    Toast toast23= Toast.makeText(this, "Il drink è stato salvato correttamente", Toast.LENGTH_LONG);
+                    toast23.show();
+                    salvaIdDrink(idDrink);
+                    RecuperaDrinkPreferiti();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -358,8 +390,6 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
         String contenuto = leggiFile(scriviFile(idDrink));
 
-        Toast toastControllo = Toast.makeText(this, contenuto, Toast.LENGTH_LONG);
-        toastControllo.show();
     }
 
     private File scriviFile(int data) throws IOException {
@@ -400,21 +430,17 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         } finally {
             in.close();
         }
+
         String contents = new String(bytes);
 
         return contents;
     }
 
-    /*
-    private void writeToFile(String data, Context context) {
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("ElencoIdDrink.txt", Context.MODE_PRIVATE));
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
+    private void RecuperaDrinkPreferiti() throws IOException {
+        File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
+        File file = new File(path, "ElencoPreferiti.txt");
+        String stringElencoPreferiti = leggiFile(file);
+
+        drinksPreferiti= Arrays.asList(stringElencoPreferiti.split("\n"));
     }
-     */
 }
