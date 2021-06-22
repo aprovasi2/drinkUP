@@ -2,24 +2,13 @@ package com.example.drinkup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 
-import android.content.Context;
-import android.content.Intent;
-
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.JsonReader;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,37 +20,30 @@ import com.example.drinkup.models.Response;
 import com.example.drinkup.repositories.DrinkRepository;
 import com.example.drinkup.repositories.IDrinkRepository;
 import com.example.drinkup.repositories.ResponseCallback;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 import com.example.drinkup.GestioneFile.*;
+
+import static android.graphics.Color.RED;
+import static android.graphics.Color.YELLOW;
 
 public class ActivityDrink extends AppCompatActivity implements View.OnClickListener, ResponseCallback {
 
     private static final String TAG ="ActivityDrink" ;
 
     private IDrinkRepository drinkRepository;
-
 
     private List<Drink> drinksWithDrinksApi;
     private List<String> drinksPreferiti;
@@ -105,7 +87,6 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         text_preparazione.setVisibility(View.INVISIBLE);
         cardView_InfoDrink.setVisibility(View.INVISIBLE);
 
-
         textView_Ingredienti_Drink = (TextView) findViewById(R.id.textView_Ingredienti_Drink);
         textView_Preparazione_Drink = (TextView) findViewById(R.id.textView_Preparazione_Drink);
         textView_Nome_Drink = (TextView) findViewById(R.id.textView_Nome_Drink);
@@ -141,65 +122,69 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-       /* for(int i=0; i<drinksPreferiti.size();i++)
+        /*
+       for(int i=0; i<drinksPreferiti.size();i++)
         {
             Toast toastControllo = Toast.makeText(this, drinksPreferiti.get(i), Toast.LENGTH_LONG);
             toastControllo.show();
         }
-*/
-
+        */
     }
-
 
     @Override
     public void onClick(View v) {
 
-
         if(v.getId() == R.id.button_Precedente_Drink){
+            setDefault();
             posizione = posizione-1;
             visualizzaDrink(posizione);
             attivaBottoni();
         } else if(v.getId() == R.id.button_Successivo_Drink){
+            setDefault();
             posizione++;
             visualizzaDrink(posizione);
             attivaBottoni();
         } else if(v.getId() == R.id.button_Search) {
+            setDefault();
             String ricerca = drinkDaCercare.getText().toString();
-             if(ricerca.equals("")) {
-                 Toast toastErroreRicerca = Toast.makeText(this, "Spiacenti! Inserire il nome del drink da cercare", Toast.LENGTH_LONG);
-                 toastErroreRicerca.show();
-                }
-             else{
-                 posizione = 0;
-                 //drinksWithDrinksApi.add(null);
-                 attivaBottoni();
-                 drinksWithDrinksApi.clear();
-                 drinkDaCercare.setText("");
-                 List<Drink> drinkListWithGson = getDrinksWithGson();
-                 drinkRepository.fetchDrinks(ricerca);
-             }
+            if(ricerca.equals("")) {
+                Toast toastErroreRicerca = Toast.makeText(this, "Spiacenti! Inserire il nome del drink da cercare", Toast.LENGTH_LONG);
+                toastErroreRicerca.show();
+            }
+            else{
+                posizione = 0;
+                //drinksWithDrinksApi.add(null);
+                attivaBottoni();
+                drinksWithDrinksApi.clear();
+                drinkDaCercare.setText("");
+                List<Drink> drinkListWithGson = getDrinksWithGson();
+                drinkRepository.fetchDrinks(ricerca);
+            }
         } else if(v.getId() == R.id.button_Salva_Preferito){
             int idDrink = drinksWithDrinksApi.get(posizione).getIdDrink();
             boolean trovato=false;
-
             for(int i=0; i<drinksPreferiti.size();i++)
             {
                 if(Integer.parseInt(drinksPreferiti.get(i))==idDrink){
                     trovato=true;
                 }
             }
-
             if(trovato==true){
-                Toast toastErroreAggiunta= Toast.makeText(this, "Il drink è già nella tua lista preferiti", Toast.LENGTH_LONG);
-                toastErroreAggiunta.show();
+                try {
+                    cancellaDrinkdaFile(idDrink);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Toast toastRimozione= Toast.makeText(this, "Il drink è stato rimosso dalla Lista Preferiti", Toast.LENGTH_LONG);
+                toastRimozione.show();
             }
             else{
                 try {
-                    Toast toast23= Toast.makeText(this, "Il drink è stato salvato correttamente", Toast.LENGTH_LONG);
-                    toast23.show();
+                    Toast toastSalvataggio= Toast.makeText(this, "Il drink è stato salvato correttamente", Toast.LENGTH_LONG);
+                    toastSalvataggio.show();
                     salvaIdDrink(idDrink);
                     RecuperaDrinkPreferiti();
+                    button_Salva_Preferito.setBackgroundColor(YELLOW);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -207,8 +192,6 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         }
 
     }
-
-
 
     private List<Drink> getDrinksWithGson() {
         InputStream fileInputStream = null;
@@ -229,35 +212,33 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     @Override
     public void onResponse(List<Drink> drinkList) {
 
+        if(drinkList != null) {
+            drinksWithDrinksApi.addAll(drinkList);
 
-            if(drinkList != null) {
-                drinksWithDrinksApi.addAll(drinkList);
-
-                if(drinksWithDrinksApi.size()==1)
-                {
-                    button_Precedente_Drink.setClickable(false);
-                    button_Precedente_Drink.setEnabled(false);
-                    button_Successivo_Drink.setClickable(false);
-                    button_Successivo_Drink.setEnabled(false);
-                }
-                else{
-                    attivaBottoni();
-                }
-                visualizzaDrink(posizione);
-            }else{
-                posizione = 9999999;
-                 Toast toastErrore = Toast.makeText(this, "Spiacenti! Il drink ricercato non è disponibile", Toast.LENGTH_LONG);
-                 toastErrore.show();
-
+            if(drinksWithDrinksApi.size()==1)
+            {
+                button_Precedente_Drink.setClickable(false);
+                button_Precedente_Drink.setEnabled(false);
+                button_Successivo_Drink.setClickable(false);
+                button_Successivo_Drink.setEnabled(false);
             }
+            else{
+                attivaBottoni();
+            }
+            visualizzaDrink(posizione);
+        }else{
+            posizione = 9999999;
+            Toast toastErrore = Toast.makeText(this, "Spiacenti! Il drink ricercato non è disponibile", Toast.LENGTH_LONG);
+            toastErrore.show();
 
+        }
 
     }
 
     @Override
     public void onFailure(String msg) {
-        Toast toast3 = Toast.makeText(this, "ERRORE!!", Toast.LENGTH_LONG);
-        toast3.show();
+        Toast toastOnFailure = Toast.makeText(this, "ERRORE!!", Toast.LENGTH_LONG);
+        toastOnFailure.show();
     }
 
     public void imgGlide(String urlPassata){
@@ -282,64 +263,14 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     public void visualizzaDrink(int posizione){
 
-        String ingredienti = "";
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient1() != null){
-            ingredienti = drinksWithDrinksApi.get(posizione).getStrIngredient1()+"\n";
-        }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient2() != null){
-            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient2()+"\n";
-        }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient3() != null){
-            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient3()+"\n";
-        }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient4() != null){
-            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient4()+"\n";
-        }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient5() != null){
-            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient5()+"\n";
-        }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient6() != null){
-            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient6()+"\n";
-        }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient7() != null){
-            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient7()+"\n";
-        }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient8() != null){
-            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient8()+"\n";
-        }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient9() != null){
-            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient9()+"\n";
-        }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient10() != null){
-            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient10()+"\n";
-        }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient11() != null){
-            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient11()+"\n";
-        }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient12() != null){
-            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient12()+"\n";
-        }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient13() != null){
-            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient13()+"\n";
-        }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient14() != null){
-            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient14()+"\n";
-        }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient15() != null){
-            ingredienti += drinksWithDrinksApi.get(posizione).getStrIngredient15()+"\n";
-        }
-
-        textView_Ingredienti_Drink.setText(ingredienti);
-
-            textView_Nome_Drink.setText(drinksWithDrinksApi.get(posizione).getStrDrink());
-            textView_Alchool_Drink.setText(drinksWithDrinksApi.get(posizione).getStrAlcoholic());
-            //textView_Ingredienti_Drink.setText(drinksWithDrinksApi.get(posizione).getStrIngredient1()+ "\n");
-            //textView_Ingredienti_Drink.append(drinksWithDrinksApi.get(posizione).getStrIngredient2()+ "\n");
-            textView_Preparazione_Drink.setText(drinksWithDrinksApi.get(posizione).getStrInstructionsIT());
-            imgGlide(drinksWithDrinksApi.get(posizione).getStrDrinkThumb());
-            cardView_InfoDrink.setVisibility(View.VISIBLE);
-
-
+        textView_Ingredienti_Drink.setText(recuperaIngredienti(posizione));
+        textView_Nome_Drink.setText(drinksWithDrinksApi.get(posizione).getStrDrink());
+        textView_Alchool_Drink.setText(drinksWithDrinksApi.get(posizione).getStrAlcoholic());
+        //textView_Ingredienti_Drink.setText(drinksWithDrinksApi.get(posizione).getStrIngredient1()+ "\n");
+        //textView_Ingredienti_Drink.append(drinksWithDrinksApi.get(posizione).getStrIngredient2()+ "\n");
+        textView_Preparazione_Drink.setText(drinksWithDrinksApi.get(posizione).getStrInstructionsIT());
+        imgGlide(drinksWithDrinksApi.get(posizione).getStrDrinkThumb());
+        cardView_InfoDrink.setVisibility(View.VISIBLE);
 
         text_nome.setVisibility(View.VISIBLE);
         text_gradazione.setVisibility(View.VISIBLE);
@@ -347,10 +278,82 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         text_preparazione.setVisibility(View.VISIBLE);
         imageViewDownload.setVisibility(View.VISIBLE);
 
+        boolean trovato=false;
+
+        for(int i=0; i<drinksPreferiti.size();i++)
+        {
+            if(Integer.parseInt(drinksPreferiti.get(i))==drinksWithDrinksApi.get(posizione).getIdDrink()){
+                trovato=true;
+            }
+        }
+
+        if(trovato){
+            button_Salva_Preferito.setBackgroundColor(YELLOW);
+            //button_Salva_Preferito.setBackgroundResource(@android:drawable/btn_radio);
+        }
+
+    }
+
+    private String recuperaIngredienti(int posizione){
+        List<String> listaIngredienti = new ArrayList<>();
+        String ingredienti = "";
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient1() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient1());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient2() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient2());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient3() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient3());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient4() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient4());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient5() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient5());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient6() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient6());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient7() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient7());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient8() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient8());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient9() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient9());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient10() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient10());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient11() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient11());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient12() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient12());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient13() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient13());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient14() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient14());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrIngredient15() != null){
+            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient15());
+        }
+        for(int i = 0; i<(listaIngredienti.size())-1;i++){
+            ingredienti += listaIngredienti.get(i)+"\n";
+        }
+        ingredienti = ingredienti.concat(listaIngredienti.get(listaIngredienti.size()-1)+"");
+        return ingredienti;
+    }
+
+    public void setDefault(){
+        button_Salva_Preferito.setBackgroundColor(RED);
     }
 
     public void attivaBottoni(){
-
 
         if (posizione==0 && drinksWithDrinksApi.size()==0)
         {
@@ -360,7 +363,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             button_Successivo_Drink.setEnabled(false);
 
         }
-       else if (posizione==0 && drinksWithDrinksApi.size()!=0)
+        else if (posizione==0 && drinksWithDrinksApi.size()!=0)
         {
             button_Precedente_Drink.setClickable(false);
             button_Precedente_Drink.setEnabled(false);
@@ -380,7 +383,6 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             button_Precedente_Drink.setEnabled(true);
             button_Successivo_Drink.setClickable(true);
             button_Successivo_Drink.setEnabled(true);
-
         }
 
     }
@@ -389,7 +391,6 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         LibFileExt.writeFile("ElencoIdDrink", ""+idDrink);
 
         String contenuto = leggiFile(scriviFile(idDrink));
-
     }
 
     private File scriviFile(int data) throws IOException {
@@ -419,6 +420,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         return file;
 
     }
+
     private String leggiFile(File file) throws IOException {
         int length = (int) file.length();
 
@@ -443,4 +445,44 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
         drinksPreferiti= Arrays.asList(stringElencoPreferiti.split("\n"));
     }
+
+    private void cancellaDrinkdaFile(int id) throws IOException {
+        File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
+        File file = new File(path, "ElencoPreferiti.txt");
+        Integer value = new Integer(id);
+        String daRimuovere = value.toString();
+        Toast toastACaso = Toast.makeText(this, daRimuovere, Toast.LENGTH_LONG);
+        toastACaso.show();
+        /*
+        for (Iterator<String> iterator = drinksPreferiti.iterator(); iterator.hasNext();) {
+            String str = iterator.next();
+            if (str.equals(daRimuovere)) {
+                // Remove the current element from the iterator and the list.
+                iterator.remove();
+            }
+        }
+        //drinksPreferiti.remove(drinksPreferiti.indexOf(daRimuovere));
+        //drinksPreferiti.removeIf((String a) -> a.equals(daRimuovere));
+        //drinksPreferiti.remove(""+id);
+        /*int daRimuovere = 999;
+        for(int i=0;i<drinksPreferiti.size();i++){
+            String daRemove = drinksPreferiti.get(i);
+            if(daRemove.equals(id+"")){
+                //daRimuovere = i;
+                drinksPreferiti.remove(daRemove);
+                i--;
+                //break;
+            }
+        }
+        /*for(int i=0;i<drinksPreferiti.size();i++){
+            Toast toast4 = Toast.makeText(this, drinksPreferiti.get(i), Toast.LENGTH_LONG);
+            toast4.show();
+        }*/
+        file.delete();
+        for(int i=0;i<drinksPreferiti.size();i++){
+            scriviFile(Integer.parseInt(drinksPreferiti.get(i)));
+        }
+        setDefault();
+    }
+
 }
