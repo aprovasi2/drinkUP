@@ -13,6 +13,7 @@
     <string name="nome_Drink">Nome Drink</string>
     <string name="gradazione_Drink">Gradazione</string>
     <string name="ingredienti_Drink">Ingredienti</string>
+    <string name="quantitaIngredienti_Drink">Quantità</string>
     <string name="preparazione_Drink">Preparazione</string>
     <string name="hint_Search_Posizione">Inserisci il luogo da cercare</string>
 </resources>

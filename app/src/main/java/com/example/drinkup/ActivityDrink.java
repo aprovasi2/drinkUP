@@ -54,6 +54,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     private TextView text_nome;
     private TextView text_gradazione;
     private TextView text_ingredienti;
+    private TextView text_quantita;
     private TextView text_preparazione;
     private ImageView imageViewDownload;
     private CardView cardView_InfoDrink;
@@ -61,6 +62,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     private TextView textView_Nome_Drink;
     private TextView textView_Alchool_Drink;
     private TextView textView_Ingredienti_Drink;
+    private TextView textView_QuantitaIngredienti_Drink;
     private TextView textView_Preparazione_Drink;
 
     private Button button_Successivo_Drink;
@@ -81,13 +83,16 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         text_gradazione = (TextView) findViewById(R.id.text_Gradazione);
         text_ingredienti= (TextView) findViewById(R.id.text_Ingredienti);
         text_preparazione= (TextView) findViewById(R.id.text_Preparazione);
+        text_quantita= (TextView) findViewById(R.id.text_Quantita);
         text_nome.setVisibility(View.INVISIBLE);
         text_gradazione.setVisibility(View.INVISIBLE);
         text_ingredienti.setVisibility(View.INVISIBLE);
         text_preparazione.setVisibility(View.INVISIBLE);
+        text_quantita.setVisibility(View.INVISIBLE);
         cardView_InfoDrink.setVisibility(View.INVISIBLE);
 
         textView_Ingredienti_Drink = (TextView) findViewById(R.id.textView_Ingredienti_Drink);
+        textView_QuantitaIngredienti_Drink = (TextView) findViewById(R.id.textView_QuantitaIngredienti_Drink);
         textView_Preparazione_Drink = (TextView) findViewById(R.id.textView_Preparazione_Drink);
         textView_Nome_Drink = (TextView) findViewById(R.id.textView_Nome_Drink);
 
@@ -264,6 +269,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     public void visualizzaDrink(int posizione){
 
         textView_Ingredienti_Drink.setText(recuperaIngredienti(posizione));
+        textView_QuantitaIngredienti_Drink.setText(recuperaQuantitaIngredienti(posizione));
         textView_Nome_Drink.setText(drinksWithDrinksApi.get(posizione).getStrDrink());
         textView_Alchool_Drink.setText(drinksWithDrinksApi.get(posizione).getStrAlcoholic());
         //textView_Ingredienti_Drink.setText(drinksWithDrinksApi.get(posizione).getStrIngredient1()+ "\n");
@@ -275,6 +281,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         text_nome.setVisibility(View.VISIBLE);
         text_gradazione.setVisibility(View.VISIBLE);
         text_ingredienti.setVisibility(View.VISIBLE);
+        text_quantita.setVisibility(View.VISIBLE);
         text_preparazione.setVisibility(View.VISIBLE);
         imageViewDownload.setVisibility(View.VISIBLE);
 
@@ -347,6 +354,61 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         }
         ingredienti = ingredienti.concat(listaIngredienti.get(listaIngredienti.size()-1)+"");
         return ingredienti;
+    }
+
+    private String recuperaQuantitaIngredienti(int posizione){
+        String quantita = "";
+        List<String> listaQuantita = new ArrayList<>();
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure1() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure1());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure2() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure2());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure3() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure3());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure4() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure4());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure5() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure5());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure6() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure6());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure7() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure7());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure8() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure8());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure9() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure9());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure10() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure10());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure11() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure11());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure12() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure12());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure13() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure13());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure14() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure14());
+        }
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure15() != null){
+            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure15());
+        }
+        for(int i = 0; i<(listaQuantita.size())-1;i++){
+            quantita += listaQuantita.get(i)+"\n";
+        }
+        quantita = quantita.concat(listaQuantita.get(listaQuantita.size()-1)+"");
+        return quantita;
     }
 
     public void setDefault(){
