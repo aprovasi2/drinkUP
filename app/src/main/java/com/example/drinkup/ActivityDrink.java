@@ -452,8 +452,8 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     private void salvaIdDrink(int idDrink) throws IOException {
         LibFileExt.writeFile("ElencoIdDrink", ""+idDrink);
-
-        String contenuto = leggiFile(scriviFile(idDrink));
+        scriviFile(idDrink);
+        //String contenuto = leggiFile(scriviFile(idDrink));
     }
 
     private File scriviFile(int data) throws IOException {
@@ -514,7 +514,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         File file = new File(path, "ElencoPreferiti.txt");
         Integer value = new Integer(id);
         String daRimuovere = value.toString();
-        Toast.makeText(this, daRimuovere, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, daRimuovere, Toast.LENGTH_LONG).show();
 
         // TODO: Parte nuova, al posto di lavorare sull'arrayList originale, se ne si fa una copia e si lavora su quella
         List<String> drinksPreferitiClone = new ArrayList<>();
@@ -532,6 +532,8 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             scriviFile(Integer.parseInt(drinksPreferitiClone.get(i)));
         }
         // TODO: Una volta fatto, riportiamo tutti i valori nell'elenco originale
+        // TODO: Per farlo prima liberiamo la lista, con il creal crasha quindi si crea nuova
+        drinksPreferiti = new ArrayList<>();
         drinksPreferiti.addAll(drinksPreferitiClone);
         setDefault();
     }
