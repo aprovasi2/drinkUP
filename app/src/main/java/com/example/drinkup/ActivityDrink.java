@@ -47,6 +47,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     private List<Drink> drinksWithDrinksApi;
     private List<String> drinksPreferiti;
+    private List<String> listaTemp;
 
     private Button button_Search;
     private EditText drinkDaCercare;
@@ -513,37 +514,25 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         File file = new File(path, "ElencoPreferiti.txt");
         Integer value = new Integer(id);
         String daRimuovere = value.toString();
-        Toast toastACaso = Toast.makeText(this, daRimuovere, Toast.LENGTH_LONG);
-        toastACaso.show();
-        /*
-        for (Iterator<String> iterator = drinksPreferiti.iterator(); iterator.hasNext();) {
-            String str = iterator.next();
-            if (str.equals(daRimuovere)) {
-                // Remove the current element from the iterator and the list.
-                iterator.remove();
-            }
-        }
-        //drinksPreferiti.remove(drinksPreferiti.indexOf(daRimuovere));
-        //drinksPreferiti.removeIf((String a) -> a.equals(daRimuovere));
-        //drinksPreferiti.remove(""+id);
-        /*int daRimuovere = 999;
-        for(int i=0;i<drinksPreferiti.size();i++){
-            String daRemove = drinksPreferiti.get(i);
+        Toast.makeText(this, daRimuovere, Toast.LENGTH_LONG).show();
+
+        // TODO: Parte nuova, al posto di lavorare sull'arrayList originale, se ne si fa una copia e si lavora su quella
+        List<String> drinksPreferitiClone = new ArrayList<>();
+        drinksPreferitiClone.addAll(drinksPreferiti);
+        for(int i=0;i<drinksPreferitiClone.size();i++){
+            String daRemove = drinksPreferitiClone.get(i);
             if(daRemove.equals(id+"")){
-                //daRimuovere = i;
-                drinksPreferiti.remove(daRemove);
+                drinksPreferitiClone.remove(daRemove);
                 i--;
                 //break;
             }
         }
-        /*for(int i=0;i<drinksPreferiti.size();i++){
-            Toast toast4 = Toast.makeText(this, drinksPreferiti.get(i), Toast.LENGTH_LONG);
-            toast4.show();
-        }*/
         file.delete();
-        for(int i=0;i<drinksPreferiti.size();i++){
-            scriviFile(Integer.parseInt(drinksPreferiti.get(i)));
+        for(int i=0;i<drinksPreferitiClone.size();i++){
+            scriviFile(Integer.parseInt(drinksPreferitiClone.get(i)));
         }
+        // TODO: Una volta fatto, riportiamo tutti i valori nell'elenco originale
+        drinksPreferiti.addAll(drinksPreferitiClone);
         setDefault();
     }
 
