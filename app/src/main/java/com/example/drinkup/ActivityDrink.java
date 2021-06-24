@@ -118,23 +118,15 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         drinksWithDrinksApi=new ArrayList<>();
         drinksPreferiti=new ArrayList<>();
 
-        button_Precedente_Drink.setClickable(false);
-        button_Precedente_Drink.setEnabled(false);
-        button_Successivo_Drink.setClickable(false);
-        button_Successivo_Drink.setEnabled(false);
+
+        button_Successivo_Drink.setVisibility(View.INVISIBLE);
+        button_Precedente_Drink.setVisibility(View.INVISIBLE);
 
         try {
             RecuperaDrinkPreferiti();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*
-       for(int i=0; i<drinksPreferiti.size();i++)
-        {
-            Toast toastControllo = Toast.makeText(this, drinksPreferiti.get(i), Toast.LENGTH_LONG);
-            toastControllo.show();
-        }
-        */
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -361,6 +353,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         return ingredienti;
     }
 
+    //TODO: Recupera la quantità degli ingredienti associata ad un determinato drink
     private String recuperaQuantitaIngredienti(int posizione){
         String quantita = "";
         List<String> listaQuantita = new ArrayList<>();
@@ -416,36 +409,30 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         return quantita;
     }
 
+    //TODO: Metodo che attiva o disattiva i bottoni a seconda delle esigenze
     public void attivaBottoni(){
 
         if (posizione==0 && drinksWithDrinksApi.size()==0)
         {
-            button_Precedente_Drink.setClickable(false);
-            button_Precedente_Drink.setEnabled(false);
-            button_Successivo_Drink.setClickable(false);
-            button_Successivo_Drink.setEnabled(false);
+            button_Successivo_Drink.setVisibility(View.INVISIBLE);
+            button_Precedente_Drink.setVisibility(View.INVISIBLE);
 
         }
         else if (posizione==0 && drinksWithDrinksApi.size()!=0)
         {
-            button_Precedente_Drink.setClickable(false);
-            button_Precedente_Drink.setEnabled(false);
-            button_Successivo_Drink.setClickable(true);
-            button_Successivo_Drink.setEnabled(true);
+            button_Successivo_Drink.setVisibility(View.VISIBLE);
+            button_Precedente_Drink.setVisibility(View.INVISIBLE);
+
         }
         else if (posizione == drinksWithDrinksApi.size()-1)
         {
-            button_Precedente_Drink.setClickable(true);
-            button_Precedente_Drink.setEnabled(true);
-            button_Successivo_Drink.setClickable(false);
-            button_Successivo_Drink.setEnabled(false);
+            button_Successivo_Drink.setVisibility(View.INVISIBLE);
+            button_Precedente_Drink.setVisibility(View.VISIBLE);
 
         }else
         {
-            button_Precedente_Drink.setClickable(true);
-            button_Precedente_Drink.setEnabled(true);
-            button_Successivo_Drink.setClickable(true);
-            button_Successivo_Drink.setEnabled(true);
+            button_Successivo_Drink.setVisibility(View.VISIBLE);
+            button_Precedente_Drink.setVisibility(View.VISIBLE);
         }
 
     }
