@@ -1,9 +1,12 @@
 package com.example.drinkup;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.view.View;
@@ -35,9 +38,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.example.drinkup.GestioneFile.*;
-
-import static android.graphics.Color.RED;
-import static android.graphics.Color.YELLOW;
 
 public class ActivityDrink extends AppCompatActivity implements View.OnClickListener, ResponseCallback {
 
@@ -137,21 +137,22 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         */
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
 
         if(v.getId() == R.id.button_Precedente_Drink){
-            setDefault();
+            setDefaultButtonSalva();
             posizione = posizione-1;
             visualizzaDrink(posizione);
             attivaBottoni();
         } else if(v.getId() == R.id.button_Successivo_Drink){
-            setDefault();
+            setDefaultButtonSalva();
             posizione++;
             visualizzaDrink(posizione);
             attivaBottoni();
         } else if(v.getId() == R.id.button_Search) {
-            setDefault();
+            setDefaultButtonSalva();
             String ricerca = drinkDaCercare.getText().toString();
             if(ricerca.equals("")) {
                 Toast toastErroreRicerca = Toast.makeText(this, "Spiacenti! Inserire il nome del drink da cercare", Toast.LENGTH_LONG);
@@ -190,7 +191,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
                     toastSalvataggio.show();
                     salvaIdDrink(idDrink);
                     RecuperaDrinkPreferiti();
-                    button_Salva_Preferito.setBackgroundColor(YELLOW);
+                    setChangesButtonSalva();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -267,6 +268,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void visualizzaDrink(int posizione){
 
         textView_Ingredienti_Drink.setText(recuperaIngredienti(posizione));
@@ -296,8 +298,8 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         }
 
         if(trovato){
-            button_Salva_Preferito.setBackgroundColor(YELLOW);
-            //button_Salva_Preferito.setBackgroundResource(@android:drawable/btn_radio);
+            setChangesButtonSalva();
+
         }
 
     }
@@ -410,10 +412,6 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         }
         quantita = quantita.concat(listaQuantita.get(listaQuantita.size()-1)+"");
         return quantita;
-    }
-
-    public void setDefault(){
-        button_Salva_Preferito.setBackgroundColor(RED);
     }
 
     public void attivaBottoni(){
@@ -535,7 +533,20 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         // TODO: Per farlo prima liberiamo la lista, con il creal crasha quindi si crea nuova
         drinksPreferiti = new ArrayList<>();
         drinksPreferiti.addAll(drinksPreferitiClone);
-        setDefault();
+        setDefaultButtonSalva();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void setDefaultButtonSalva(){
+        button_Salva_Preferito.setBackgroundColor(0xFFCA4700);
+        button_Salva_Preferito.setForeground(null);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void setChangesButtonSalva(){
+        button_Salva_Preferito.setBackgroundColor(0xFFDAA520);
+        Drawable drawable = getResources().getDrawable(android.R.drawable.btn_star_big_on);
+        button_Salva_Preferito.setForeground(drawable);
+        button_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
+    }
 }
