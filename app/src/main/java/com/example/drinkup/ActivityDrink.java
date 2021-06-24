@@ -129,6 +129,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    //metodo che gestisce gli eventi di Click sui vari bottoni
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
@@ -261,20 +262,18 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     }
 
-    //TODO: metodo che permette di visualizzare il drink
+    //metodo che permette di visualizzare il drink
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void visualizzaDrink(int posizione){
 
+        //Inizializzazione delle varie textbox con gli elementi associati al drink che vogliamo visualizzare.
         textView_Ingredienti_Drink.setText(recuperaIngredienti(posizione));
         textView_QuantitaIngredienti_Drink.setText(recuperaQuantitaIngredienti(posizione));
         textView_Nome_Drink.setText(drinksWithDrinksApi.get(posizione).getStrDrink());
         textView_Alchool_Drink.setText(drinksWithDrinksApi.get(posizione).getStrAlcoholic());
-        //textView_Ingredienti_Drink.setText(drinksWithDrinksApi.get(posizione).getStrIngredient1()+ "\n");
-        //textView_Ingredienti_Drink.append(drinksWithDrinksApi.get(posizione).getStrIngredient2()+ "\n");
         textView_Preparazione_Drink.setText(drinksWithDrinksApi.get(posizione).getStrInstructionsIT());
         imgGlide(drinksWithDrinksApi.get(posizione).getStrDrinkThumb());
         cardView_InfoDrink.setVisibility(View.VISIBLE);
-
         text_nome.setVisibility(View.VISIBLE);
         text_gradazione.setVisibility(View.VISIBLE);
         text_ingredienti.setVisibility(View.VISIBLE);
@@ -282,8 +281,8 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         text_preparazione.setVisibility(View.VISIBLE);
         imageViewDownload.setVisibility(View.VISIBLE);
 
+        //se stiamo visualizzando un drink che è già presente nel nostro elenco preferiti dovremo modificare il bottone_Salva
         boolean trovato=false;
-
         for(int i=0; i<drinksPreferiti.size();i++)
         {
             if(Integer.parseInt(drinksPreferiti.get(i))==drinksWithDrinksApi.get(posizione).getIdDrink()){
@@ -293,11 +292,11 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
         if(trovato){
             setChangesButtonSalva();
-
         }
 
     }
 
+    //Recupera la lista degli ingredienti associata ad un determinato drink passato per posizione
     private String recuperaIngredienti(int posizione){
         List<String> listaIngredienti = new ArrayList<>();
         String ingredienti = "";
@@ -353,7 +352,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         return ingredienti;
     }
 
-    //TODO: Recupera la quantità degli ingredienti associata ad un determinato drink
+    //Recupera la quantità degli ingredienti associata ad un determinato drink passato per posizione
     private String recuperaQuantitaIngredienti(int posizione){
         String quantita = "";
         List<String> listaQuantita = new ArrayList<>();
@@ -409,7 +408,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         return quantita;
     }
 
-    //TODO: Metodo che attiva o disattiva i bottoni a seconda delle esigenze
+    //Metodo che attiva o disattiva i bottoni a seconda delle esigenze
     public void attivaBottoni(){
 
         if (posizione==0 && drinksWithDrinksApi.size()==0)
@@ -471,7 +470,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     }
 
-    //TODO: metodo che legge il file e ritorna una stringa contenente i valori letti
+    //metodo che legge il file e ritorna una stringa contenente i valori letti
     private String leggiFile(File file) throws IOException {
         int length = (int) file.length();
 
@@ -489,7 +488,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         return contents;
     }
 
-    //TODO: metodo che permette di salvare in una lista l'elenco dei drink preferiti letti dal file, invoca il metodo esterno leggiFile
+    //metodo che permette di salvare in una lista l'elenco dei drink preferiti letti dal file, invoca il metodo esterno leggiFile
     private void RecuperaDrinkPreferiti() throws IOException {
         File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
         File file = new File(path, "ElencoPreferiti.txt");
@@ -497,7 +496,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         drinksPreferiti= Arrays.asList(stringElencoPreferiti.split("\n"));
     }
 
-    //TODO: Metodo che permette di cancellare un drink tra i preferiti nel file locale
+    //Metodo che permette di cancellare un drink tra i preferiti nel file locale
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void cancellaDrinkdaFile(int id) throws IOException {
         File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
@@ -506,7 +505,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         String daRimuovere = value.toString();
         //Toast.makeText(this, daRimuovere, Toast.LENGTH_LONG).show();
 
-        // TODO: Parte nuova, al posto di lavorare sull'arrayList originale, se ne si fa una copia e si lavora su quella
+        //Parte nuova, al posto di lavorare sull'arrayList originale, se ne si fa una copia e si lavora su quella
         List<String> drinksPreferitiClone = new ArrayList<>();
         drinksPreferitiClone.addAll(drinksPreferiti);
         for(int i=0;i<drinksPreferitiClone.size();i++){
@@ -521,21 +520,21 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         for(int i=0;i<drinksPreferitiClone.size();i++){
             scriviFile(Integer.parseInt(drinksPreferitiClone.get(i)));
         }
-        // TODO: Una volta fatto, riportiamo tutti i valori nell'elenco originale
-        // TODO: Per farlo prima liberiamo la lista, con il creal crasha quindi si crea nuova
+        //Una volta fatto, riportiamo tutti i valori nell'elenco originale
+        //Per farlo prima liberiamo la lista, con il creal crasha quindi si crea nuova
         drinksPreferiti = new ArrayList<>();
         drinksPreferiti.addAll(drinksPreferitiClone);
         setDefaultButtonSalva();
     }
 
-    //TODO: metodo che permette di riportare i valori di default al bottone "Salva Preferito"
+    //metodo che permette di riportare i valori di default al bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setDefaultButtonSalva(){
         button_Salva_Preferito.setBackgroundColor(0xFFCA4700);
         button_Salva_Preferito.setForeground(null);
     }
 
-    //TODO: metodo che permette cambiamenti grafici una volta premuto il bottone "Salva Preferito"
+    //metodo che permette cambiamenti grafici una volta premuto il bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setChangesButtonSalva(){
         button_Salva_Preferito.setBackgroundColor(0xFFDAA520);
