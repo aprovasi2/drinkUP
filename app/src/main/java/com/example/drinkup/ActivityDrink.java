@@ -187,7 +187,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             }
             else{
                 try {
-                    Toast toastSalvataggio= Toast.makeText(this, "Il drink è stato salvato correttamente", Toast.LENGTH_LONG);
+                    Toast toastSalvataggio= Toast.makeText(this, "Il drink selezionato è ora nella tua lista preferiti", Toast.LENGTH_LONG);
                     toastSalvataggio.show();
                     salvaIdDrink(idDrink);
                     RecuperaDrinkPreferiti();
@@ -216,6 +216,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         return response.getDrinks();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResponse(List<Drink> drinkList) {
 
@@ -268,6 +269,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     }
 
+    //TODO: metodo che permette di visualizzare il drink
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void visualizzaDrink(int posizione){
 
@@ -482,6 +484,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     }
 
+    //TODO: metodo che legge il file e ritorna una stringa contenente i valori letti
     private String leggiFile(File file) throws IOException {
         int length = (int) file.length();
 
@@ -499,14 +502,16 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         return contents;
     }
 
+    //TODO: metodo che permette di salvare in una lista l'elenco dei drink preferiti letti dal file, invoca il metodo esterno leggiFile
     private void RecuperaDrinkPreferiti() throws IOException {
         File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
         File file = new File(path, "ElencoPreferiti.txt");
         String stringElencoPreferiti = leggiFile(file);
-
         drinksPreferiti= Arrays.asList(stringElencoPreferiti.split("\n"));
     }
 
+    //TODO: Metodo che permette di cancellare un drink tra i preferiti nel file locale
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void cancellaDrinkdaFile(int id) throws IOException {
         File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
         File file = new File(path, "ElencoPreferiti.txt");
@@ -536,12 +541,14 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         setDefaultButtonSalva();
     }
 
+    //TODO: metodo che permette di riportare i valori di default al bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setDefaultButtonSalva(){
         button_Salva_Preferito.setBackgroundColor(0xFFCA4700);
         button_Salva_Preferito.setForeground(null);
     }
 
+    //TODO: metodo che permette cambiamenti grafici una volta premuto il bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setChangesButtonSalva(){
         button_Salva_Preferito.setBackgroundColor(0xFFDAA520);
