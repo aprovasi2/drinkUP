@@ -79,13 +79,13 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_drink);
 
         textView_Alchool_Drink = (TextView) findViewById(R.id.textView_Alchool_Drink);
-        text_nome = (TextView) findViewById(R.id.textView);
+        //text_nome = (TextView) findViewById(R.id.textView);
         cardView_InfoDrink=(CardView)findViewById(R.id.CardView_InfoDrink);
         text_gradazione = (TextView) findViewById(R.id.text_Gradazione);
         text_ingredienti= (TextView) findViewById(R.id.text_Ingredienti);
         text_preparazione= (TextView) findViewById(R.id.text_Preparazione);
         text_quantita= (TextView) findViewById(R.id.text_Quantita);
-        text_nome.setVisibility(View.INVISIBLE);
+        //text_nome.setVisibility(View.INVISIBLE);
         text_gradazione.setVisibility(View.INVISIBLE);
         text_ingredienti.setVisibility(View.INVISIBLE);
         text_preparazione.setVisibility(View.INVISIBLE);
@@ -274,7 +274,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         textView_Preparazione_Drink.setText(drinksWithDrinksApi.get(posizione).getStrInstructionsIT());
         imgGlide(drinksWithDrinksApi.get(posizione).getStrDrinkThumb());
         cardView_InfoDrink.setVisibility(View.VISIBLE);
-        text_nome.setVisibility(View.VISIBLE);
+        //text_nome.setVisibility(View.VISIBLE);
         text_gradazione.setVisibility(View.VISIBLE);
         text_ingredienti.setVisibility(View.VISIBLE);
         text_quantita.setVisibility(View.VISIBLE);
@@ -521,7 +521,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             scriviFile(Integer.parseInt(drinksPreferitiClone.get(i)));
         }
         //Una volta fatto, riportiamo tutti i valori nell'elenco originale
-        //Per farlo prima liberiamo la lista, con il creal crasha quindi si crea nuova
+        //Per farlo prima liberiamo la lista, con il clear crasha quindi si crea nuova
         drinksPreferiti = new ArrayList<>();
         drinksPreferiti.addAll(drinksPreferitiClone);
         setDefaultButtonSalva();

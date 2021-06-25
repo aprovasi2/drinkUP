@@ -51,16 +51,18 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/textPrefe_Nome_Drink"
+                                android:id="@+id/textViewPrefe_Nome_Drink"
                                 android:layout_width="329dp"
                                 android:layout_height="35dp"
                                 android:layout_marginStart="4dp"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginEnd="4dp"
                                 android:layout_marginRight="4dp"
-                                android:text="@string/nome_Drink"
-                                android:textSize="25sp"
-                                android:textStyle="bold|italic" />
+                                android:fontFamily="@font/hello_avocado"
+                                android:textStyle="bold"
+                                android:textSize="30sp"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textColor="#FFCA4700" />
 
                             <Button
                                 android:id="@+id/buttonPrefe_Salva_Preferito"
@@ -70,21 +72,8 @@
                                 app:icon="@android:drawable/btn_star_big_on"
                                 app:iconSize="20dp" />
                         </LinearLayout>
-                        <!-- android:background="@drawable/circle" -->
 
                     </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:id="@+id/textViewPrefe_Nome_Drink"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
-                        android:fontFamily="sans-serif-light"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/textPrefe_Gradazione"

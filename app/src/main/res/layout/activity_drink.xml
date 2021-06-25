@@ -95,17 +95,26 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
+
                             <TextView
-                                android:id="@+id/textView"
+                                android:id="@+id/textView_Nome_Drink"
                                 android:layout_width="329dp"
                                 android:layout_height="35dp"
                                 android:layout_marginStart="4dp"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginEnd="4dp"
                                 android:layout_marginRight="4dp"
+                                android:fontFamily="@font/hello_avocado"
+                                android:textStyle="bold"
+                                android:textSize="30sp"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textColor="#FFCA4700" />
+                                <!--
+                                android:id="@+id/textView"
                                 android:text="@string/nome_Drink"
                                 android:textSize="25sp"
-                                android:textStyle="bold|italic" />
+                                android:textStyle="bold|italic"-->
+
 
                             <Button
                                 android:id="@+id/button_Salva_Preferito"
@@ -119,6 +128,7 @@
 
                     </androidx.cardview.widget.CardView>
 
+                    <!--
                     <TextView
                         android:id="@+id/textView_Nome_Drink"
                         android:layout_width="match_parent"
@@ -128,8 +138,10 @@
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
                         android:fontFamily="sans-serif-light"
+                        android:textSize="20sp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/black" />
+                        -->
 
                     <TextView
                         android:id="@+id/text_Gradazione"
@@ -175,7 +187,7 @@
                                     android:id="@+id/text_Ingredienti"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginLeft="4dp"
                                     android:text="@string/ingredienti_Drink"
                                     android:textSize="25sp"
                                     android:textStyle="bold|italic" />
