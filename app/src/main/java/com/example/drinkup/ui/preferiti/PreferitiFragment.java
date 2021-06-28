@@ -133,7 +133,6 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     public void onResponse(List<Drink> drinkList) {
         Log.d("testPath", "lista drinklist è lunga "+drinkList.size());
         drinksPreferitiWithDrinksApi.addAll(drinkList);
-        Log.d("testPath", "lista finale lunga"+drinksPreferitiWithDrinksApi.size());
         visualizzaDrink(posizionePref);
     }
 
