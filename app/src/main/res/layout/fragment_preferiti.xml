@@ -68,7 +68,7 @@
                                 android:id="@+id/buttonPrefe_Salva_Preferito"
                                 android:layout_width="55dp"
                                 android:layout_height="match_parent"
-                                android:gravity="center|start"
+                                android:gravity="left|end"
                                 app:icon="@android:drawable/btn_star_big_on"
                                 app:iconSize="20dp" />
                         </LinearLayout>

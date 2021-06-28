@@ -72,6 +72,9 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     public static int posizione = 999;
 
+    public ActivityDrink() throws IOException {
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -242,7 +245,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         toastOnFailure.show();
     }
 
-    public void imgGlide(String urlPassata){
+    private void imgGlide(String urlPassata){
 
         String url = urlPassata;
         String newUrl = null;
@@ -542,4 +545,13 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         button_Salva_Preferito.setForeground(drawable);
         button_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
     }
+
+
+    public  String copiaFile() throws IOException {
+        File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
+        File file = new File(path, "ElencoPreferiti.txt");
+        String risultato = leggiFile(file);
+        return risultato;
+    }
+
 }
