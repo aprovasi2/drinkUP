@@ -548,12 +548,4 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         button_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
     }
 
-
-    public  String copiaFile() throws IOException {
-        File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
-        File file = new File(path, "ElencoPreferiti.txt");
-        String risultato = leggiFile(file);
-        return risultato;
-    }
-
 }

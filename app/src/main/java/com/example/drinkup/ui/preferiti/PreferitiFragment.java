@@ -110,8 +110,6 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
     }
 
-
-
     private String leggiFile(File file) throws IOException {
         int length = (int) file.length();
 
@@ -131,9 +129,9 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
     @Override
     public void onResponse(List<Drink> drinkList) {
-        Log.d("testPath", "lista drinklist è lunga "+drinkList.size());
         drinksPreferitiWithDrinksApi.addAll(drinkList);
         visualizzaDrink(posizionePref);
+        attivaBottoni();
     }
 
     @Override
@@ -150,8 +148,6 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         textViewPrefe_Alchool_Drink.setText(drinksPreferitiWithDrinksApi.get(posizione).getStrAlcoholic());
         textViewPrefe_Preparazione_Drink.setText(drinksPreferitiWithDrinksApi.get(posizione).getStrInstructionsIT());
         imgGlide(drinksPreferitiWithDrinksApi.get(posizione).getStrDrinkThumb());
-
-
 
     }
 
@@ -230,6 +226,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         return ingredienti;
     }
     //Recupera la quantità degli ingredienti associata ad un determinato drink passato per posizione
+
     private String recuperaQuantitaIngredienti(int posizione){
         String quantita = "";
         List<String> listaQuantita = new ArrayList<>();
@@ -291,12 +288,41 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         if(v.getId() == R.id.buttonPrefe_Precedente_Drink){
             posizionePref = posizionePref-1;
             drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
+            attivaBottoni();
         }
         if(v.getId() == R.id.buttonPrefe_Successivo_Drink){
             posizionePref = posizionePref+1;
             drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
+            attivaBottoni();
         }
     }
 
+    //Metodo che attiva o disattiva i bottoni a seconda delle esigenze
+    public void attivaBottoni(){
+
+        if (posizionePref==0 && temp.size()==0)
+        {
+            buttonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
+            buttonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
+
+        }
+        else if (posizionePref==0 && temp.size()!=0)
+        {
+            buttonPrefe_Successivo_Drink.setVisibility(View.VISIBLE);
+            buttonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
+
+        }
+        else if (posizionePref == temp.size()-1)
+        {
+            buttonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
+            buttonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
+
+        }else
+        {
+            buttonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
+            buttonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
+        }
+
+    }
 
 }

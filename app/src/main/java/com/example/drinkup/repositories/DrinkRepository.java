@@ -37,13 +37,11 @@ public class DrinkRepository implements IDrinkRepository{
             public void onResponse(@NonNull Call<Response> call, @NonNull  retrofit2.Response<Response> response) {
 
                 if (response.body() != null && response.isSuccessful() ) {
-
                     List<Drink> drinkList = response.body().getDrinks();
                     responseCallback.onResponse(drinkList);
                 }
 
             }
-
 
             @Override
             public void onFailure(@NonNull Call<Response> call,@NonNull  Throwable t) {
@@ -62,15 +60,11 @@ public class DrinkRepository implements IDrinkRepository{
             public void onResponse(@NonNull Call<Response> call, @NonNull  retrofit2.Response<Response> response) {
 
                 if (response.body() != null && response.isSuccessful() ) {
-
                     List<Drink> drinkList = response.body().getDrinks();
-                    Log.d("testPath", "drinlist è lunga"+drinkList.get(0).getStrDrink());
-                    Log.d("testPath", "sono in fetchpreferiti");
                     responseCallback.onResponse(drinkList);
                 }
 
             }
-
 
             @Override
             public void onFailure(@NonNull Call<Response> call,@NonNull  Throwable t) {
