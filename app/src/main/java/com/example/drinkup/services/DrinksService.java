@@ -11,6 +11,7 @@ import retrofit2.http.Query;
 public interface DrinksService {
     @GET("search")
     Call<Response> getDrink(@Query("s") String nomeDrink);
-    @GET("iid")
-    Call<Response> getPrefDrink(@Query("iid") String id);
+
+    @GET("lookup")
+    Call<Response> getPrefDrink(@Query("i") String id);
 }

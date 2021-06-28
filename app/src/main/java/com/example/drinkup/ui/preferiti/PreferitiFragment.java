@@ -1,6 +1,7 @@
 package com.example.drinkup.ui.preferiti;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,37 +55,36 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
                 new ViewModelProvider(this).get(PreferitiViewModel.class);
         View root = inflater.inflate(R.layout.fragment_preferiti, container, false);
 
-       drinkRepository = new DrinkRepository(this, requireActivity().getApplication());
+        drinkRepository = new DrinkRepository(this, requireActivity().getApplication());
         drinksPreferitiWithDrinksApi=new ArrayList<>();
         temp= new ArrayList<>();
 
         //Inizializzazione
-        buttonPrefe_Successivo_Drink = (Button) buttonPrefe_Successivo_Drink.findViewById(R.id.buttonPrefe_Successivo_Drink);
-        buttonPrefe_Successivo_Drink.setOnClickListener(this);
+        buttonPrefe_Successivo_Drink = (Button) root.findViewById(R.id.buttonPrefe_Successivo_Drink);
+       // buttonPrefe_Successivo_Drink.setOnClickListener(this);
 
-        buttonPrefe_Precedente_Drink = (Button) buttonPrefe_Precedente_Drink.findViewById(R.id.buttonPrefe_Precedente_Drink);
-        buttonPrefe_Precedente_Drink.setOnClickListener(this);
+        buttonPrefe_Precedente_Drink = (Button) root.findViewById(R.id.buttonPrefe_Precedente_Drink);
+       // buttonPrefe_Precedente_Drink.setOnClickListener(this);
 
-        textViewPrefe_Nome_Drink = (TextView) textViewPrefe_Nome_Drink.findViewById(R.id.textViewPrefe_Nome_Drink);
-        textViewPrefe_Alchool_Drink = (TextView) textViewPrefe_Alchool_Drink.findViewById(R.id.textViewPrefe_Alchool_Drink);
-        textViewPrefe_Ingredienti_Drink = (TextView) textViewPrefe_Ingredienti_Drink.findViewById(R.id.textViewPrefe_Ingredienti_Drink);
-        textViewPrefe_QuantitaIngredienti_Drink = (TextView) textViewPrefe_QuantitaIngredienti_Drink.findViewById(R.id.textViewPrefe_QuantitaIngredienti_Drink);
-        textViewPrefe_Preparazione_Drink = (TextView) textViewPrefe_Preparazione_Drink.findViewById(R.id.textViewPrefe_Preparazione_Drink);
-        buttonPrefe_Precedente_Drink = (Button) buttonPrefe_Precedente_Drink.findViewById(R.id.buttonPrefe_Precedente_Drink);
-        buttonPrefe_Successivo_Drink = (Button) buttonPrefe_Successivo_Drink.findViewById(R.id.buttonPrefe_Successivo_Drink);
-        buttonPrefe_Salva_Preferito = (Button) buttonPrefe_Salva_Preferito.findViewById(R.id.buttonPrefe_Salva_Preferito);
-        imageViewPrefe_Drink = (ImageView) imageViewPrefe_Drink.findViewById(R.id.imageViewPrefe_Drink);
+        textViewPrefe_Nome_Drink = (TextView) root.findViewById(R.id.textViewPrefe_Nome_Drink);
+        textViewPrefe_Alchool_Drink = (TextView) root.findViewById(R.id.textViewPrefe_Alchool_Drink);
+        textViewPrefe_Ingredienti_Drink = (TextView) root.findViewById(R.id.textViewPrefe_Ingredienti_Drink);
+        textViewPrefe_QuantitaIngredienti_Drink = (TextView) root.findViewById(R.id.textViewPrefe_QuantitaIngredienti_Drink);
+        textViewPrefe_Preparazione_Drink = (TextView) root.findViewById(R.id.textViewPrefe_Preparazione_Drink);
+        buttonPrefe_Precedente_Drink = (Button) root.findViewById(R.id.buttonPrefe_Precedente_Drink);
+        buttonPrefe_Salva_Preferito = (Button) root.findViewById(R.id.buttonPrefe_Salva_Preferito);
+        imageViewPrefe_Drink = (ImageView) root.findViewById(R.id.imageViewPrefe_Drink);
 
 
         return root;
     }
 
-
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
-
 
         File path = requireActivity().getApplication().getFilesDir(); //==> data/data/com.example.drinkup/files
         File file = new File(path, "ElencoPreferiti.txt");
+        Log.d("testPath", file.toString());
 
         try {
              result = leggiFile(file);
@@ -93,12 +93,18 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         }
 
         temp= Arrays.asList(result.split("\n"));
-
+        drinkRepository.fetchPreferitiDrinks("11007");
+        /*
         for(int i=0; i<temp.size();i++){
+            Log.d("testPath", temp.get(i));
            drinkRepository.fetchPreferitiDrinks(temp.get(i));
         }
+        Log.d("testPath", "lista finale lunga"+drinksPreferitiWithDrinksApi.size());
+        //visualizzaDrink(0);
 
-        visualizzaDrink(0);
+        for(int i=0; i<drinksPreferitiWithDrinksApi.size();i++){
+            Log.d("testPath", "ListaFinale"+drinksPreferitiWithDrinksApi.get(i).getIdDrink());
+        }*/
 
     }
 
@@ -123,6 +129,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
     @Override
     public void onResponse(List<Drink> drinkList) {
+        Log.d("testPath", "lista drinklist è lunga "+drinkList.size());
         drinksPreferitiWithDrinksApi.addAll(drinkList);
     }
 
