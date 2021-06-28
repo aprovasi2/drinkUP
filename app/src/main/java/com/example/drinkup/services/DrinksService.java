@@ -9,9 +9,9 @@ import retrofit2.http.Query;
 //import retrofit2.http.Header;
 
 public interface DrinksService {
-    @GET("search")
+    @GET("search.php")
     Call<Response> getDrink(@Query("s") String nomeDrink);
 
-    @GET("lookup")
+    @GET("lookup.php")
     Call<Response> getPrefDrink(@Query("i") String id);
 }

@@ -1,6 +1,6 @@
 package com.example.drinkup.utils;
 
 public class Constants {
-    //public static final String DRINKS_API_BASE_URL="https://www.thecocktaildb.com/api/json/v1/1/search.php/";
     public static final String DRINKS_API_BASE_URL="https://www.thecocktaildb.com/api/json/v1/1/";
+    public static final String DRINKS_API_BASE_URL_Pref="https://www.thecocktaildb.com/api/json/v1/1/lookup.php/";
 }

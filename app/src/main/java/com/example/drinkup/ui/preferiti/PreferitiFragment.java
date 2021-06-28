@@ -61,10 +61,10 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
         //Inizializzazione
         buttonPrefe_Successivo_Drink = (Button) root.findViewById(R.id.buttonPrefe_Successivo_Drink);
-       // buttonPrefe_Successivo_Drink.setOnClickListener(this);
+        buttonPrefe_Successivo_Drink.setOnClickListener(this);
 
         buttonPrefe_Precedente_Drink = (Button) root.findViewById(R.id.buttonPrefe_Precedente_Drink);
-       // buttonPrefe_Precedente_Drink.setOnClickListener(this);
+        buttonPrefe_Precedente_Drink.setOnClickListener(this);
 
         textViewPrefe_Nome_Drink = (TextView) root.findViewById(R.id.textViewPrefe_Nome_Drink);
         textViewPrefe_Alchool_Drink = (TextView) root.findViewById(R.id.textViewPrefe_Alchool_Drink);
@@ -93,15 +93,17 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         }
 
         temp= Arrays.asList(result.split("\n"));
-        drinkRepository.fetchPreferitiDrinks("11007");
+        posizionePref=0;
+        drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
+
         /*
         for(int i=0; i<temp.size();i++){
             Log.d("testPath", temp.get(i));
            drinkRepository.fetchPreferitiDrinks(temp.get(i));
         }
         Log.d("testPath", "lista finale lunga"+drinksPreferitiWithDrinksApi.size());
-        //visualizzaDrink(0);
-
+        visualizzaDrink(0);
+        visualizzaDrink(0);
         for(int i=0; i<drinksPreferitiWithDrinksApi.size();i++){
             Log.d("testPath", "ListaFinale"+drinksPreferitiWithDrinksApi.get(i).getIdDrink());
         }*/
@@ -131,6 +133,8 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     public void onResponse(List<Drink> drinkList) {
         Log.d("testPath", "lista drinklist è lunga "+drinkList.size());
         drinksPreferitiWithDrinksApi.addAll(drinkList);
+        Log.d("testPath", "lista finale lunga"+drinksPreferitiWithDrinksApi.size());
+        visualizzaDrink(posizionePref);
     }
 
     @Override
@@ -287,8 +291,11 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
         if(v.getId() == R.id.buttonPrefe_Precedente_Drink){
             posizionePref = posizionePref-1;
-            visualizzaDrink(posizionePref);
-            //attivaBottoni();
+            drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
+        }
+        if(v.getId() == R.id.buttonPrefe_Successivo_Drink){
+            posizionePref = posizionePref+1;
+            drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
         }
     }
 
