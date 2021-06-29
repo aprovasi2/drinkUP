@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -53,6 +54,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     private Button buttonPrefe_Successivo_Drink;
     private Button buttonPrefe_Salva_Preferito;
     public static int posizionePref = 999;
+    private CardView CardView_InfoDrinkPrefe;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -85,6 +87,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         imageViewPrefe_Drink = (ImageView) root.findViewById(R.id.imageViewPrefe_Drink);
 
 
+
         return root;
     }
 
@@ -106,6 +109,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         posizionePref = 0;
         drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
         setChangesButtonSalva();
+        
     }
 
     private String leggiFile(File file) throws IOException {
@@ -141,7 +145,6 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void visualizzaDrink(int posizione) {
-
 
         //Inizializzazione delle varie textbox con gli elementi associati al drink che vogliamo visualizzare.
         textViewPrefe_Ingredienti_Drink.setText(recuperaIngredienti(posizione));
