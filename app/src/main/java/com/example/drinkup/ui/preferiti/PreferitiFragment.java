@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -134,11 +135,13 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
     @Override
     public void onFailure(String msg) {
-
+        Toast toastFailure= Toast.makeText(requireActivity().getApplication(), "NON HAI DRINK PREFERITI", Toast.LENGTH_LONG);
+        toastFailure.show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void visualizzaDrink(int posizione) {
+
 
         //Inizializzazione delle varie textbox con gli elementi associati al drink che vogliamo visualizzare.
         textViewPrefe_Ingredienti_Drink.setText(recuperaIngredienti(posizione));
@@ -290,8 +293,10 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
             posizionePref = posizionePref - 1;
             drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
             attivaBottoni();
+
         }
         if (v.getId() == R.id.buttonPrefe_Successivo_Drink) {
+
             posizionePref = posizionePref + 1;
             drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
             attivaBottoni();
@@ -303,6 +308,10 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
                 e.printStackTrace();
             }
             setDefaultButtonSalva();
+            Toast toastRimosso= Toast.makeText(requireActivity().getApplication(), "Il drink è stato rimosso dalla tua lista preferiti", Toast.LENGTH_LONG);
+            toastRimosso.show();
+
+
         }
     }
 
