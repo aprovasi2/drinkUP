@@ -235,10 +235,12 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         if(drinksWithDrinksApi.get(posizione).getStrIngredient15() != null){
             listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient15());
         }
-        for(int i = 0; i<(listaIngredienti.size())-1;i++){
-            ingredienti += listaIngredienti.get(i)+"\n";
+        if(!listaIngredienti.isEmpty()){
+            for(int i = 0; i<(listaIngredienti.size()-1);i++){
+                ingredienti += listaIngredienti.get(i)+"\n";
+            }
+            ingredienti = ingredienti.concat(listaIngredienti.get(listaIngredienti.size()-1)+"");
         }
-        ingredienti = ingredienti.concat(listaIngredienti.get(listaIngredienti.size()-1)+"");
         return ingredienti;
     }
 
@@ -291,10 +293,12 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         if(drinksWithDrinksApi.get(posizione).getStrMeasure15() != null){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure15());
         }
-        for(int i = 0; i<(listaQuantita.size())-1;i++){
-            quantita += listaQuantita.get(i)+"\n";
+        if(!listaQuantita.isEmpty()){
+            for(int i = 0; i<(listaQuantita.size()-1);i++){
+                quantita += listaQuantita.get(i)+"\n";
+            }
+            quantita = quantita.concat(listaQuantita.get(listaQuantita.size()-1)+"");
         }
-        quantita = quantita.concat(listaQuantita.get(listaQuantita.size()-1)+"");
         return quantita;
     }
 

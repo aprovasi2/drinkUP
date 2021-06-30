@@ -304,10 +304,12 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         if(drinksWithDrinksApi.get(posizione).getStrIngredient15() != null){
             listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient15());
         }
-        for(int i = 0; i<(listaIngredienti.size())-1;i++){
-            ingredienti += listaIngredienti.get(i)+"\n";
+        if(!listaIngredienti.isEmpty()){
+            for(int i = 0; i<(listaIngredienti.size()-1);i++){
+                ingredienti += listaIngredienti.get(i)+"\n";
+            }
+            ingredienti = ingredienti.concat(listaIngredienti.get(listaIngredienti.size()-1)+"");
         }
-        ingredienti = ingredienti.concat(listaIngredienti.get(listaIngredienti.size()-1)+"");
         return ingredienti;
     }
 
@@ -315,55 +317,57 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     private String recuperaQuantitaIngredienti(int posizione){
         String quantita = "";
         List<String> listaQuantita = new ArrayList<>();
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure1() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure1() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure1().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure1());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure2() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure2() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure2().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure2());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure3() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure3() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure3().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure3());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure4() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure4() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure4().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure4());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure5() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure5() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure5().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure5());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure6() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure6() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure6().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure6());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure7() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure7() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure7().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure7());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure8() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure8() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure8().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure8());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure9() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure9() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure9().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure9());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure10() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure10() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure10().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure10());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure11() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure11() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure11().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure11());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure12() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure12() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure12().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure12());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure13() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure13() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure13().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure13());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure14() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure14() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure14().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure14());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure15() != null){
+        if(drinksWithDrinksApi.get(posizione).getStrMeasure15() != null && !drinksWithDrinksApi.get(posizione).getStrMeasure1().equals("")){
             listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure15());
         }
-        for(int i = 0; i<(listaQuantita.size())-1;i++){
-            quantita += listaQuantita.get(i)+"\n";
+        if(!listaQuantita.isEmpty()){
+            for(int i = 0; i<(listaQuantita.size()-1);i++){
+                quantita += listaQuantita.get(i)+"\n";
+            }
+            quantita = quantita.concat(listaQuantita.get(listaQuantita.size()-1)+"");
         }
-        quantita = quantita.concat(listaQuantita.get(listaQuantita.size()-1)+"");
         return quantita;
     }
 
