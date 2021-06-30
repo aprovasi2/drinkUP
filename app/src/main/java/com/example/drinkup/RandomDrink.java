@@ -1,7 +1,9 @@
 package com.example.drinkup;
 
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,8 +24,13 @@ import com.example.drinkup.repositories.IDrinkRepository;
 import com.example.drinkup.repositories.ResponseCallback;
 import com.example.drinkup.ui.preferiti.PreferitiViewModel;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RandomDrink extends AppCompatActivity implements View.OnClickListener, ResponseCallback {
@@ -62,9 +69,15 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
         imageView_Drink = (ImageView) findViewById(R.id.imageViewR_Drink);
         CardView_InfoDrink = (CardView) findViewById(R.id.CardView_InfoDrinkR);
 
+        try {
+            RecuperaDrinkPreferiti();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         drinkRepository.fetchRandomDrink();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
         int idDrink = drinkRandomWithDrinksApi.get(0).getIdDrink();
@@ -259,5 +272,113 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
         }
         quantita = quantita.concat(listaQuantita.get(listaQuantita.size() - 1) + "");
         return quantita;
+    }
+
+    private void salvaIdDrink(int idDrink) throws IOException {
+        //LibFileExt.writeFile("ElencoIdDrink", ""+idDrink);
+        scriviFile(idDrink);
+        //String contenuto = leggiFile(scriviFile(idDrink));
+    }
+
+    private File scriviFile(int data) throws IOException {
+        File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
+        String idDrink = ""+data+"\n";
+
+        File file = new File(path, "ElencoPreferiti.txt");
+        Log.d("testPath2", file.toString());
+        if(!file.exists()){
+            FileOutputStream stream = new FileOutputStream(file);
+            try {
+                stream.write(idDrink.getBytes());
+            } finally {
+                stream.close();
+            }
+
+        } else{
+            FileOutputStream stream = new FileOutputStream(file, true);
+            OutputStreamWriter outWriter = new OutputStreamWriter(stream);
+            try {
+                outWriter.append(idDrink);
+            } finally {
+                outWriter.close();
+                stream.close();
+            }
+        }
+
+        return file;
+
+    }
+
+    //metodo che legge il file e ritorna una stringa contenente i valori letti
+    private String leggiFile(File file) throws IOException {
+        int length = (int) file.length();
+
+        byte[] bytes = new byte[length];
+
+        FileInputStream in = new FileInputStream(file);
+        try {
+            in.read(bytes);
+        } finally {
+            in.close();
+        }
+
+        String contents = new String(bytes);
+
+        return contents;
+    }
+
+    //metodo che permette di salvare in una lista l'elenco dei drink preferiti letti dal file, invoca il metodo esterno leggiFile
+    private void RecuperaDrinkPreferiti() throws IOException {
+        File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
+        File file = new File(path, "ElencoPreferiti.txt");
+        String stringElencoPreferiti = leggiFile(file);
+        drinksPreferiti= Arrays.asList(stringElencoPreferiti.split("\n"));
+    }
+
+    //Metodo che permette di cancellare un drink tra i preferiti nel file locale
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void cancellaDrinkdaFile(int id) throws IOException {
+        File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
+        File file = new File(path, "ElencoPreferiti.txt");
+        Integer value = new Integer(id);
+        String daRimuovere = value.toString();
+        //Toast.makeText(this, daRimuovere, Toast.LENGTH_LONG).show();
+
+        //Parte nuova, al posto di lavorare sull'arrayList originale, se ne si fa una copia e si lavora su quella
+        List<String> drinksPreferitiClone = new ArrayList<>();
+        drinksPreferitiClone.addAll(drinksPreferiti);
+        for(int i=0;i<drinksPreferitiClone.size();i++){
+            String daRemove = drinksPreferitiClone.get(i);
+            if(daRemove.equals(id+"")){
+                drinksPreferitiClone.remove(daRemove);
+                i--;
+                //break;
+            }
+        }
+        file.delete();
+        for(int i=0;i<drinksPreferitiClone.size();i++){
+            scriviFile(Integer.parseInt(drinksPreferitiClone.get(i)));
+        }
+        //Una volta fatto, riportiamo tutti i valori nell'elenco originale
+        //Per farlo prima liberiamo la lista, con il clear crasha quindi si crea nuova
+        drinksPreferiti = new ArrayList<>();
+        drinksPreferiti.addAll(drinksPreferitiClone);
+        setDefaultButtonSalva();
+    }
+
+    //metodo che permette di riportare i valori di default al bottone "Salva Preferito"
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void setDefaultButtonSalva(){
+        button_Salva_Preferito.setBackgroundColor(0xFFCA4700);
+        button_Salva_Preferito.setForeground(null);
+    }
+
+    //metodo che permette cambiamenti grafici una volta premuto il bottone "Salva Preferito"
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void setChangesButtonSalva(){
+        button_Salva_Preferito.setBackgroundColor(0xFFDAA520);
+        Drawable drawable = getResources().getDrawable(android.R.drawable.btn_star_big_on);
+        button_Salva_Preferito.setForeground(drawable);
+        button_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
     }
 }
