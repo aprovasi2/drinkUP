@@ -99,7 +99,7 @@
                             android:layout_marginLeft="4dp"
                             android:layout_marginEnd="4dp"
                             android:layout_marginRight="4dp"
-                            android:fontFamily="@font/jcandlestick"
+                            android:fontFamily="@font/cocon"
                             android:textAppearance="@style/TextAppearance.AppCompat.Large"
                             android:textColor="#FFCA4700"
                             android:textSize="30sp"
