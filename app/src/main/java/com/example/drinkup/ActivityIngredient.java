@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.bumptech.glide.Glide;
 import com.example.drinkup.models.Drink;
 import com.example.drinkup.models.Ingredient;
 import com.example.drinkup.repositories.DrinkRepository;
@@ -42,6 +44,8 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
     private TextView textView_Gradazione_Ingredient;
     private TextView textView_Descrizione_Ingredient;
     private LinearLayout linearLayout_Ingredient;
+    private ImageView imageView_Ingredient;
+    private String ricercaImmagine = "https://www.thecocktaildb.com/images/ingredients/";
     private String ricerca = "";
     private List<Ingredient> listaIngredienti;
 
@@ -71,6 +75,7 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
         linearLayout_Ingredient.setVisibility(View.INVISIBLE);
         listaIngredienti = new ArrayList<>();
 
+        imageView_Ingredient = (ImageView) findViewById(R.id.imageView_Ingredient);
         ingredientRepository = new IngredientRepository(this, this.getApplication());
 
     }
@@ -112,6 +117,26 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
         }
     }
 
+    private void imgGlide(String urlPassata){
+
+        String url = urlPassata;
+        String newUrl = null;
+
+        if (url != null) {
+            // This action is a possible alternative to manage HTTP addresses that don't work
+            // in the apps that target API level 28 or higher.
+            // If it doesn't work, the other option is this one:
+            // https://developer.android.com/guide/topics/manifest/application-element#usesCleartextTraffic
+            newUrl = url.replace("http://", "https://").trim();
+
+            // Download the image associated with the article
+            Glide.with(ActivityIngredient.this)
+                    .load(newUrl)
+                    .into(imageView_Ingredient);
+        }
+
+    }
+
     public void visualizzaIngredient(int pos){
 
         if(listaIngredienti.get(pos).getStrType() == null){
@@ -144,6 +169,8 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
         //textView_Gradazione_Ingredient.setText(listaIngredienti.get(pos).getStrABV());
         //textView_Descrizione_Ingredient.setText(listaIngredienti.get(pos).getStrDescription());
         linearLayout_Ingredient.setVisibility(View.VISIBLE);
+
+        imgGlide(ricercaImmagine+ricerca+".png");
 
     }
 

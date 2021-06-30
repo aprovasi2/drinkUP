@@ -189,6 +189,18 @@
                         android:fontFamily="sans-serif-light"
                         android:textColor="@color/black" />
 
+                    <ImageView
+                        android:id="@+id/imageView_Ingredient"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="16dp"
+                        android:background="@android:drawable/screen_background_light_transparent"
+                        android:visibility="visible"
+                        app:srcCompat="@drawable/image_drink"
+                        tools:srcCompat="@drawable/image_drink"
+                        tools:visibility="visible" />
+
 
                 </LinearLayout>
             </ScrollView>
