@@ -9,5 +9,5 @@ public interface ResponseCallback {
     void onResponse(List<Drink> drinkList);
     void onFailure(String msg);
     void onResponseI(List<Ingredient> ingredientList);
-    void onResponseNome(List<String> nomeDrink);
+    void onResponseNome(List<Drink> nomeDrink);
 }

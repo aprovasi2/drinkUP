@@ -95,6 +95,11 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
         }
     }
 
+    @Override
+    public void onResponseNome(List<Drink> nomeDrink) {
+
+    }
+
     // metodo per scaricare l'immagine dall'API
     private void imgGlide(String urlPassata){
 
@@ -141,11 +146,6 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
         cardView_InfoIngredient.setVisibility(View.VISIBLE);
         imgGlide(ricercaImmagine+ricerca+".png");
 
-    }
-
-    // DA NON USARE
-    @Override
-    public void onResponseNome(List<String> nomeDrink) {
     }
 
     //DA NON USARE

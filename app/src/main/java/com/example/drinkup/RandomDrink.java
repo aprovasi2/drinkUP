@@ -130,7 +130,7 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
-    public void onResponseNome(List<String> nomeDrink) {
+    public void onResponseNome(List<Drink> nomeDrink) {
 
     }
 

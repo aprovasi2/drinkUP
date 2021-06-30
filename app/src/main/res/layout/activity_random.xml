@@ -95,7 +95,7 @@
                         android:layout_marginLeft="4dp"
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
-                        android:fontFamily="sans-serif-light"
+                        android:fontFamily="@font/inter"
                         android:textColor="@color/black" />
 
                     <LinearLayout
@@ -132,7 +132,7 @@
                                     android:layout_marginLeft="4dp"
                                     android:layout_marginEnd="4dp"
                                     android:layout_marginRight="4dp"
-                                    android:fontFamily="sans-serif-light"
+                                    android:fontFamily="@font/inter"
                                     android:textColor="@color/black" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -163,7 +163,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="4dp"
                                     android:layout_marginRight="4dp"
-                                    android:fontFamily="sans-serif-light"
+                                    android:fontFamily="@font/inter"
                                     android:textColor="@color/black" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -190,7 +190,7 @@
                         android:layout_marginLeft="4dp"
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
-                        android:fontFamily="sans-serif-light"
+                        android:fontFamily="@font/inter"
                         android:textColor="@color/black" />
 
                     <ImageView
