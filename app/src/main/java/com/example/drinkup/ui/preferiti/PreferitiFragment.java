@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.example.drinkup.ActivityDrink;
 import com.example.drinkup.R;
 import com.example.drinkup.models.Drink;
+import com.example.drinkup.models.Ingredient;
 import com.example.drinkup.repositories.DrinkRepository;
 import com.example.drinkup.repositories.IDrinkRepository;
 import com.example.drinkup.repositories.ResponseCallback;
@@ -141,6 +142,11 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     public void onFailure(String msg) {
         Toast toastFailure= Toast.makeText(requireActivity().getApplication(), "NON HAI DRINK PREFERITI", Toast.LENGTH_LONG);
         toastFailure.show();
+    }
+
+    //DA NON USARE
+    @Override
+    public void onResponseI(List<Ingredient> ingredientList) {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

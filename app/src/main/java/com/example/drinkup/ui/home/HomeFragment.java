@@ -1,6 +1,7 @@
 package com.example.drinkup.ui.home;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +11,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.drinkup.ActivityDrink;
+import com.example.drinkup.ActivityIngredient;
 import com.example.drinkup.R;
-import com.example.drinkup.ui.maps.MapsFragment;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private HomeViewModel view;
-    private ImageButton imagebuttonebeer;
+    private ImageButton imagebuttonedrinkingredient;
     private ImageButton imagebuttonedrink;
+    private ImageButton imagebuttonIngredient;
+    private ImageButton imagebuttonRandom;
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
 
@@ -31,13 +33,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
 
-        imagebuttonebeer = (ImageButton) root.findViewById(R.id.imageButtonBeer);
-        imagebuttonebeer.setOnClickListener(this);
+        imagebuttonedrinkingredient = (ImageButton) root.findViewById(R.id.imageButton_DrinkPerIngredient);
+        imagebuttonedrinkingredient.setOnClickListener(this);
 
         imagebuttonedrink = (ImageButton) root.findViewById(R.id.imageButtonDrink);
         imagebuttonedrink.setOnClickListener(this);
 
+        imagebuttonIngredient = (ImageButton) root.findViewById(R.id.imagebutton_Ingredient);
+        imagebuttonIngredient.setOnClickListener(this);
 
+        imagebuttonRandom = (ImageButton) root.findViewById(R.id.imagebutton_randomDrink);
+        imagebuttonRandom.setOnClickListener(this);
 
         return root;
     }
@@ -50,18 +56,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.imageButtonDrink:
                //azione da compiere dopo aver cliccato bottone drink
 
-
-
                 Intent intent = new Intent(getActivity(), ActivityDrink.class);
-
                 startActivity(intent);
                 break;
 
-            case R.id.imageButtonBeer:
+            case R.id.imageButton_DrinkPerIngredient:
                 //azione da compiere dopo aver cliccato bottone beer
-                Toast.makeText(this.getContext(), "cliccatobeer", Toast.LENGTH_LONG).show();
+                Toast.makeText(this.getContext(), "ricerca drink per ingredente", Toast.LENGTH_LONG).show();
                 break;
 
+            case R.id.imagebutton_Ingredient:
+                //azione da compiere dopo aver cliccato bottone drink
+                Intent intentIngredient = new Intent(getActivity(), ActivityIngredient.class);
+                startActivity(intentIngredient);
+                break;
+
+            case R.id.imagebutton_randomDrink:
+                //azione da compiere dopo aver cliccato bottone beer
+                Toast.makeText(this.getContext(), "drink random", Toast.LENGTH_LONG).show();
+                break;
         }
 
 

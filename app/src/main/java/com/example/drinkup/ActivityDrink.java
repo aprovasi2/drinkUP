@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.drinkup.models.Drink;
+import com.example.drinkup.models.Ingredient;
 import com.example.drinkup.models.Response;
 import com.example.drinkup.repositories.DrinkRepository;
 import com.example.drinkup.repositories.IDrinkRepository;
@@ -246,6 +247,12 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         toastOnFailure.show();
     }
 
+    // DA NON USARE
+    @Override
+    public void onResponseI(List<Ingredient> ingredientList) {
+
+    }
+
     private void imgGlide(String urlPassata){
 
         String url = urlPassata;
@@ -441,7 +448,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     }
 
     private void salvaIdDrink(int idDrink) throws IOException {
-        LibFileExt.writeFile("ElencoIdDrink", ""+idDrink);
+        //LibFileExt.writeFile("ElencoIdDrink", ""+idDrink);
         scriviFile(idDrink);
         //String contenuto = leggiFile(scriviFile(idDrink));
     }

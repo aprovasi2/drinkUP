@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.drinkup.models.Drink;
+import com.example.drinkup.models.Ingredient;
 import com.example.drinkup.models.Response;
 import com.example.drinkup.services.DrinksService;
 import com.example.drinkup.utils.Constants;
@@ -72,4 +73,5 @@ public class DrinkRepository implements IDrinkRepository{
             }
         });
     }
+
 }

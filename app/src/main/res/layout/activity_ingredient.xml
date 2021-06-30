@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityIngredient"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/imgpsh_fullsize_anim"
+    tools:context=".ActivityIngredient">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView_RicercaIngredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                app:cardBackgroundColor="@color/material_on_primary_emphasis_high_type">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editTextText_IngredientSearch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="@string/hint_Search_Ingredient"
+                        android:inputType="textPersonName" />
+
+                    <Button
+                        android:id="@+id/button_Search_Ingredient"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1"
+                        android:drawableLeft="@android:drawable/ic_menu_search"
+                        android:text="@string/button_ricerca" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_Ingredient"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@android:drawable/screen_background_light_transparent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView_Nome_Ingredient"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:fontFamily="@font/hello_avocado"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="#FFCA4700"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/text_Tipo_Ingredient"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:text="@string/tipo_Ingredient"
+                        android:textSize="25sp"
+                        android:textStyle="bold|italic" />
+
+                    <TextView
+                        android:id="@+id/textView_Tipo_Ingredient"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/text_Alcolico_Ingredient"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:text="@string/alcolico_Ingredient"
+                        android:textSize="25sp"
+                        android:textStyle="bold|italic" />
+
+                    <TextView
+                        android:id="@+id/textView_Alcolico_Ingredient"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/text_Gradazione_Ingredient"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:text="@string/gradazione_Drink"
+                        android:textSize="25sp"
+                        android:textStyle="bold|italic" />
+
+                    <TextView
+                        android:id="@+id/textView_Gradazione_Ingredient"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/text_Descrizione_Ingredient"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:text="@string/descrizione_Ingredient"
+                        android:textSize="25sp"
+                        android:textStyle="bold|italic" />
+
+                    <TextView
+                        android:id="@+id/textView_Descrizione_Ingredient"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="@color/black" />
+
+
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
