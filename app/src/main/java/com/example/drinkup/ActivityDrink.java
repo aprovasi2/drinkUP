@@ -197,7 +197,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onFailure(String msg) {
-        Toast toastOnFailure = Toast.makeText(this, "ERRORE!!", Toast.LENGTH_LONG);
+        Toast toastOnFailure = Toast.makeText(this, "ERRORE!", Toast.LENGTH_LONG);
         toastOnFailure.show();
     }
 

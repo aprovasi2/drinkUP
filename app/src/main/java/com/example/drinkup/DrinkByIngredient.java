@@ -109,8 +109,15 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
             toastRimosso.show();
         }
         if(v.getId() == R.id.button_Search){
-            drinkRepository.fetchByIngredient(drinkDaCercare.getText().toString());
-            posizione = 0;
+            String ricerca = drinkDaCercare.getText().toString();
+            if(!ricerca.equals("")){
+                drinkRepository.fetchByIngredient(ricerca);
+                posizione = 0;
+            }
+            else{
+                Toast toastErrore = Toast.makeText(this, "Spiacenti! Inserire il nome dell'ingrediente da cercare", Toast.LENGTH_LONG);
+                toastErrore.show();
+            }
 
         }
 
@@ -118,23 +125,37 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onResponseNome(List<Drink> nomeDrink) {
-        for(int i = 0; i < nomeDrink.size(); i++){
-            nomiDrink.add(nomeDrink.get(i).getStrDrink());
+        if(nomeDrink != null){
+            for(int i = 0; i < nomeDrink.size(); i++){
+                nomiDrink.add(nomeDrink.get(i).getStrDrink());
+            }
+            drinkRepository.fetchDrinks(nomiDrink.get(posizione));
         }
-        drinkRepository.fetchDrinks(nomiDrink.get(posizione));
+        else{
+            Toast toastErrore = Toast.makeText(this, "Spiacenti! Non sono presenti drink con questo ingrediente", Toast.LENGTH_LONG);
+            toastErrore.show();
+        }
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResponse(List<Drink> drinkList) {
-        drinksWithDrinksApi.add(drinkList.get(0));
-        visualizzaDrink(posizione);
-        attivaBottoni();
+        if(drinkList != null){
+            drinksWithDrinksApi.add(drinkList.get(0));
+            visualizzaDrink(posizione);
+            attivaBottoni();
+        }
+        else{
+            Toast toastErrore = Toast.makeText(this, "Spiacenti! Non sono presenti drink con questo ingrediente", Toast.LENGTH_LONG);
+            toastErrore.show();
+        }
+
     }
 
     @Override
     public void onFailure(String msg) {
-        Toast toastOnFailure = Toast.makeText(this, "ERRORE!!", Toast.LENGTH_LONG);
+        Toast toastOnFailure = Toast.makeText(this, "ERRORE!", Toast.LENGTH_LONG);
         toastOnFailure.show();
     }
 
