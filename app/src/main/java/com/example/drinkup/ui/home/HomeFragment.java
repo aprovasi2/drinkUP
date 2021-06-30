@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.drinkup.ActivityDrink;
 import com.example.drinkup.ActivityIngredient;
+import com.example.drinkup.DrinkByIngredient;
 import com.example.drinkup.R;
 import com.example.drinkup.RandomDrink;
 
@@ -62,7 +63,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             case R.id.imageButton_DrinkPerIngredient:
                 //azione da compiere dopo aver cliccato bottone beer
-                Toast.makeText(this.getContext(), "ricerca drink per ingredente", Toast.LENGTH_LONG).show();
+                Intent intentByIngredient = new Intent(getActivity(), DrinkByIngredient.class);
+                startActivity(intentByIngredient);
                 break;
 
             case R.id.imagebutton_Ingredient:

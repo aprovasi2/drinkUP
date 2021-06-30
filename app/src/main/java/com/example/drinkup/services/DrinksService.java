@@ -17,4 +17,7 @@ public interface DrinksService {
 
     @GET("random.php")
     Call<Response> getRandomDrink();
+
+    @GET("filter.php")
+    Call<Response> getByIngredient(@Query("i") String nomeIngrediente);
 }

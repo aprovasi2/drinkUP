@@ -36,6 +36,7 @@
         <activity android:name=".ActivityDrink" />
         <activity android:name=".ActivityIngredient" />
         <activity android:name=".RandomDrink" />
+        <activity android:name=".DrinkByIngredient" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
