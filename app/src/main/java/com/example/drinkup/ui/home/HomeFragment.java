@@ -1,7 +1,6 @@
 package com.example.drinkup.ui.home;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.drinkup.ActivityDrink;
 import com.example.drinkup.ActivityIngredient;
 import com.example.drinkup.R;
+import com.example.drinkup.RandomDrink;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -56,8 +56,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.imageButtonDrink:
                //azione da compiere dopo aver cliccato bottone drink
 
-                Intent intent = new Intent(getActivity(), ActivityDrink.class);
-                startActivity(intent);
+                Intent intentNomeDrink = new Intent(getActivity(), ActivityDrink.class);
+                startActivity(intentNomeDrink);
                 break;
 
             case R.id.imageButton_DrinkPerIngredient:
@@ -73,7 +73,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             case R.id.imagebutton_randomDrink:
                 //azione da compiere dopo aver cliccato bottone beer
-                Toast.makeText(this.getContext(), "drink random", Toast.LENGTH_LONG).show();
+                Intent intentRandom = new Intent(getActivity(), RandomDrink.class);
+                startActivity(intentRandom);
                 break;
         }
 

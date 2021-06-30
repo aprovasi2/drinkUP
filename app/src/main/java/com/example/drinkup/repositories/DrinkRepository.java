@@ -74,4 +74,26 @@ public class DrinkRepository implements IDrinkRepository{
         });
     }
 
+    public void fetchRandomDrink() {
+
+        Call<Response> call = drinksService.getRandomDrink();
+
+        call.enqueue(new Callback<Response>() {
+            @Override
+            public void onResponse(@NonNull Call<Response> call, @NonNull  retrofit2.Response<Response> response) {
+
+                if (response.body() != null && response.isSuccessful() ) {
+                    List<Drink> drinkList = response.body().getDrinks();
+                    responseCallback.onResponse(drinkList);
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Response> call,@NonNull  Throwable t) {
+                responseCallback.onFailure(t.getMessage());
+            }
+        });
+    }
+
 }

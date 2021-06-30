@@ -14,4 +14,7 @@ public interface DrinksService {
 
     @GET("lookup.php")
     Call<Response> getPrefDrink(@Query("i") String id);
+
+    @GET("random.php")
+    Call<Response> getRandomDrink();
 }
