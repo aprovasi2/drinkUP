@@ -16,44 +16,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-<!--
-android:layout_marginBottom="49dp"
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/imageButtonDrink"
-                style="@android:style/Widget.Holo.ImageButton"
-                android:layout_width="320dp"
-                android:layout_height="200dp"
-                android:layout_marginBottom="70dp"
-                android:src="@drawable/cocktail" />
-
-            <ImageButton
-                android:id="@+id/imageButtonBeer"
-                style="@android:style/Widget.Holo.ImageButton"
-                android:layout_width="320dp"
-                android:layout_height="200dp"
-                android:src="@drawable/beer" />
-
-            <Button
-                android:id="@+id/button_Ingredient"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="wikiIngredient" />
-
-            <Button
-                android:id="@+id/button_randomDrink"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="random" />
-
-        </LinearLayout>
--->
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -64,58 +26,54 @@ android:layout_marginBottom="49dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageButton
+                android:id="@+id/imageButtonDrink"
+                style="@android:style/Widget.Holo.ImageButton"
+                android:layout_width="fill_parent"
+                android:layout_height="0px"
+                android:layout_marginLeft="10px"
+                android:layout_marginTop="10px"
+                android:layout_marginRight="10px"
+                android:layout_marginBottom="10px"
+                android:layout_weight="0.3"
+                android:src="@drawable/cocktail" />
 
             <ImageButton
                 android:id="@+id/imageButton_DrinkPerIngredient"
                 style="@android:style/Widget.Holo.ImageButton"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0px"
                 android:layout_marginLeft="10px"
                 android:layout_marginTop="10px"
                 android:layout_marginRight="10px"
                 android:layout_marginBottom="10px"
                 android:layout_weight="0.3"
-                android:src="@drawable/cocktail" />
-
-            <ImageButton
-                android:id="@+id/imageButtonDrink"
-                style="@android:style/Widget.Holo.ImageButton"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
-                android:layout_marginTop="10px"
-                android:layout_marginRight="10px"
-                android:layout_marginBottom="10px"
-                android:layout_weight="0.3"
-                android:src="@drawable/cocktail" />
+                android:src="@drawable/ingredient" />
 
             <ImageButton
                 android:id="@+id/imagebutton_Ingredient"
                 style="@android:style/Widget.Holo.ImageButton"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0px"
                 android:layout_marginLeft="10px"
                 android:layout_marginTop="10px"
                 android:layout_marginRight="10px"
                 android:layout_marginBottom="10px"
                 android:layout_weight="0.3"
-                android:src="@android:drawable/ic_dialog_info" />
+                android:src="@drawable/wikipedia" />
 
             <ImageButton
                 android:id="@+id/imagebutton_randomDrink"
                 style="@android:style/Widget.Holo.ImageButton"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0px"
                 android:layout_marginLeft="10px"
                 android:layout_marginTop="10px"
                 android:layout_marginRight="10px"
                 android:layout_marginBottom="10px"
                 android:layout_weight="0.3"
-                android:src="@android:drawable/ic_menu_help" />
-
+                android:src="@drawable/casuale" />
 
         </LinearLayout>
-
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

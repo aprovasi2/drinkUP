@@ -129,6 +129,11 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    @Override
+    public void onResponseNome(List<String> nomeDrink) {
+
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void visualizzaDrink(int posizione) {
 

@@ -97,8 +97,8 @@ public class DrinkRepository implements IDrinkRepository{
     }
 
     public void fetchByIngredient(String nomeIngrediente) {
-        Call<Response> call = drinksService.getDrink(nomeIngrediente);
-
+        Call<Response> call = drinksService.getByIngredient(nomeIngrediente);
+        Log.d("drinkIngredient", "sono in fecthByIngredient");
         call.enqueue(new Callback<Response>() {
 
             @Override
@@ -106,7 +106,13 @@ public class DrinkRepository implements IDrinkRepository{
 
                 if (response.body() != null && response.isSuccessful() ) {
                     List<Drink> drinkList = response.body().getDrinks();
-                    responseCallback.onResponse(drinkList);
+                    Log.d("drinkIngredient", "drinkNome lungo: "+drinkList.size());
+                    List<String> drinkNome = null;
+                    for(int i = 0; i < drinkList.size(); i++){
+                        drinkNome.add(drinkList.get(i).getStrDrink());
+                    }
+                    Log.d("drinkIngredient", "drinkNome lungo: "+drinkNome.size());
+                    responseCallback.onResponseNome(drinkNome);
                 }
 
             }

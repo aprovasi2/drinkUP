@@ -55,7 +55,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     private Button buttonPrefe_Successivo_Drink;
     private Button buttonPrefe_Salva_Preferito;
     public static int posizionePref = 999;
-    private CardView CardView_InfoDrinkPrefe;
+    private CardView cardView_InfoDrinkPrefe;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -69,26 +69,22 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         temp = new ArrayList<>();
 
         //Inizializzazione
-        buttonPrefe_Successivo_Drink = (Button) root.findViewById(R.id.buttonPrefe_Successivo_Drink);
+        buttonPrefe_Successivo_Drink = root.findViewById(R.id.buttonPrefe_Successivo_Drink);
         buttonPrefe_Successivo_Drink.setOnClickListener(this);
-
-        buttonPrefe_Salva_Preferito = (Button) root.findViewById(R.id.buttonPrefe_Salva_Preferito);
+        buttonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
+        buttonPrefe_Salva_Preferito = root.findViewById(R.id.buttonPrefe_Salva_Preferito);
         buttonPrefe_Salva_Preferito.setOnClickListener(this);
-
-        buttonPrefe_Precedente_Drink = (Button) root.findViewById(R.id.buttonPrefe_Precedente_Drink);
+        buttonPrefe_Precedente_Drink = root.findViewById(R.id.buttonPrefe_Precedente_Drink);
         buttonPrefe_Precedente_Drink.setOnClickListener(this);
-
-        textViewPrefe_Nome_Drink = (TextView) root.findViewById(R.id.textViewPrefe_Nome_Drink);
-        textViewPrefe_Alchool_Drink = (TextView) root.findViewById(R.id.textViewPrefe_Alchool_Drink);
-        textViewPrefe_Ingredienti_Drink = (TextView) root.findViewById(R.id.textViewPrefe_Ingredienti_Drink);
-        textViewPrefe_QuantitaIngredienti_Drink = (TextView) root.findViewById(R.id.textViewPrefe_QuantitaIngredienti_Drink);
-        textViewPrefe_Preparazione_Drink = (TextView) root.findViewById(R.id.textViewPrefe_Preparazione_Drink);
-        buttonPrefe_Precedente_Drink = (Button) root.findViewById(R.id.buttonPrefe_Precedente_Drink);
-        buttonPrefe_Salva_Preferito = (Button) root.findViewById(R.id.buttonPrefe_Salva_Preferito);
-        imageViewPrefe_Drink = (ImageView) root.findViewById(R.id.imageViewPrefe_Drink);
-
-
-
+        buttonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
+        textViewPrefe_Nome_Drink = root.findViewById(R.id.textViewPrefe_Nome_Drink);
+        textViewPrefe_Alchool_Drink = root.findViewById(R.id.textViewPrefe_Alchool_Drink);
+        textViewPrefe_Ingredienti_Drink = root.findViewById(R.id.textViewPrefe_Ingredienti_Drink);
+        textViewPrefe_QuantitaIngredienti_Drink = root.findViewById(R.id.textViewPrefe_QuantitaIngredienti_Drink);
+        textViewPrefe_Preparazione_Drink = root.findViewById(R.id.textViewPrefe_Preparazione_Drink);
+        imageViewPrefe_Drink = root.findViewById(R.id.imageViewPrefe_Drink);
+        cardView_InfoDrinkPrefe = root.findViewById(R.id.CardView_InfoDrinkPrefe);
+        cardView_InfoDrinkPrefe.setVisibility(View.INVISIBLE);
         return root;
     }
 
@@ -113,23 +109,6 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         
     }
 
-    private String leggiFile(File file) throws IOException {
-        int length = (int) file.length();
-
-        byte[] bytes = new byte[length];
-
-        FileInputStream in = new FileInputStream(file);
-        try {
-            in.read(bytes);
-        } finally {
-            in.close();
-        }
-
-        String contents = new String(bytes);
-
-        return contents;
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResponse(List<Drink> drinkList) {
@@ -144,11 +123,6 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         toastFailure.show();
     }
 
-    //DA NON USARE
-    @Override
-    public void onResponseI(List<Ingredient> ingredientList) {
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void visualizzaDrink(int posizione) {
 
@@ -159,7 +133,10 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         textViewPrefe_Alchool_Drink.setText(drinksPreferitiWithDrinksApi.get(posizione).getStrAlcoholic());
         textViewPrefe_Preparazione_Drink.setText(drinksPreferitiWithDrinksApi.get(posizione).getStrInstructionsIT());
         imgGlide(drinksPreferitiWithDrinksApi.get(posizione).getStrDrinkThumb());
+        cardView_InfoDrinkPrefe.setVisibility(View.VISIBLE);
         setChangesButtonSalva();
+        attivaBottoni();
+
     }
 
     private void imgGlide(String urlPassata) {
@@ -178,6 +155,55 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
             Glide.with(this)
                     .load(newUrl)
                     .into(imageViewPrefe_Drink);
+        }
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onClick(View v) {
+
+        if (v.getId() == R.id.buttonPrefe_Precedente_Drink) {
+            posizionePref = posizionePref - 1;
+            drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
+            attivaBottoni();
+        }
+        if (v.getId() == R.id.buttonPrefe_Successivo_Drink) {
+
+            posizionePref = posizionePref + 1;
+            drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
+            attivaBottoni();
+        }
+        if (v.getId() == R.id.buttonPrefe_Salva_Preferito) {
+            try {
+                cancellaDrinkdaFile(Integer.parseInt(temp.get(posizionePref)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            setDefaultButtonSalva();
+            Toast toastRimosso= Toast.makeText(requireActivity().getApplication(), "Il drink è stato rimosso dalla tua lista preferiti", Toast.LENGTH_LONG);
+            toastRimosso.show();
+        }
+    }
+
+    //Metodo che attiva o disattiva i bottoni a seconda delle esigenze
+    public void attivaBottoni() {
+
+        if (posizionePref == 0 && temp.size() == 0) {
+            buttonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
+            buttonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
+
+        } else if (posizionePref == 0 && temp.size() != 0) {
+            buttonPrefe_Successivo_Drink.setVisibility(View.VISIBLE);
+            buttonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
+
+        } else if (posizionePref == temp.size() - 1) {
+            buttonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
+            buttonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
+
+        } else {
+            buttonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
+            buttonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
         }
 
     }
@@ -237,8 +263,8 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         ingredienti = ingredienti.concat(listaIngredienti.get(listaIngredienti.size() - 1) + "");
         return ingredienti;
     }
-    //Recupera la quantità degli ingredienti associata ad un determinato drink passato per posizione
 
+    //Recupera la quantità degli ingredienti associata ad un determinato drink passato per posizione
     private String recuperaQuantitaIngredienti(int posizione) {
         String quantita = "";
         List<String> listaQuantita = new ArrayList<>();
@@ -292,72 +318,6 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         }
         quantita = quantita.concat(listaQuantita.get(listaQuantita.size() - 1) + "");
         return quantita;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public void onClick(View v) {
-
-        if (v.getId() == R.id.buttonPrefe_Precedente_Drink) {
-            posizionePref = posizionePref - 1;
-            drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
-            attivaBottoni();
-
-        }
-        if (v.getId() == R.id.buttonPrefe_Successivo_Drink) {
-
-            posizionePref = posizionePref + 1;
-            drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
-            attivaBottoni();
-        }
-        if (v.getId() == R.id.buttonPrefe_Salva_Preferito) {
-            try {
-                cancellaDrinkdaFile(Integer.parseInt(temp.get(posizionePref)));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            setDefaultButtonSalva();
-            Toast toastRimosso= Toast.makeText(requireActivity().getApplication(), "Il drink è stato rimosso dalla tua lista preferiti", Toast.LENGTH_LONG);
-            toastRimosso.show();
-
-
-        }
-    }
-
-    //Metodo che attiva o disattiva i bottoni a seconda delle esigenze
-    public void attivaBottoni() {
-
-        if (posizionePref == 0 && temp.size() == 0) {
-            buttonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
-            buttonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
-
-        } else if (posizionePref == 0 && temp.size() != 0) {
-            buttonPrefe_Successivo_Drink.setVisibility(View.VISIBLE);
-            buttonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
-
-        } else if (posizionePref == temp.size() - 1) {
-            buttonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
-            buttonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
-
-        } else {
-            buttonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
-            buttonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
-        }
-
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void setChangesButtonSalva() {
-        buttonPrefe_Salva_Preferito.setBackgroundColor(0xFFDAA520);
-        Drawable drawable = getResources().getDrawable(android.R.drawable.btn_star_big_on);
-        buttonPrefe_Salva_Preferito.setForeground(drawable);
-        buttonPrefe_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void setDefaultButtonSalva() {
-        buttonPrefe_Salva_Preferito.setBackgroundColor(0xFFCA4700);
-        buttonPrefe_Salva_Preferito.setForeground(null);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -416,4 +376,46 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         }
         return file;
     }
+
+    private String leggiFile(File file) throws IOException {
+        int length = (int) file.length();
+
+        byte[] bytes = new byte[length];
+
+        FileInputStream in = new FileInputStream(file);
+        try {
+            in.read(bytes);
+        } finally {
+            in.close();
+        }
+
+        String contents = new String(bytes);
+
+        return contents;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void setChangesButtonSalva() {
+        buttonPrefe_Salva_Preferito.setBackgroundColor(0xFFDAA520);
+        Drawable drawable = getResources().getDrawable(android.R.drawable.btn_star_big_on);
+        buttonPrefe_Salva_Preferito.setForeground(drawable);
+        buttonPrefe_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void setDefaultButtonSalva() {
+        buttonPrefe_Salva_Preferito.setBackgroundColor(0xFFCA4700);
+        buttonPrefe_Salva_Preferito.setForeground(null);
+    }
+
+    //DA NON USARE
+    @Override
+    public void onResponseI(List<Ingredient> ingredientList) {
+    }
+
+    // DA NON USARE
+    @Override
+    public void onResponseNome(List<String> nomeDrink) {
+    }
+
 }

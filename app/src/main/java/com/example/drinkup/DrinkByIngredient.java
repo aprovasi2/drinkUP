@@ -72,6 +72,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
     private Button button_Precedente_Drink;
     private Button button_Salva_Preferito;
 
+    private List<String> nomiDrink;
     public static int posizione = 999;
 
     public DrinkByIngredient() throws IOException {
@@ -122,8 +123,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         drinkRepository = new DrinkRepository(this, this.getApplication());
         drinksWithDrinksApi=new ArrayList<>();
         drinksPreferiti=new ArrayList<>();
-
-
+        nomiDrink = new ArrayList<>();
         button_Successivo_Drink.setVisibility(View.INVISIBLE);
         button_Precedente_Drink.setVisibility(View.INVISIBLE);
 
@@ -139,105 +139,14 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
 
-        if(v.getId() == R.id.button_Precedente_Drink){
-            setDefaultButtonSalva();
-            posizione = posizione-1;
-            visualizzaDrink(posizione);
-            attivaBottoni();
-        } else if(v.getId() == R.id.button_Successivo_Drink){
-            setDefaultButtonSalva();
-            posizione++;
-            visualizzaDrink(posizione);
-            attivaBottoni();
-        } else if(v.getId() == R.id.button_Search) {
-            setDefaultButtonSalva();
-            String ricerca = drinkDaCercare.getText().toString();
-            if(ricerca.equals("")) {
-                Toast toastErroreRicerca = Toast.makeText(this, "Spiacenti! Inserire il nome del drink da cercare", Toast.LENGTH_LONG);
-                toastErroreRicerca.show();
-            }
-            else{
-                posizione = 0;
-                //drinksWithDrinksApi.add(null);
-                attivaBottoni();
-                drinksWithDrinksApi.clear();
-                drinkDaCercare.setText("");
-                List<Drink> drinkListWithGson = getDrinksWithGson();
-                drinkRepository.fetchByIngredient(ricerca);
-            }
-        } else if(v.getId() == R.id.button_Salva_Preferito){
-            int idDrink = drinksWithDrinksApi.get(posizione).getIdDrink();
-            boolean trovato=false;
-            for(int i=0; i<drinksPreferiti.size();i++)
-            {
-                if(Integer.parseInt(drinksPreferiti.get(i))==idDrink){
-                    trovato=true;
-                }
-            }
-            if(trovato==true){
-                try {
-                    cancellaDrinkdaFile(idDrink);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Toast toastRimozione= Toast.makeText(this, "Il drink è stato rimosso dalla Lista Preferiti", Toast.LENGTH_LONG);
-                toastRimozione.show();
-            }
-            else{
-                try {
-                    Toast toastSalvataggio= Toast.makeText(this, "Il drink selezionato è ora nella tua lista preferiti", Toast.LENGTH_LONG);
-                    toastSalvataggio.show();
-                    salvaIdDrink(idDrink);
-                    RecuperaDrinkPreferiti();
-                    setChangesButtonSalva();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
 
     }
 
-    private List<Drink> getDrinksWithGson() {
-        InputStream fileInputStream = null;
-        JsonReader jsonReader;
-        try {
-            fileInputStream = this.getAssets().open("search_margarita.json");
-            jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-        Response response = new Gson().fromJson(bufferedReader, Response.class);
-
-        return response.getDrinks();
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResponse(List<Drink> drinkList) {
 
-        if(drinkList != null) {
-            drinksWithDrinksApi.addAll(drinkList);
-
-            if(drinksWithDrinksApi.size()==1)
-            {
-                button_Precedente_Drink.setClickable(false);
-                button_Precedente_Drink.setEnabled(false);
-                button_Successivo_Drink.setClickable(false);
-                button_Successivo_Drink.setEnabled(false);
-            }
-            else{
-                attivaBottoni();
-            }
-            visualizzaDrink(posizione);
-        }else{
-            posizione = 9999999;
-            Toast toastErrore = Toast.makeText(this, "Spiacenti! Il drink ricercato non è disponibile", Toast.LENGTH_LONG);
-            toastErrore.show();
-
-        }
 
     }
 
@@ -250,6 +159,11 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
     // DA NON USARE
     @Override
     public void onResponseI(List<Ingredient> ingredientList) {
+
+    }
+
+    @Override
+    public void onResponseNome(List<String> nomeDrink) {
 
     }
 

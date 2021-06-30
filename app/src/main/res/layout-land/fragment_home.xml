@@ -80,7 +80,7 @@
                     android:layout_marginBottom="10px"
                     android:layout_marginTop="10px"
                     android:layout_weight="0.3"
-                    android:src="@drawable/cocktail"
+                    android:src="@drawable/ingredient"
                     />
 
             </LinearLayout>
@@ -102,7 +102,7 @@
                     android:layout_marginRight="10px"
                     android:layout_marginBottom="10px"
                     android:layout_marginTop="10px"
-                    android:src="@android:drawable/ic_dialog_info"
+                    android:src="@drawable/wikipedia"
                     />
 
                 <ImageButton
@@ -115,7 +115,7 @@
                     android:layout_marginRight="10px"
                     android:layout_marginBottom="10px"
                     android:layout_marginTop="10px"
-                    android:src="@android:drawable/ic_menu_help"
+                    android:src="@drawable/casuale"
                     />
 
             </LinearLayout>

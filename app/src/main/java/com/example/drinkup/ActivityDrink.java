@@ -43,89 +43,63 @@ import com.example.drinkup.GestioneFile.*;
 
 public class ActivityDrink extends AppCompatActivity implements View.OnClickListener, ResponseCallback {
 
-    private static final String TAG ="ActivityDrink" ;
-
     private IDrinkRepository drinkRepository;
-
     private List<Drink> drinksWithDrinksApi;
     private List<String> drinksPreferiti;
-    private List<String> listaTemp;
-
     private Button button_Search;
     private EditText drinkDaCercare;
-    private TextView nomeDrink;
-    private TextView text_nome;
     private TextView text_gradazione;
     private TextView text_ingredienti;
     private TextView text_quantita;
     private TextView text_preparazione;
     private ImageView imageViewDownload;
     private CardView cardView_InfoDrink;
-
     private TextView textView_Nome_Drink;
     private TextView textView_Alchool_Drink;
     private TextView textView_Ingredienti_Drink;
     private TextView textView_QuantitaIngredienti_Drink;
     private TextView textView_Preparazione_Drink;
-
     private Button button_Successivo_Drink;
     private Button button_Precedente_Drink;
     private Button button_Salva_Preferito;
-
     public static int posizione = 999;
-
-    public ActivityDrink() throws IOException {
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink);
 
-        textView_Alchool_Drink = (TextView) findViewById(R.id.textView_Alchool_Drink);
-        //text_nome = (TextView) findViewById(R.id.textView);
-        cardView_InfoDrink=(CardView)findViewById(R.id.CardView_InfoDrink);
-        text_gradazione = (TextView) findViewById(R.id.text_Gradazione);
-        text_ingredienti= (TextView) findViewById(R.id.text_Ingredienti);
-        text_preparazione= (TextView) findViewById(R.id.text_Preparazione);
-        text_quantita= (TextView) findViewById(R.id.text_Quantita);
-        //text_nome.setVisibility(View.INVISIBLE);
+        cardView_InfoDrink= findViewById(R.id.CardView_InfoDrink);
+        text_gradazione = findViewById(R.id.text_Gradazione);
+        text_ingredienti = findViewById(R.id.text_Ingredienti);
+        text_preparazione = findViewById(R.id.text_Preparazione);
+        text_quantita = findViewById(R.id.text_Quantita);;
         text_gradazione.setVisibility(View.INVISIBLE);
         text_ingredienti.setVisibility(View.INVISIBLE);
         text_preparazione.setVisibility(View.INVISIBLE);
         text_quantita.setVisibility(View.INVISIBLE);
         cardView_InfoDrink.setVisibility(View.INVISIBLE);
-
-        textView_Ingredienti_Drink = (TextView) findViewById(R.id.textView_Ingredienti_Drink);
-        textView_QuantitaIngredienti_Drink = (TextView) findViewById(R.id.textView_QuantitaIngredienti_Drink);
-        textView_Preparazione_Drink = (TextView) findViewById(R.id.textView_Preparazione_Drink);
-        textView_Nome_Drink = (TextView) findViewById(R.id.textView_Nome_Drink);
-
-        imageViewDownload = (ImageView) findViewById(R.id.imageView_Drink);
+        textView_Ingredienti_Drink = findViewById(R.id.textView_Ingredienti_Drink);
+        textView_QuantitaIngredienti_Drink = findViewById(R.id.textView_QuantitaIngredienti_Drink);
+        textView_Preparazione_Drink = findViewById(R.id.textView_Preparazione_Drink);
+        textView_Nome_Drink = findViewById(R.id.textView_Nome_Drink);
+        textView_Alchool_Drink = findViewById(R.id.textView_Alchool_Drink);
+        drinkDaCercare = findViewById(R.id.editTextText_DrinkSearch);
+        imageViewDownload = findViewById(R.id.imageView_Drink);
         imageViewDownload.setVisibility(View.INVISIBLE);
-        button_Search = (Button) findViewById(R.id.button_Search);
+        button_Search = findViewById(R.id.button_Search);
         button_Search.setOnClickListener(this);
-
-        button_Successivo_Drink = (Button) findViewById(R.id.button_Successivo_Drink);
+        button_Successivo_Drink = findViewById(R.id.button_Successivo_Drink);
         button_Successivo_Drink.setOnClickListener(this);
-
-        button_Precedente_Drink = (Button) findViewById(R.id.button_Precedente_Drink);
-        button_Precedente_Drink.setOnClickListener(this);
-
-        button_Salva_Preferito = (Button) findViewById(R.id.button_Salva_Preferito);
-        button_Salva_Preferito.setOnClickListener(this);
-
-        nomeDrink = (TextView) findViewById(R.id.textView_Alchool_Drink);
-        drinkDaCercare = (EditText) findViewById(R.id.editTextText_DrinkSearch);
-
-        drinkRepository = new DrinkRepository(this, this.getApplication());
-        drinksWithDrinksApi=new ArrayList<>();
-        drinksPreferiti=new ArrayList<>();
-
-
         button_Successivo_Drink.setVisibility(View.INVISIBLE);
+        button_Precedente_Drink = findViewById(R.id.button_Precedente_Drink);
+        button_Precedente_Drink.setOnClickListener(this);
         button_Precedente_Drink.setVisibility(View.INVISIBLE);
+        button_Salva_Preferito = findViewById(R.id.button_Salva_Preferito);
+        button_Salva_Preferito.setOnClickListener(this);
+        drinkRepository = new DrinkRepository(this, this.getApplication());
+        drinksWithDrinksApi = new ArrayList<>();
+        drinksPreferiti = new ArrayList<>();
 
         try {
             RecuperaDrinkPreferiti();
@@ -134,7 +108,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    //metodo che gestisce gli eventi di Click sui vari bottoni
+    // metodo che gestisce gli eventi di Click sui vari bottoni
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
@@ -158,11 +132,9 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             }
             else{
                 posizione = 0;
-                //drinksWithDrinksApi.add(null);
                 attivaBottoni();
                 drinksWithDrinksApi.clear();
                 drinkDaCercare.setText("");
-                List<Drink> drinkListWithGson = getDrinksWithGson();
                 drinkRepository.fetchDrinks(ricerca);
             }
         } else if(v.getId() == R.id.button_Salva_Preferito){
@@ -198,22 +170,6 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     }
 
-    private List<Drink> getDrinksWithGson() {
-        InputStream fileInputStream = null;
-        JsonReader jsonReader;
-        try {
-            fileInputStream = this.getAssets().open("search_margarita.json");
-            jsonReader = new JsonReader(new InputStreamReader(fileInputStream, "UTF-8"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-        Response response = new Gson().fromJson(bufferedReader, Response.class);
-
-        return response.getDrinks();
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResponse(List<Drink> drinkList) {
@@ -236,9 +192,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             posizione = 9999999;
             Toast toastErrore = Toast.makeText(this, "Spiacenti! Il drink ricercato non è disponibile", Toast.LENGTH_LONG);
             toastErrore.show();
-
         }
-
     }
 
     @Override
@@ -247,12 +201,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         toastOnFailure.show();
     }
 
-    // DA NON USARE
-    @Override
-    public void onResponseI(List<Ingredient> ingredientList) {
-
-    }
-
+    // metodo per scaricare l'immagine dall'API
     private void imgGlide(String urlPassata){
 
         String url = urlPassata;
@@ -273,7 +222,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     }
 
-    //metodo che permette di visualizzare il drink
+    // metodo che permette di visualizzare il drink
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void visualizzaDrink(int posizione){
 
@@ -285,7 +234,6 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         textView_Preparazione_Drink.setText(drinksWithDrinksApi.get(posizione).getStrInstructionsIT());
         imgGlide(drinksWithDrinksApi.get(posizione).getStrDrinkThumb());
         cardView_InfoDrink.setVisibility(View.VISIBLE);
-        //text_nome.setVisibility(View.VISIBLE);
         text_gradazione.setVisibility(View.VISIBLE);
         text_ingredienti.setVisibility(View.VISIBLE);
         text_quantita.setVisibility(View.VISIBLE);
@@ -307,7 +255,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     }
 
-    //Recupera la lista degli ingredienti associata ad un determinato drink passato per posizione
+    // Recupera la lista degli ingredienti associata ad un determinato drink passato per posizione
     private String recuperaIngredienti(int posizione){
         List<String> listaIngredienti = new ArrayList<>();
         String ingredienti = "";
@@ -363,7 +311,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         return ingredienti;
     }
 
-    //Recupera la quantità degli ingredienti associata ad un determinato drink passato per posizione
+    // Recupera la quantità degli ingredienti associata ad un determinato drink passato per posizione
     private String recuperaQuantitaIngredienti(int posizione){
         String quantita = "";
         List<String> listaQuantita = new ArrayList<>();
@@ -419,7 +367,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         return quantita;
     }
 
-    //Metodo che attiva o disattiva i bottoni a seconda delle esigenze
+    // Metodo che attiva o disattiva i bottoni a seconda delle esigenze
     public void attivaBottoni(){
 
         if (posizione==0 && drinksWithDrinksApi.size()==0)
@@ -447,12 +395,14 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     }
 
+    // metodo per il salvatggio dell'id del drink da inserire nei preferiti
     private void salvaIdDrink(int idDrink) throws IOException {
         //LibFileExt.writeFile("ElencoIdDrink", ""+idDrink);
         scriviFile(idDrink);
         //String contenuto = leggiFile(scriviFile(idDrink));
     }
 
+    // metodo che crea il file e scrive l'id del drink preferito
     private File scriviFile(int data) throws IOException {
         File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
         String idDrink = ""+data+"\n";
@@ -482,7 +432,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     }
 
-    //metodo che legge il file e ritorna una stringa contenente i valori letti
+    // metodo che legge il file e ritorna una stringa contenente i valori letti
     private String leggiFile(File file) throws IOException {
         int length = (int) file.length();
 
@@ -500,7 +450,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         return contents;
     }
 
-    //metodo che permette di salvare in una lista l'elenco dei drink preferiti letti dal file, invoca il metodo esterno leggiFile
+    // metodo che permette di salvare in una lista l'elenco dei drink preferiti letti dal file, invoca il metodo esterno leggiFile
     private void RecuperaDrinkPreferiti() throws IOException {
         File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
         File file = new File(path, "ElencoPreferiti.txt");
@@ -508,7 +458,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         drinksPreferiti= Arrays.asList(stringElencoPreferiti.split("\n"));
     }
 
-    //Metodo che permette di cancellare un drink tra i preferiti nel file locale
+    // Metodo che permette di cancellare un drink tra i preferiti nel file locale
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void cancellaDrinkdaFile(int id) throws IOException {
         File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
@@ -539,14 +489,14 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         setDefaultButtonSalva();
     }
 
-    //metodo che permette di riportare i valori di default al bottone "Salva Preferito"
+    // metodo che permette di riportare i valori di default al bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setDefaultButtonSalva(){
         button_Salva_Preferito.setBackgroundColor(0xFFCA4700);
         button_Salva_Preferito.setForeground(null);
     }
 
-    //metodo che permette cambiamenti grafici una volta premuto il bottone "Salva Preferito"
+    // metodo che permette cambiamenti grafici una volta premuto il bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setChangesButtonSalva(){
         button_Salva_Preferito.setBackgroundColor(0xFFDAA520);
@@ -555,4 +505,14 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         button_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
     }
 
+    // DA NON USARE
+    @Override
+    public void onResponseI(List<Ingredient> ingredientList) {
+    }
+
+    // DA NON USARE
+    @Override
+    public void onResponseNome(List<String> nomeDrink) {
+
+    }
 }

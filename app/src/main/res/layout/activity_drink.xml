@@ -109,12 +109,6 @@
                                 android:textSize="30sp"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                 android:textColor="#FFCA4700" />
-                                <!--
-                                android:id="@+id/textView"
-                                android:text="@string/nome_Drink"
-                                android:textSize="25sp"
-                                android:textStyle="bold|italic"-->
-
 
                             <Button
                                 android:id="@+id/button_Salva_Preferito"
@@ -124,24 +118,8 @@
                                 app:icon="@android:drawable/btn_star_big_on"
                                 app:iconSize="20dp" />
                         </LinearLayout>
-                        <!-- android:background="@drawable/circle" -->
 
                     </androidx.cardview.widget.CardView>
-
-                    <!--
-                    <TextView
-                        android:id="@+id/textView_Nome_Drink"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
-                        android:fontFamily="sans-serif-light"
-                        android:textSize="20sp"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/black" />
-                        -->
 
                     <TextView
                         android:id="@+id/text_Gradazione"
@@ -163,7 +141,7 @@
                         android:layout_marginLeft="4dp"
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
-                        android:fontFamily="sans-serif-light"
+                        android:fontFamily="@font/inter"
                         android:textColor="@color/black" />
 
                     <LinearLayout
@@ -200,7 +178,7 @@
                                     android:layout_marginLeft="4dp"
                                     android:layout_marginEnd="4dp"
                                     android:layout_marginRight="4dp"
-                                    android:fontFamily="sans-serif-light"
+                                    android:fontFamily="@font/inter"
                                     android:textColor="@color/black" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -231,7 +209,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="4dp"
                                     android:layout_marginRight="4dp"
-                                    android:fontFamily="sans-serif-light"
+                                    android:fontFamily="@font/inter"
                                     android:textColor="@color/black" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -258,7 +236,7 @@
                         android:layout_marginLeft="4dp"
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
-                        android:fontFamily="sans-serif-light"
+                        android:fontFamily="@font/inter"
                         android:textColor="@color/black" />
 
                     <ImageView
@@ -267,6 +245,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
                         android:background="@android:drawable/screen_background_light_transparent"
                         android:visibility="visible"
                         app:srcCompat="@drawable/image_drink"
