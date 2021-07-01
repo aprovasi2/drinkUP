@@ -13,5 +13,12 @@
     <color name="orange_dark">#DFE4931B</color>
     <color name="black_ligth">#86000000</color>
     <color name="white_dark">#E1E1E1</color>
+    <!--CustomToast-->
+    <color name="toast_empty">#DDDDDD</color>
+    <color name="toast_info">#738cff</color>
+    <color name="toast_warn">#c4c7a600</color>
+    <color name="toast_warn_opaque">#e1bb00</color>
+    <color name="toast_error">#F44336</color>
+    <color name="toast_confirm">#00a400</color>
 
 </resources>

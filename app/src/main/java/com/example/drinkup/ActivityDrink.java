@@ -509,6 +509,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     public void onResponseI(List<Ingredient> ingredientList) {
     }
 
+    // DA NON USARE
     @Override
     public void onResponseNome(List<Drink> nomeDrink) {
 
