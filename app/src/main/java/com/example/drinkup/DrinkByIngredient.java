@@ -99,14 +99,35 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
             drinkRepository.fetchDrinks(nomiDrink.get(posizione));
         }
         if (v.getId() == R.id.button_Salva_Preferito) {
-            try {
-                cancellaDrinkdaFile(Integer.parseInt(nomiDrink.get(posizione)));
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            int idDrink = drinksWithDrinksApi.get(posizione).getIdDrink();
+            boolean trovato=false;
+            for(int i=0; i<drinksPreferiti.size();i++)
+            {
+                if(Integer.parseInt(drinksPreferiti.get(i))==idDrink){
+                    trovato=true;
+                }
             }
-            setDefaultButtonSalva();
-            Toast toastRimosso= Toast.makeText(this, "Il drink è stato rimosso dalla tua lista preferiti", Toast.LENGTH_LONG);
-            toastRimosso.show();
+            if(trovato==true){
+                try {
+                    cancellaDrinkdaFile(idDrink);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Toast toastRimozione= Toast.makeText(this, "Il drink è stato rimosso dalla Lista Preferiti", Toast.LENGTH_LONG);
+                toastRimozione.show();
+            }
+            else{
+                try {
+                    Toast toastSalvataggio= Toast.makeText(this, "Il drink selezionato è ora nella tua lista preferiti", Toast.LENGTH_LONG);
+                    toastSalvataggio.show();
+                    salvaIdDrink(idDrink);
+                    RecuperaDrinkPreferiti();
+                    setChangesButtonSalva();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         if(v.getId() == R.id.button_Search){
             String ricerca = drinkDaCercare.getText().toString();
@@ -157,7 +178,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onFailure(String msg) {
-        Toast toastOnFailure = Toast.makeText(this, "ERRORE API!", Toast.LENGTH_LONG);
+        Toast toastOnFailure = Toast.makeText(this, "ERRORE nella ricerca!", Toast.LENGTH_LONG);
         toastOnFailure.show();
     }
 
@@ -186,6 +207,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         if(trovato){
             setChangesButtonSalva();
         }
+        else {setDefaultButtonSalva();}
 
     }
 
