@@ -4,15 +4,14 @@ import java.util.List;
 
 public class Response {
 
+    // dicharazione variabili
     private List<Drink> drinks;
-    private List<String> strIdDrink;
     private List<Ingredient> ingredients;
+
+    // metodi get e set delle variabili
+
     public List<Drink> getDrinks() {
         return drinks;
-    }
-
-    public List<String> getIdDrinks() {
-        return strIdDrink;
     }
 
     public List<Ingredient> getIngredients() {

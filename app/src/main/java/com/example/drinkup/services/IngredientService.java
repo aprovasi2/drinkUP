@@ -9,6 +9,7 @@ import retrofit2.http.Query;
 //import retrofit2.http.Header;
 
 public interface IngredientService {
+    //ricerca ingrediente per nome
     @GET("search.php")
     Call<Response> getIngredient(@Query("i") String nomeIngredient);
 }

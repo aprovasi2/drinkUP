@@ -2,6 +2,7 @@ package com.example.drinkup.models;
 
 public class Ingredient {
 
+    // dichiarazioni variabili
     private int idIngredient;
     private String strIngredient;
     private String strDescription;
@@ -9,6 +10,7 @@ public class Ingredient {
     private String strAlcohol;
     private String strABV;
 
+    // costruttore della classe
     public Ingredient(int idIngredient, String strIngredient, String strDescription, String strType, String strAlcohol, String strABV) {
         this.idIngredient = idIngredient;
         this.strIngredient = strIngredient;
@@ -17,6 +19,8 @@ public class Ingredient {
         this.strAlcohol = strAlcohol;
         this.strABV = strABV;
     }
+
+    // metodi get e set per ogni variabile
 
     public int getIdIngredient() {
         return idIngredient;

@@ -8,8 +8,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceLocator {
-    private static ServiceLocator instance = null;
 
+    // dichiarazioni variabili
+    private static ServiceLocator instance = null;
     private ServiceLocator() {}
 
     public static ServiceLocator getInstance() {
