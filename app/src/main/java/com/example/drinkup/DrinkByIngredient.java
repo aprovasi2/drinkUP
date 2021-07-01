@@ -110,6 +110,8 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         }
         if(v.getId() == R.id.button_Search){
             String ricerca = drinkDaCercare.getText().toString();
+            drinksWithDrinksApi.clear();
+            nomiDrink.clear();
             if(!ricerca.equals("")){
                 drinkRepository.fetchByIngredient(ricerca);
                 posizione = 0;
@@ -155,7 +157,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onFailure(String msg) {
-        Toast toastOnFailure = Toast.makeText(this, "ERRORE!", Toast.LENGTH_LONG);
+        Toast toastOnFailure = Toast.makeText(this, "ERRORE API!", Toast.LENGTH_LONG);
         toastOnFailure.show();
     }
 
