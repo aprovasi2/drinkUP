@@ -78,6 +78,8 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         drinksPreferiti = new ArrayList<>();
         nomiDrink = new ArrayList<>();
         cardView_InfoDrink.setVisibility(View.INVISIBLE);
+        drinkDaCercare.setHint("Inserisci l'ingrediente da cercare");
+
 
         try {
             RecuperaDrinkPreferiti();
