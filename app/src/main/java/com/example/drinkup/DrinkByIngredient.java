@@ -99,7 +99,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
             drinkRepository.fetchDrinks(nomiDrink.get(posizione));
         }
         if (v.getId() == R.id.button_Salva_Preferito) {
-
+            //Controllo se il drink è nei preferiti
             int idDrink = drinksWithDrinksApi.get(posizione).getIdDrink();
             boolean trovato=false;
             for(int i=0; i<drinksPreferiti.size();i++)
@@ -107,7 +107,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
                 if(Integer.parseInt(drinksPreferiti.get(i))==idDrink){
                     trovato=true;
                 }
-            }
+            } // se presente vuol dire che l'utente lo vuole cancellare
             if(trovato==true){
                 try {
                     cancellaDrinkdaFile(idDrink);
@@ -116,7 +116,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
                 }
                 Toast toastRimozione= Toast.makeText(this, "Il drink è stato rimosso dalla Lista Preferiti", Toast.LENGTH_LONG);
                 toastRimozione.show();
-            }
+            } // se non è presente, significa che l'utente lo vuole salvare
             else{
                 try {
                     Toast toastSalvataggio= Toast.makeText(this, "Il drink selezionato è ora nella tua lista preferiti", Toast.LENGTH_LONG);
@@ -134,6 +134,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
             drinksWithDrinksApi.clear();
             nomiDrink.clear();
             if(!ricerca.equals("")){
+                //chiamata api per recuperare i nomi di tutti i drink preparati con quell'ingrediente
                 drinkRepository.fetchByIngredient(ricerca);
                 posizione = 0;
             }
@@ -146,6 +147,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
 
     }
 
+    //Metodo di ritorno chiamata API dei nomi dei drink
     @Override
     public void onResponseNome(List<Drink> nomeDrink) {
         if(nomeDrink != null){
@@ -161,6 +163,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
 
     }
 
+    //Metodo di ritorno chiamata API dei drink
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResponse(List<Drink> drinkList) {
@@ -176,6 +179,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
 
     }
 
+    //Metodo che verrà invocato se la chiamata API non andrà a buon fine
     @Override
     public void onFailure(String msg) {
         Toast toastOnFailure = Toast.makeText(this, "ERRORE nella ricerca!", Toast.LENGTH_LONG);
