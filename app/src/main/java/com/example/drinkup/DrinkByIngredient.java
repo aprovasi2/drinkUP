@@ -29,7 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DrinkByIngredient extends AppCompatActivity implements View.OnClickListener, ResponseCallback {
-
+    //Dichiarazioni variabili
     private IDrinkRepository drinkRepository;
     private List<Drink> drinksWithDrinksApi;
     private List<String> drinksPreferiti;
@@ -221,13 +221,9 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         String newUrl = null;
 
         if (url != null) {
-            // This action is a possible alternative to manage HTTP addresses that don't work
-            // in the apps that target API level 28 or higher.
-            // If it doesn't work, the other option is this one:
-            // https://developer.android.com/guide/topics/manifest/application-element#usesCleartextTraffic
             newUrl = url.replace("http://", "https://").trim();
 
-            // Download the image associated with the article
+            // Download dell'immagine associata al drink
             Glide.with(DrinkByIngredient.this)
                     .load(newUrl)
                     .into(imageViewDownload);
@@ -379,10 +375,9 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
 
     }
 
+    //Metodo che salva su file preferiti l'id del drink passato
     private void salvaIdDrink(int idDrink) throws IOException {
-        //LibFileExt.writeFile("ElencoIdDrink", ""+idDrink);
         scriviFile(idDrink);
-        //String contenuto = leggiFile(scriviFile(idDrink));
     }
 
     private File scriviFile(int data) throws IOException {

@@ -42,7 +42,7 @@ import java.util.List;
 import com.example.drinkup.GestioneFile.*;
 
 public class ActivityDrink extends AppCompatActivity implements View.OnClickListener, ResponseCallback {
-
+    //dichiarazione variabili
     private IDrinkRepository drinkRepository;
     private List<Drink> drinksWithDrinksApi;
     private List<String> drinksPreferiti;
