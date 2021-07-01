@@ -32,8 +32,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         view = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-
-
         imagebuttonedrinkingredient = (ImageButton) root.findViewById(R.id.imageButton_DrinkPerIngredient);
         imagebuttonedrinkingredient.setOnClickListener(this);
 
@@ -56,7 +54,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.imageButtonDrink:
                //azione da compiere dopo aver cliccato bottone drink
-
                 Intent intentNomeDrink = new Intent(getActivity(), ActivityDrink.class);
                 startActivity(intentNomeDrink);
                 break;
@@ -79,7 +76,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(intentRandom);
                 break;
         }
-
 
     }
 }

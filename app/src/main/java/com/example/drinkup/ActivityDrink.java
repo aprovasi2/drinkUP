@@ -398,9 +398,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     // metodo per il salvatggio dell'id del drink da inserire nei preferiti
     private void salvaIdDrink(int idDrink) throws IOException {
-        //LibFileExt.writeFile("ElencoIdDrink", ""+idDrink);
         scriviFile(idDrink);
-        //String contenuto = leggiFile(scriviFile(idDrink));
     }
 
     // metodo che crea il file e scrive l'id del drink preferito

@@ -41,7 +41,6 @@ import com.example.drinkup.GestioneFile.*;
 
 public class MainActivity extends AppCompatActivity {
 
-
     public static double longitude = 20;
     public static double latitude = 30;
     private GoogleMap googleMap;
@@ -57,14 +56,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onProviderEnabled(String provider) {
-// attivo GPS su dispositivo
+            // attivo GPS su dispositivo
             // updateText(R.id.enabled, "TRUE");
-
         }
 
         @Override
         public void onProviderDisabled(String provider) {
-// disattivo GPS su dispositivo
+            // disattivo GPS su dispositivo
             //updateText(R.id.enabled, "FALSE");
         }
 
@@ -80,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -90,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
 
     }
 
@@ -103,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
-           // public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            // public void onRequestPermissionsResult(int requestCode, String[] permissions,
             //                                 int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
@@ -121,8 +117,6 @@ public class MainActivity extends AppCompatActivity {
         if (location != null)
             updateGUI(location);
         if (locationManager != null && locationManager.isProviderEnabled(providerId))
-
-
             locationManager.requestLocationUpdates(providerId, MIN_PERIOD, MIN_DIST, locationListener);
     }
 

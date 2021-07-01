@@ -280,9 +280,7 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
     }
 
     private void salvaIdDrink(int idDrink) throws IOException {
-        //LibFileExt.writeFile("ElencoIdDrink", ""+idDrink);
         scriviFile(idDrink);
-        //String contenuto = leggiFile(scriviFile(idDrink));
     }
 
     private File scriviFile(int data) throws IOException {

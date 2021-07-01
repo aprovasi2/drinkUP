@@ -136,6 +136,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
             String ricerca = drinkDaCercare.getText().toString();
             drinksWithDrinksApi.clear();
             nomiDrink.clear();
+            drinkDaCercare.setText("");
             if(!ricerca.equals("")){
                 //chiamata api per recuperare i nomi di tutti i drink preparati con quell'ingrediente
                 drinkRepository.fetchByIngredient(ricerca);

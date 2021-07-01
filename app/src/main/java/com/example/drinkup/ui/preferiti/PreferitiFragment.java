@@ -40,7 +40,6 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
     //Dichiarazione variabili
     private PreferitiViewModel preferitiViewModel;
-
     private IDrinkRepository drinkRepository;
     private List<Drink> drinksPreferitiWithDrinksApi;
     private List<String> elencoIdDrink;
@@ -56,7 +55,6 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     private Button buttonPrefe_Salva_Preferito;
     public static int posizionePref = 999;
     private CardView cardView_InfoDrinkPrefe;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
