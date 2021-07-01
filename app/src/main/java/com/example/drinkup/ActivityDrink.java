@@ -201,20 +201,16 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         toastOnFailure.show();
     }
 
-    // metodo per scaricare l'immagine dall'API
+    // //Metodo che permette di scaricare l'immagine associata all'url passata
     private void imgGlide(String urlPassata){
 
         String url = urlPassata;
         String newUrl = null;
 
         if (url != null) {
-            // This action is a possible alternative to manage HTTP addresses that don't work
-            // in the apps that target API level 28 or higher.
-            // If it doesn't work, the other option is this one:
-            // https://developer.android.com/guide/topics/manifest/application-element#usesCleartextTraffic
             newUrl = url.replace("http://", "https://").trim();
 
-            // Download the image associated with the article
+            // Download dell'immagine associata alla url passata
             Glide.with(ActivityDrink.this)
                     .load(newUrl)
                     .into(imageViewDownload);

@@ -51,6 +51,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Inizializzazione variabili al momento della creazione dell'Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink);
 
@@ -215,6 +216,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
 
     }
 
+    //Metodo che permette di scaricare l'immagine associata all'url passata
     private void imgGlide(String urlPassata){
 
         String url = urlPassata;
@@ -222,7 +224,6 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
 
         if (url != null) {
             newUrl = url.replace("http://", "https://").trim();
-
             // Download dell'immagine associata al drink
             Glide.with(DrinkByIngredient.this)
                     .load(newUrl)
