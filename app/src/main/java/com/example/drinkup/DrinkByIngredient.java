@@ -381,6 +381,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         scriviFile(idDrink);
     }
 
+    //Metodo che permette la scrittura su file
     private File scriviFile(int data) throws IOException {
         File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
         String idDrink = ""+data+"\n";

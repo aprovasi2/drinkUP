@@ -66,6 +66,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Inizializzazione variabili al momento della creazione dell'Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink);
 
@@ -138,6 +139,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
                 drinkRepository.fetchDrinks(ricerca);
             }
         } else if(v.getId() == R.id.button_Salva_Preferito){
+            //Controllo se il drink è nei preferiti
             int idDrink = drinksWithDrinksApi.get(posizione).getIdDrink();
             boolean trovato=false;
             for(int i=0; i<drinksPreferiti.size();i++)
@@ -145,7 +147,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
                 if(Integer.parseInt(drinksPreferiti.get(i))==idDrink){
                     trovato=true;
                 }
-            }
+            } // se presente vuol dire che l'utente lo vuole cancellare
             if(trovato==true){
                 try {
                     cancellaDrinkdaFile(idDrink);
@@ -154,7 +156,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
                 }
                 Toast toastRimozione= Toast.makeText(this, "Il drink è stato rimosso dalla Lista Preferiti", Toast.LENGTH_LONG);
                 toastRimozione.show();
-            }
+            } // se non è presente, significa che l'utente lo vuole salvare
             else{
                 try {
                     Toast toastSalvataggio= Toast.makeText(this, "Il drink selezionato è ora nella tua lista preferiti", Toast.LENGTH_LONG);
@@ -169,7 +171,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         }
 
     }
-
+    //Metodo di ritorno chiamata API
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResponse(List<Drink> drinkList) {
@@ -194,13 +196,12 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             toastErrore.show();
         }
     }
-
+    //Metodo di fallimento chiamata API
     @Override
     public void onFailure(String msg) {
         Toast toastOnFailure = Toast.makeText(this, "ERRORE!", Toast.LENGTH_LONG);
         toastOnFailure.show();
     }
-
     // //Metodo che permette di scaricare l'immagine associata all'url passata
     private void imgGlide(String urlPassata){
 

@@ -20,7 +20,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
-import com.example.drinkup.ActivityDrink;
 import com.example.drinkup.R;
 import com.example.drinkup.models.Drink;
 import com.example.drinkup.models.Ingredient;
@@ -39,11 +38,12 @@ import java.util.List;
 
 public class PreferitiFragment extends Fragment implements ResponseCallback, View.OnClickListener {
 
+    //Dichiarazione variabili
     private PreferitiViewModel preferitiViewModel;
 
     private IDrinkRepository drinkRepository;
     private List<Drink> drinksPreferitiWithDrinksApi;
-    private List<String> temp;
+    private List<String> elencoIdDrink;
     String result = "";
     private TextView textViewPrefe_Nome_Drink;
     private TextView textViewPrefe_Alchool_Drink;
@@ -66,7 +66,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
         drinkRepository = new DrinkRepository(this, requireActivity().getApplication());
         drinksPreferitiWithDrinksApi = new ArrayList<>();
-        temp = new ArrayList<>();
+        elencoIdDrink = new ArrayList<>();
 
         //Inizializzazione
         buttonPrefe_Successivo_Drink = root.findViewById(R.id.buttonPrefe_Successivo_Drink);
@@ -88,27 +88,28 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         return root;
     }
 
+    //Metodi da eseguire una volta che l'activity è stata creata
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        File path = requireActivity().getApplication().getFilesDir(); //==> data/data/com.example.drinkup/files
+        //Recupero da file l'elenco degli id di tutti i drink salvati nei preferiti
+        File path = requireActivity().getApplication().getFilesDir();
         File file = new File(path, "ElencoPreferiti.txt");
-        Log.d("testPath", file.toString());
 
         try {
             result = leggiFile(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        temp = Arrays.asList(result.split("\n"));
+        //Salvo nella lista tutti gli id dei drink preferiti opportunamente splittati
+        elencoIdDrink = Arrays.asList(result.split("\n"));
         posizionePref = 0;
-        drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
+        drinkRepository.fetchPreferitiDrinks(elencoIdDrink.get(posizionePref));
         setChangesButtonSalva();
         
     }
 
+    //Metodo di risposta dell'API, in cui verranno salavti nella lista tutti i drink recuperati e visualizzato il primo
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResponse(List<Drink> drinkList) {
@@ -117,6 +118,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         attivaBottoni();
     }
 
+    //Metodo di fallimento chiamata API
     @Override
     public void onFailure(String msg) {
         Toast toastFailure= Toast.makeText(requireActivity().getApplication(), "NON HAI DRINK PREFERITI", Toast.LENGTH_LONG);
@@ -138,20 +140,16 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         attivaBottoni();
 
     }
-
+    //Metodo che permette di scaricare l'immagine associata all'url passata
     private void imgGlide(String urlPassata) {
 
         String url = urlPassata;
         String newUrl = null;
 
         if (url != null) {
-            // This action is a possible alternative to manage HTTP addresses that don't work
-            // in the apps that target API level 28 or higher.
-            // If it doesn't work, the other option is this one:
-            // https://developer.android.com/guide/topics/manifest/application-element#usesCleartextTraffic
+
             newUrl = url.replace("http://", "https://").trim();
 
-            // Download the image associated with the article
             Glide.with(this)
                     .load(newUrl)
                     .into(imageViewPrefe_Drink);
@@ -159,24 +157,25 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
     }
 
+    //Metodo che gestisce il click sui vari bottoni
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
 
         if (v.getId() == R.id.buttonPrefe_Precedente_Drink) {
             posizionePref = posizionePref - 1;
-            drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
+            drinkRepository.fetchPreferitiDrinks(elencoIdDrink.get(posizionePref));
             attivaBottoni();
         }
         if (v.getId() == R.id.buttonPrefe_Successivo_Drink) {
 
             posizionePref = posizionePref + 1;
-            drinkRepository.fetchPreferitiDrinks(temp.get(posizionePref));
+            drinkRepository.fetchPreferitiDrinks(elencoIdDrink.get(posizionePref));
             attivaBottoni();
         }
         if (v.getId() == R.id.buttonPrefe_Salva_Preferito) {
             try {
-                cancellaDrinkdaFile(Integer.parseInt(temp.get(posizionePref)));
+                cancellaDrinkdaFile(Integer.parseInt(elencoIdDrink.get(posizionePref)));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -189,15 +188,15 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     //Metodo che attiva o disattiva i bottoni a seconda delle esigenze
     public void attivaBottoni() {
 
-        if (posizionePref == 0 && temp.size() == 0) {
+        if (posizionePref == 0 && elencoIdDrink.size() == 0) {
             buttonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
             buttonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
 
-        } else if (posizionePref == 0 && temp.size() != 0) {
+        } else if (posizionePref == 0 && elencoIdDrink.size() != 0) {
             buttonPrefe_Successivo_Drink.setVisibility(View.VISIBLE);
             buttonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
 
-        } else if (posizionePref == temp.size() - 1) {
+        } else if (posizionePref == elencoIdDrink.size() - 1) {
             buttonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
             buttonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
 
@@ -320,17 +319,18 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         return quantita;
     }
 
+    //Metodo che cancella da file l'id del drink passato come argomento
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void cancellaDrinkdaFile(int id) throws IOException {
-        File path = requireActivity().getApplication().getFilesDir(); //==> data/data/com.example.drinkup/files
+        File path = requireActivity().getApplication().getFilesDir();
         File file = new File(path, "ElencoPreferiti.txt");
         Integer value = new Integer(id);
         String daRimuovere = value.toString();
-        //Toast.makeText(this, daRimuovere, Toast.LENGTH_LONG).show();
+
 
         //Parte nuova, al posto di lavorare sull'arrayList originale, se ne si fa una copia e si lavora su quella
         List<String> drinksPreferitiClone = new ArrayList<>();
-        drinksPreferitiClone.addAll(temp);
+        drinksPreferitiClone.addAll(elencoIdDrink);
         for (int i = 0; i < drinksPreferitiClone.size(); i++) {
             String daRemove = drinksPreferitiClone.get(i);
             if (daRemove.equals(id + "")) {
@@ -345,17 +345,18 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         }
         //Una volta fatto, riportiamo tutti i valori nell'elenco originale
         //Per farlo prima liberiamo la lista, con il clear crasha quindi si crea nuova
-        temp = new ArrayList<>();
-        temp.addAll(drinksPreferitiClone);
+        elencoIdDrink = new ArrayList<>();
+        elencoIdDrink.addAll(drinksPreferitiClone);
         setDefaultButtonSalva();
     }
 
+    //Metodo che si occupa della scrittura su file
     private File scriviFile(int data) throws IOException {
-        File path = requireActivity().getApplication().getFilesDir(); //==> data/data/com.example.drinkup/files
+        File path = requireActivity().getApplication().getFilesDir();
         String idDrink = "" + data + "\n";
 
         File file = new File(path, "ElencoPreferiti.txt");
-        Log.d("testPath2", file.toString());
+
         if (!file.exists()) {
             FileOutputStream stream = new FileOutputStream(file);
             try {
@@ -377,6 +378,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         return file;
     }
 
+    //Metodo che permette di leggere il file passato come argomento e ritorna una stringa composta del contenuto
     private String leggiFile(File file) throws IOException {
         int length = (int) file.length();
 
@@ -394,6 +396,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         return contents;
     }
 
+    //metodo che permette cambiamenti grafici una volta premuto il bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setChangesButtonSalva() {
         buttonPrefe_Salva_Preferito.setBackgroundColor(0xFFDAA520);
@@ -401,7 +404,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         buttonPrefe_Salva_Preferito.setForeground(drawable);
         buttonPrefe_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
     }
-
+    //metodo che permette di riportare i valori di default al bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setDefaultButtonSalva() {
         buttonPrefe_Salva_Preferito.setBackgroundColor(0xFFCA4700);
