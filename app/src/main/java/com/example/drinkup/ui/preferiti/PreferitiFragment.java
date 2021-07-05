@@ -43,7 +43,8 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     private IDrinkRepository drinkRepository;
     private List<Drink> drinksPreferitiWithDrinksApi;
     private List<String> elencoIdDrink;
-    String result = "";
+    private List<String> drinkRimossi;
+    String mResult = "";
     private TextView textViewPrefe_Nome_Drink;
     private TextView textViewPrefe_Alchool_Drink;
     private TextView textViewPrefe_Ingredienti_Drink;
@@ -65,6 +66,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         drinkRepository = new DrinkRepository(this, requireActivity().getApplication());
         drinksPreferitiWithDrinksApi = new ArrayList<>();
         elencoIdDrink = new ArrayList<>();
+        drinkRimossi= new ArrayList<>();
 
         //Inizializzazione
         buttonPrefe_Successivo_Drink = root.findViewById(R.id.buttonPrefe_Successivo_Drink);
@@ -95,12 +97,12 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         File file = new File(path, "ElencoPreferiti.txt");
 
         try {
-            result = leggiFile(file);
+            mResult = leggiFile(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
         //Salvo nella lista tutti gli id dei drink preferiti opportunamente splittati
-        elencoIdDrink = Arrays.asList(result.split("\n"));
+        elencoIdDrink = Arrays.asList(mResult.split("\n"));
         posizionePref = 0;
         drinkRepository.fetchPreferitiDrinks(elencoIdDrink.get(posizionePref));
         setChangesButtonSalva();
@@ -129,12 +131,13 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     public void onClick(View v) {
 
         if (v.getId() == R.id.buttonPrefe_Precedente_Drink) {
+           // attivaBottoni();
             posizionePref = posizionePref - 1;
             drinkRepository.fetchPreferitiDrinks(elencoIdDrink.get(posizionePref));
             attivaBottoni();
         }
         if (v.getId() == R.id.buttonPrefe_Successivo_Drink) {
-
+          //  attivaBottoni();
             posizionePref = posizionePref + 1;
             drinkRepository.fetchPreferitiDrinks(elencoIdDrink.get(posizionePref));
             attivaBottoni();
@@ -146,8 +149,13 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
                 e.printStackTrace();
             }
             setDefaultButtonSalva();
-            Toast toastRimosso= Toast.makeText(requireActivity().getApplication(), "Il drink è stato rimosso dalla tua lista preferiti", Toast.LENGTH_LONG);
+            Toast toastRimosso= Toast.makeText(requireActivity().getApplication(), "Il drink" + elencoIdDrink.get(posizionePref)+" è stato rimosso dalla tua lista preferiti", Toast.LENGTH_LONG);
             toastRimosso.show();
+            elencoIdDrink.remove(posizionePref);
+            drinksPreferitiWithDrinksApi.remove(posizionePref);
+            posizionePref=0;
+            visualizzaDrink(posizionePref);
+
         }
     }
 
@@ -162,7 +170,6 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         textViewPrefe_Preparazione_Drink.setText(drinksPreferitiWithDrinksApi.get(posizione).getStrInstructionsIT());
         imgGlide(drinksPreferitiWithDrinksApi.get(posizione).getStrDrinkThumb());
         cardView_InfoDrinkPrefe.setVisibility(View.VISIBLE);
-        setChangesButtonSalva();
         attivaBottoni();
 
     }
