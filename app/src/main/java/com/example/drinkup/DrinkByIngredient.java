@@ -30,24 +30,24 @@ import java.util.List;
 
 public class DrinkByIngredient extends AppCompatActivity implements View.OnClickListener, ResponseCallback {
     //Dichiarazioni variabili
-    private IDrinkRepository drinkRepository;
-    private List<Drink> drinksWithDrinksApi;
-    private List<String> drinksPreferiti;
-    private Button button_Search;
-    private EditText drinkDaCercare;
-    private ImageView imageViewDownload;
-    private CardView cardView_InfoDrink;
-    private TextView textView_Nome_Drink;
-    private TextView textView_Alchool_Drink;
-    private TextView textView_Ingredienti_Drink;
-    private TextView textView_QuantitaIngredienti_Drink;
-    private TextView textView_Preparazione_Drink;
-    private Button button_Successivo_Drink;
-    private Button button_Precedente_Drink;
-    private Button button_Salva_Preferito;
+    private IDrinkRepository mDrinkRepository;
+    private List<Drink> mDrinksWithDrinksApi;
+    private List<String> mDrinksPreferiti;
+    private Button mButton_Search;
+    private EditText mDrinkDaCercare;
+    private ImageView mImageViewDownload;
+    private CardView mCardView_InfoDrink;
+    private TextView mTextView_Nome_Drink;
+    private TextView mTextView_Alchool_Drink;
+    private TextView mTextView_Ingredienti_Drink;
+    private TextView mTextView_QuantitaIngredienti_Drink;
+    private TextView mTextView_Preparazione_Drink;
+    private Button mButton_Successivo_Drink;
+    private Button mButton_Precedente_Drink;
+    private Button mButton_Salva_Preferito;
 
-    private List<String> nomiDrink;
-    public static int posizione = 999;
+    private List<String> mNomiDrink;
+    public static int sPOSIZIONE = 999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,30 +55,30 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink);
 
-        textView_Alchool_Drink = findViewById(R.id.textView_Alchool_Drink);
-        cardView_InfoDrink = findViewById(R.id.CardView_InfoDrink);
-        textView_Ingredienti_Drink = findViewById(R.id.textView_Ingredienti_Drink);
-        textView_QuantitaIngredienti_Drink = findViewById(R.id.textView_QuantitaIngredienti_Drink);
-        textView_Preparazione_Drink = findViewById(R.id.textView_Preparazione_Drink);
-        textView_Nome_Drink = findViewById(R.id.textView_Nome_Drink);
-        imageViewDownload = findViewById(R.id.imageView_Drink);
-        button_Search = findViewById(R.id.button_Search);
-        button_Search.setOnClickListener(this);
-        button_Successivo_Drink = findViewById(R.id.button_Successivo_Drink);
-        button_Successivo_Drink.setOnClickListener(this);
-        button_Successivo_Drink.setVisibility(View.INVISIBLE);
-        button_Precedente_Drink = findViewById(R.id.button_Precedente_Drink);
-        button_Precedente_Drink.setOnClickListener(this);
-        button_Precedente_Drink.setVisibility(View.INVISIBLE);
-        button_Salva_Preferito = findViewById(R.id.button_Salva_Preferito);
-        button_Salva_Preferito.setOnClickListener(this);
-        drinkDaCercare = findViewById(R.id.editTextText_DrinkSearch);
-        drinkRepository = new DrinkRepository(this, this.getApplication());
-        drinksWithDrinksApi = new ArrayList<>();
-        drinksPreferiti = new ArrayList<>();
-        nomiDrink = new ArrayList<>();
-        cardView_InfoDrink.setVisibility(View.INVISIBLE);
-        drinkDaCercare.setHint("Inserisci l'ingrediente da cercare");
+        mTextView_Alchool_Drink = findViewById(R.id.textView_Alchool_Drink);
+        mCardView_InfoDrink = findViewById(R.id.CardView_InfoDrink);
+        mTextView_Ingredienti_Drink = findViewById(R.id.textView_Ingredienti_Drink);
+        mTextView_QuantitaIngredienti_Drink = findViewById(R.id.textView_QuantitaIngredienti_Drink);
+        mTextView_Preparazione_Drink = findViewById(R.id.textView_Preparazione_Drink);
+        mTextView_Nome_Drink = findViewById(R.id.textView_Nome_Drink);
+        mImageViewDownload = findViewById(R.id.imageView_Drink);
+        mButton_Search = findViewById(R.id.button_Search);
+        mButton_Search.setOnClickListener(this);
+        mButton_Successivo_Drink = findViewById(R.id.button_Successivo_Drink);
+        mButton_Successivo_Drink.setOnClickListener(this);
+        mButton_Successivo_Drink.setVisibility(View.INVISIBLE);
+        mButton_Precedente_Drink = findViewById(R.id.button_Precedente_Drink);
+        mButton_Precedente_Drink.setOnClickListener(this);
+        mButton_Precedente_Drink.setVisibility(View.INVISIBLE);
+        mButton_Salva_Preferito = findViewById(R.id.button_Salva_Preferito);
+        mButton_Salva_Preferito.setOnClickListener(this);
+        mDrinkDaCercare = findViewById(R.id.editTextText_DrinkSearch);
+        mDrinkRepository = new DrinkRepository(this, this.getApplication());
+        mDrinksWithDrinksApi = new ArrayList<>();
+        mDrinksPreferiti = new ArrayList<>();
+        mNomiDrink = new ArrayList<>();
+        mCardView_InfoDrink.setVisibility(View.INVISIBLE);
+        mDrinkDaCercare.setHint("Inserisci l'ingrediente da cercare");
 
 
         try {
@@ -94,20 +94,20 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
 
         if (v.getId() == R.id.button_Precedente_Drink) {
-            posizione = posizione - 1;
-            drinkRepository.fetchDrinks(nomiDrink.get(posizione));
+            sPOSIZIONE = sPOSIZIONE - 1;
+            mDrinkRepository.fetchDrinks(mNomiDrink.get(sPOSIZIONE));
         }
         if (v.getId() == R.id.button_Successivo_Drink) {
-            posizione = posizione + 1;
-            drinkRepository.fetchDrinks(nomiDrink.get(posizione));
+            sPOSIZIONE = sPOSIZIONE + 1;
+            mDrinkRepository.fetchDrinks(mNomiDrink.get(sPOSIZIONE));
         }
         if (v.getId() == R.id.button_Salva_Preferito) {
             //Controllo se il drink è nei preferiti
-            int idDrink = drinksWithDrinksApi.get(posizione).getIdDrink();
+            int idDrink = mDrinksWithDrinksApi.get(sPOSIZIONE).getIdDrink();
             boolean trovato=false;
-            for(int i=0; i<drinksPreferiti.size();i++)
+            for(int i = 0; i< mDrinksPreferiti.size(); i++)
             {
-                if(Integer.parseInt(drinksPreferiti.get(i))==idDrink){
+                if(Integer.parseInt(mDrinksPreferiti.get(i))==idDrink){
                     trovato=true;
                 }
             } // se presente vuol dire che l'utente lo vuole cancellare
@@ -133,14 +133,14 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
             }
         }
         if(v.getId() == R.id.button_Search){
-            String ricerca = drinkDaCercare.getText().toString();
-            drinksWithDrinksApi.clear();
-            nomiDrink.clear();
-            drinkDaCercare.setText("");
+            String ricerca = mDrinkDaCercare.getText().toString();
+            mDrinksWithDrinksApi.clear();
+            mNomiDrink.clear();
+            mDrinkDaCercare.setText("");
             if(!ricerca.equals("")){
                 //chiamata api per recuperare i nomi di tutti i drink preparati con quell'ingrediente
-                drinkRepository.fetchByIngredient(ricerca);
-                posizione = 0;
+                mDrinkRepository.fetchByIngredient(ricerca);
+                sPOSIZIONE = 0;
             }
             else{
                 Toast toastErrore = Toast.makeText(this, "Spiacenti! Inserire il nome dell'ingrediente da cercare", Toast.LENGTH_LONG);
@@ -156,9 +156,9 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
     public void onResponseNome(List<Drink> nomeDrink) {
         if(nomeDrink != null){
             for(int i = 0; i < nomeDrink.size(); i++){
-                nomiDrink.add(nomeDrink.get(i).getStrDrink());
+                mNomiDrink.add(nomeDrink.get(i).getStrDrink());
             }
-            drinkRepository.fetchDrinks(nomiDrink.get(posizione));
+            mDrinkRepository.fetchDrinks(mNomiDrink.get(sPOSIZIONE));
         }
         else{
             Toast toastErrore = Toast.makeText(this, "Spiacenti! Non sono presenti drink con questo ingrediente", Toast.LENGTH_LONG);
@@ -172,8 +172,8 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
     @Override
     public void onResponse(List<Drink> drinkList) {
         if(drinkList != null){
-            drinksWithDrinksApi.add(drinkList.get(0));
-            visualizzaDrink(posizione);
+            mDrinksWithDrinksApi.add(drinkList.get(0));
+            visualizzaDrink(sPOSIZIONE);
             attivaBottoni();
         }
         else{
@@ -194,20 +194,20 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void visualizzaDrink(int posizione){
         //Inizializzazione delle varie textbox con gli elementi associati al drink che vogliamo visualizzare.
-        textView_Nome_Drink.setText(drinksWithDrinksApi.get(posizione).getStrDrink());
-        textView_Alchool_Drink.setText(drinksWithDrinksApi.get(posizione).getStrAlcoholic());
-        textView_Preparazione_Drink.setText(drinksWithDrinksApi.get(posizione).getStrInstructionsIT());
-        imgGlide(drinksWithDrinksApi.get(posizione).getStrDrinkThumb());
-        textView_Ingredienti_Drink.setText(recuperaIngredienti(posizione));
-        textView_QuantitaIngredienti_Drink.setText(recuperaQuantitaIngredienti(posizione));
+        mTextView_Nome_Drink.setText(mDrinksWithDrinksApi.get(posizione).getStrDrink());
+        mTextView_Alchool_Drink.setText(mDrinksWithDrinksApi.get(posizione).getStrAlcoholic());
+        mTextView_Preparazione_Drink.setText(mDrinksWithDrinksApi.get(posizione).getStrInstructionsIT());
+        imgGlide(mDrinksWithDrinksApi.get(posizione).getStrDrinkThumb());
+        mTextView_Ingredienti_Drink.setText(recuperaIngredienti(posizione));
+        mTextView_QuantitaIngredienti_Drink.setText(recuperaQuantitaIngredienti(posizione));
         attivaBottoni();
-        cardView_InfoDrink.setVisibility(View.VISIBLE);
+        mCardView_InfoDrink.setVisibility(View.VISIBLE);
 
         //se stiamo visualizzando un drink che è già presente nel nostro elenco preferiti dovremo modificare il bottone_Salva
         boolean trovato=false;
-        for(int i=0; i<drinksPreferiti.size();i++)
+        for(int i = 0; i< mDrinksPreferiti.size(); i++)
         {
-            if(Integer.parseInt(drinksPreferiti.get(i))==drinksWithDrinksApi.get(posizione).getIdDrink()){
+            if(Integer.parseInt(mDrinksPreferiti.get(i))== mDrinksWithDrinksApi.get(posizione).getIdDrink()){
                 trovato=true;
             }
         }
@@ -230,7 +230,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
             // Download dell'immagine associata al drink
             Glide.with(DrinkByIngredient.this)
                     .load(newUrl)
-                    .into(imageViewDownload);
+                    .into(mImageViewDownload);
         }
 
     }
@@ -239,50 +239,50 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
     private String recuperaIngredienti(int posizione){
         List<String> listaIngredienti = new ArrayList<>();
         String ingredienti = "";
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient1() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient1());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient1() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient1());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient2() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient2());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient2() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient2());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient3() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient3());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient3() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient3());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient4() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient4());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient4() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient4());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient5() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient5());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient5() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient5());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient6() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient6());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient6() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient6());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient7() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient7());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient7() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient7());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient8() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient8());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient8() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient8());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient9() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient9());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient9() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient9());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient10() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient10());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient10() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient10());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient11() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient11());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient11() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient11());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient12() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient12());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient12() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient12());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient13() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient13());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient13() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient13());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient14() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient14());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient14() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient14());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrIngredient15() != null){
-            listaIngredienti.add(drinksWithDrinksApi.get(posizione).getStrIngredient15());
+        if(mDrinksWithDrinksApi.get(posizione).getStrIngredient15() != null){
+            listaIngredienti.add(mDrinksWithDrinksApi.get(posizione).getStrIngredient15());
         }
         if(!listaIngredienti.isEmpty()){
             for(int i = 0; i<(listaIngredienti.size()-1);i++){
@@ -297,50 +297,50 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
     private String recuperaQuantitaIngredienti(int posizione){
         String quantita = "";
         List<String> listaQuantita = new ArrayList<>();
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure1() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure1());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure1() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure1());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure2() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure2());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure2() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure2());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure3() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure3());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure3() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure3());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure4() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure4());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure4() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure4());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure5() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure5());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure5() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure5());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure6() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure6());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure6() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure6());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure7() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure7());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure7() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure7());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure8() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure8());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure8() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure8());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure9() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure9());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure9() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure9());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure10() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure10());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure10() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure10());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure11() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure11());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure11() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure11());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure12() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure12());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure12() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure12());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure13() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure13());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure13() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure13());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure14() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure14());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure14() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure14());
         }
-        if(drinksWithDrinksApi.get(posizione).getStrMeasure15() != null){
-            listaQuantita.add(drinksWithDrinksApi.get(posizione).getStrMeasure15());
+        if(mDrinksWithDrinksApi.get(posizione).getStrMeasure15() != null){
+            listaQuantita.add(mDrinksWithDrinksApi.get(posizione).getStrMeasure15());
         }
         if(!listaQuantita.isEmpty()){
             for(int i = 0; i<(listaQuantita.size()-1);i++){
@@ -354,27 +354,27 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
     //Metodo che attiva o disattiva i bottoni a seconda delle esigenze
     public void attivaBottoni(){
 
-        if (posizione==0 && nomiDrink.size()==0)
+        if (sPOSIZIONE ==0 && mNomiDrink.size()==0)
         {
-            button_Successivo_Drink.setVisibility(View.INVISIBLE);
-            button_Precedente_Drink.setVisibility(View.INVISIBLE);
+            mButton_Successivo_Drink.setVisibility(View.INVISIBLE);
+            mButton_Precedente_Drink.setVisibility(View.INVISIBLE);
 
         }
-        else if (posizione==0 && nomiDrink.size()!=0)
+        else if (sPOSIZIONE ==0 && mNomiDrink.size()!=0)
         {
-            button_Successivo_Drink.setVisibility(View.VISIBLE);
-            button_Precedente_Drink.setVisibility(View.INVISIBLE);
+            mButton_Successivo_Drink.setVisibility(View.VISIBLE);
+            mButton_Precedente_Drink.setVisibility(View.INVISIBLE);
 
         }
-        else if (posizione == nomiDrink.size()-1)
+        else if (sPOSIZIONE == mNomiDrink.size()-1)
         {
-            button_Successivo_Drink.setVisibility(View.INVISIBLE);
-            button_Precedente_Drink.setVisibility(View.VISIBLE);
+            mButton_Successivo_Drink.setVisibility(View.INVISIBLE);
+            mButton_Precedente_Drink.setVisibility(View.VISIBLE);
 
         }else
         {
-            button_Successivo_Drink.setVisibility(View.VISIBLE);
-            button_Precedente_Drink.setVisibility(View.VISIBLE);
+            mButton_Successivo_Drink.setVisibility(View.VISIBLE);
+            mButton_Precedente_Drink.setVisibility(View.VISIBLE);
         }
 
     }
@@ -437,7 +437,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
         File file = new File(path, "ElencoPreferiti.txt");
         String stringElencoPreferiti = leggiFile(file);
-        drinksPreferiti= Arrays.asList(stringElencoPreferiti.split("\n"));
+        mDrinksPreferiti = Arrays.asList(stringElencoPreferiti.split("\n"));
     }
 
     //Metodo che permette di cancellare un drink tra i preferiti nel file locale
@@ -451,7 +451,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
 
         //Parte nuova, al posto di lavorare sull'arrayList originale, se ne si fa una copia e si lavora su quella
         List<String> drinksPreferitiClone = new ArrayList<>();
-        drinksPreferitiClone.addAll(drinksPreferiti);
+        drinksPreferitiClone.addAll(mDrinksPreferiti);
         for(int i=0;i<drinksPreferitiClone.size();i++){
             String daRemove = drinksPreferitiClone.get(i);
             if(daRemove.equals(id+"")){
@@ -466,25 +466,25 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         }
         //Una volta fatto, riportiamo tutti i valori nell'elenco originale
         //Per farlo prima liberiamo la lista, con il clear crasha quindi si crea nuova
-        drinksPreferiti = new ArrayList<>();
-        drinksPreferiti.addAll(drinksPreferitiClone);
+        mDrinksPreferiti = new ArrayList<>();
+        mDrinksPreferiti.addAll(drinksPreferitiClone);
         setDefaultButtonSalva();
     }
 
     //metodo che permette di riportare i valori di default al bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setDefaultButtonSalva(){
-        button_Salva_Preferito.setBackgroundColor(0xFFCA4700);
-        button_Salva_Preferito.setForeground(null);
+        mButton_Salva_Preferito.setBackgroundColor(0xFFCA4700);
+        mButton_Salva_Preferito.setForeground(null);
     }
 
     //metodo che permette cambiamenti grafici una volta premuto il bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setChangesButtonSalva(){
-        button_Salva_Preferito.setBackgroundColor(0xFFDAA520);
+        mButton_Salva_Preferito.setBackgroundColor(0xFFDAA520);
         Drawable drawable = getResources().getDrawable(android.R.drawable.btn_star_big_on);
-        button_Salva_Preferito.setForeground(drawable);
-        button_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
+        mButton_Salva_Preferito.setForeground(drawable);
+        mButton_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
     }
 
     // DA NON USARE
