@@ -3,7 +3,6 @@ package com.example.drinkup.ui.preferiti;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,22 +39,22 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
     //Dichiarazione variabili
     private PreferitiViewModel preferitiViewModel;
-    private IDrinkRepository drinkRepository;
-    private List<Drink> drinksPreferitiWithDrinksApi;
-    private List<String> elencoIdDrink;
+    private IDrinkRepository mDrinkRepository;
+    private List<Drink> mDrinksPreferitiWithDrinksApi;
+    private List<String> mElencoIdDrink;
     private List<String> drinkRimossi;
     String mResult = "";
-    private TextView textViewPrefe_Nome_Drink;
-    private TextView textViewPrefe_Alchool_Drink;
-    private TextView textViewPrefe_Ingredienti_Drink;
-    private TextView textViewPrefe_QuantitaIngredienti_Drink;
-    private TextView textViewPrefe_Preparazione_Drink;
-    private ImageView imageViewPrefe_Drink;
-    private Button buttonPrefe_Precedente_Drink;
-    private Button buttonPrefe_Successivo_Drink;
-    private Button buttonPrefe_Salva_Preferito;
-    public static int posizionePref = 999;
-    private CardView cardView_InfoDrinkPrefe;
+    private TextView mTextViewPrefe_Nome_Drink;
+    private TextView mTextViewPrefe_Alchool_Drink;
+    private TextView mTextViewPrefe_Ingredienti_Drink;
+    private TextView mTextViewPrefe_QuantitaIngredienti_Drink;
+    private TextView mTextViewPrefe_Preparazione_Drink;
+    private ImageView mImageViewPrefe_Drink;
+    private Button mButtonPrefe_Precedente_Drink;
+    private Button mButtonPrefe_Successivo_Drink;
+    private Button mButtonPrefe_Salva_Preferito;
+    public static int sPosizionePref = 999;
+    private CardView mCardView_InfoDrinkPrefe;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -63,28 +62,28 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
                 new ViewModelProvider(this).get(PreferitiViewModel.class);
         View root = inflater.inflate(R.layout.fragment_preferiti, container, false);
 
-        drinkRepository = new DrinkRepository(this, requireActivity().getApplication());
-        drinksPreferitiWithDrinksApi = new ArrayList<>();
-        elencoIdDrink = new ArrayList<>();
+        mDrinkRepository = new DrinkRepository(this, requireActivity().getApplication());
+        mDrinksPreferitiWithDrinksApi = new ArrayList<>();
+        mElencoIdDrink = new ArrayList<>();
         drinkRimossi= new ArrayList<>();
 
         //Inizializzazione
-        buttonPrefe_Successivo_Drink = root.findViewById(R.id.buttonPrefe_Successivo_Drink);
-        buttonPrefe_Successivo_Drink.setOnClickListener(this);
-        buttonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
-        buttonPrefe_Salva_Preferito = root.findViewById(R.id.buttonPrefe_Salva_Preferito);
-        buttonPrefe_Salva_Preferito.setOnClickListener(this);
-        buttonPrefe_Precedente_Drink = root.findViewById(R.id.buttonPrefe_Precedente_Drink);
-        buttonPrefe_Precedente_Drink.setOnClickListener(this);
-        buttonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
-        textViewPrefe_Nome_Drink = root.findViewById(R.id.textViewPrefe_Nome_Drink);
-        textViewPrefe_Alchool_Drink = root.findViewById(R.id.textViewPrefe_Alchool_Drink);
-        textViewPrefe_Ingredienti_Drink = root.findViewById(R.id.textViewPrefe_Ingredienti_Drink);
-        textViewPrefe_QuantitaIngredienti_Drink = root.findViewById(R.id.textViewPrefe_QuantitaIngredienti_Drink);
-        textViewPrefe_Preparazione_Drink = root.findViewById(R.id.textViewPrefe_Preparazione_Drink);
-        imageViewPrefe_Drink = root.findViewById(R.id.imageViewPrefe_Drink);
-        cardView_InfoDrinkPrefe = root.findViewById(R.id.CardView_InfoDrinkPrefe);
-        cardView_InfoDrinkPrefe.setVisibility(View.INVISIBLE);
+        mButtonPrefe_Successivo_Drink = root.findViewById(R.id.buttonPrefe_Successivo_Drink);
+        mButtonPrefe_Successivo_Drink.setOnClickListener(this);
+        mButtonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
+        mButtonPrefe_Salva_Preferito = root.findViewById(R.id.buttonPrefe_Salva_Preferito);
+        mButtonPrefe_Salva_Preferito.setOnClickListener(this);
+        mButtonPrefe_Precedente_Drink = root.findViewById(R.id.buttonPrefe_Precedente_Drink);
+        mButtonPrefe_Precedente_Drink.setOnClickListener(this);
+        mButtonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
+        mTextViewPrefe_Nome_Drink = root.findViewById(R.id.textViewPrefe_Nome_Drink);
+        mTextViewPrefe_Alchool_Drink = root.findViewById(R.id.textViewPrefe_Alchool_Drink);
+        mTextViewPrefe_Ingredienti_Drink = root.findViewById(R.id.textViewPrefe_Ingredienti_Drink);
+        mTextViewPrefe_QuantitaIngredienti_Drink = root.findViewById(R.id.textViewPrefe_QuantitaIngredienti_Drink);
+        mTextViewPrefe_Preparazione_Drink = root.findViewById(R.id.textViewPrefe_Preparazione_Drink);
+        mImageViewPrefe_Drink = root.findViewById(R.id.imageViewPrefe_Drink);
+        mCardView_InfoDrinkPrefe = root.findViewById(R.id.CardView_InfoDrinkPrefe);
+        mCardView_InfoDrinkPrefe.setVisibility(View.INVISIBLE);
         return root;
     }
 
@@ -102,9 +101,9 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
             e.printStackTrace();
         }
         //Salvo nella lista tutti gli id dei drink preferiti opportunamente splittati
-        elencoIdDrink = Arrays.asList(mResult.split("\n"));
-        posizionePref = 0;
-        drinkRepository.fetchPreferitiDrinks(elencoIdDrink.get(posizionePref));
+        mElencoIdDrink = Arrays.asList(mResult.split("\n"));
+        sPosizionePref = 0;
+        mDrinkRepository.fetchPreferitiDrinks(mElencoIdDrink.get(sPosizionePref));
         setChangesButtonSalva();
         
     }
@@ -113,8 +112,8 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResponse(List<Drink> drinkList) {
-        drinksPreferitiWithDrinksApi.addAll(drinkList);
-        visualizzaDrink(posizionePref);
+        mDrinksPreferitiWithDrinksApi.addAll(drinkList);
+        visualizzaDrink(sPosizionePref);
         attivaBottoni();
     }
 
@@ -132,29 +131,29 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
         if (v.getId() == R.id.buttonPrefe_Precedente_Drink) {
            // attivaBottoni();
-            posizionePref = posizionePref - 1;
-            drinkRepository.fetchPreferitiDrinks(elencoIdDrink.get(posizionePref));
+            sPosizionePref = sPosizionePref - 1;
+            mDrinkRepository.fetchPreferitiDrinks(mElencoIdDrink.get(sPosizionePref));
             attivaBottoni();
         }
         if (v.getId() == R.id.buttonPrefe_Successivo_Drink) {
           //  attivaBottoni();
-            posizionePref = posizionePref + 1;
-            drinkRepository.fetchPreferitiDrinks(elencoIdDrink.get(posizionePref));
+            sPosizionePref = sPosizionePref + 1;
+            mDrinkRepository.fetchPreferitiDrinks(mElencoIdDrink.get(sPosizionePref));
             attivaBottoni();
         }
         if (v.getId() == R.id.buttonPrefe_Salva_Preferito) {
             try {
-                cancellaDrinkdaFile(Integer.parseInt(elencoIdDrink.get(posizionePref)));
+                cancellaDrinkdaFile(Integer.parseInt(mElencoIdDrink.get(sPosizionePref)));
             } catch (IOException e) {
                 e.printStackTrace();
             }
             setDefaultButtonSalva();
-            Toast toastRimosso= Toast.makeText(requireActivity().getApplication(), "Il drink" + elencoIdDrink.get(posizionePref)+" è stato rimosso dalla tua lista preferiti", Toast.LENGTH_LONG);
+            Toast toastRimosso= Toast.makeText(requireActivity().getApplication(), "Il drink" + mElencoIdDrink.get(sPosizionePref)+" è stato rimosso dalla tua lista preferiti", Toast.LENGTH_LONG);
             toastRimosso.show();
-            elencoIdDrink.remove(posizionePref);
-            drinksPreferitiWithDrinksApi.remove(posizionePref);
-            posizionePref=0;
-            visualizzaDrink(posizionePref);
+            mElencoIdDrink.remove(sPosizionePref);
+            mDrinksPreferitiWithDrinksApi.remove(sPosizionePref);
+            sPosizionePref =0;
+            visualizzaDrink(sPosizionePref);
 
         }
     }
@@ -163,13 +162,13 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     public void visualizzaDrink(int posizione) {
 
         //Inizializzazione delle varie textbox con gli elementi associati al drink che vogliamo visualizzare.
-        textViewPrefe_Ingredienti_Drink.setText(recuperaIngredienti(posizione));
-        textViewPrefe_QuantitaIngredienti_Drink.setText(recuperaQuantitaIngredienti(posizione));
-        textViewPrefe_Nome_Drink.setText(drinksPreferitiWithDrinksApi.get(posizione).getStrDrink());
-        textViewPrefe_Alchool_Drink.setText(drinksPreferitiWithDrinksApi.get(posizione).getStrAlcoholic());
-        textViewPrefe_Preparazione_Drink.setText(drinksPreferitiWithDrinksApi.get(posizione).getStrInstructionsIT());
-        imgGlide(drinksPreferitiWithDrinksApi.get(posizione).getStrDrinkThumb());
-        cardView_InfoDrinkPrefe.setVisibility(View.VISIBLE);
+        mTextViewPrefe_Ingredienti_Drink.setText(recuperaIngredienti(posizione));
+        mTextViewPrefe_QuantitaIngredienti_Drink.setText(recuperaQuantitaIngredienti(posizione));
+        mTextViewPrefe_Nome_Drink.setText(mDrinksPreferitiWithDrinksApi.get(posizione).getStrDrink());
+        mTextViewPrefe_Alchool_Drink.setText(mDrinksPreferitiWithDrinksApi.get(posizione).getStrAlcoholic());
+        mTextViewPrefe_Preparazione_Drink.setText(mDrinksPreferitiWithDrinksApi.get(posizione).getStrInstructionsIT());
+        imgGlide(mDrinksPreferitiWithDrinksApi.get(posizione).getStrDrinkThumb());
+        mCardView_InfoDrinkPrefe.setVisibility(View.VISIBLE);
         attivaBottoni();
 
     }
@@ -177,21 +176,21 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     //Metodo che attiva o disattiva i bottoni a seconda delle esigenze
     public void attivaBottoni() {
 
-        if (posizionePref == 0 && elencoIdDrink.size() == 0) {
-            buttonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
-            buttonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
+        if (sPosizionePref == 0 && mElencoIdDrink.size() == 0) {
+            mButtonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
+            mButtonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
 
-        } else if (posizionePref == 0 && elencoIdDrink.size() != 0) {
-            buttonPrefe_Successivo_Drink.setVisibility(View.VISIBLE);
-            buttonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
+        } else if (sPosizionePref == 0 && mElencoIdDrink.size() != 0) {
+            mButtonPrefe_Successivo_Drink.setVisibility(View.VISIBLE);
+            mButtonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
 
-        } else if (posizionePref == elencoIdDrink.size() - 1) {
-            buttonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
-            buttonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
+        } else if (sPosizionePref == mElencoIdDrink.size() - 1) {
+            mButtonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
+            mButtonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
 
         } else {
-            buttonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
-            buttonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
+            mButtonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
+            mButtonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
         }
 
     }
@@ -208,7 +207,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
             Glide.with(this)
                     .load(newUrl)
-                    .into(imageViewPrefe_Drink);
+                    .into(mImageViewPrefe_Drink);
         }
 
     }
@@ -217,50 +216,50 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     private String recuperaIngredienti(int posizione) {
         List<String> listaIngredienti = new ArrayList<>();
         String ingredienti = "";
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient1() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient1());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient1() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient1());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient2() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient2());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient2() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient2());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient3() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient3());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient3() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient3());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient4() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient4());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient4() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient4());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient5() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient5());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient5() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient5());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient6() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient6());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient6() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient6());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient7() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient7());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient7() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient7());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient8() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient8());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient8() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient8());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient9() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient9());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient9() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient9());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient10() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient10());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient10() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient10());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient11() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient11());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient11() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient11());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient12() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient12());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient12() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient12());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient13() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient13());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient13() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient13());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient14() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient14());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient14() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient14());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient15() != null) {
-            listaIngredienti.add(drinksPreferitiWithDrinksApi.get(posizione).getStrIngredient15());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient15() != null) {
+            listaIngredienti.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrIngredient15());
         }
         if(!listaIngredienti.isEmpty()){
             for(int i = 0; i<(listaIngredienti.size()-1);i++){
@@ -275,50 +274,50 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     private String recuperaQuantitaIngredienti(int posizione) {
         String quantita = "";
         List<String> listaQuantita = new ArrayList<>();
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure1() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure1());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure1() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure1());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure2() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure2());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure2() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure2());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure3() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure3());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure3() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure3());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure4() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure4());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure4() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure4());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure5() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure5());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure5() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure5());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure6() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure6());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure6() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure6());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure7() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure7());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure7() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure7());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure8() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure8());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure8() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure8());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure9() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure9());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure9() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure9());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure10() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure10());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure10() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure10());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure11() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure11());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure11() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure11());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure12() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure12());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure12() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure12());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure13() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure13());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure13() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure13());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure14() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure14());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure14() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure14());
         }
-        if (drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure15() != null) {
-            listaQuantita.add(drinksPreferitiWithDrinksApi.get(posizione).getStrMeasure15());
+        if (mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure15() != null) {
+            listaQuantita.add(mDrinksPreferitiWithDrinksApi.get(posizione).getStrMeasure15());
         }
         if(!listaQuantita.isEmpty()){
             for(int i = 0; i<(listaQuantita.size()-1);i++){
@@ -386,7 +385,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
         //Parte nuova, al posto di lavorare sull'arrayList originale, se ne si fa una copia e si lavora su quella
         List<String> drinksPreferitiClone = new ArrayList<>();
-        drinksPreferitiClone.addAll(elencoIdDrink);
+        drinksPreferitiClone.addAll(mElencoIdDrink);
         for (int i = 0; i < drinksPreferitiClone.size(); i++) {
             String daRemove = drinksPreferitiClone.get(i);
             if (daRemove.equals(id + "")) {
@@ -401,25 +400,25 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         }
         //Una volta fatto, riportiamo tutti i valori nell'elenco originale
         //Per farlo prima liberiamo la lista, con il clear crasha quindi si crea nuova
-        elencoIdDrink = new ArrayList<>();
-        elencoIdDrink.addAll(drinksPreferitiClone);
+        mElencoIdDrink = new ArrayList<>();
+        mElencoIdDrink.addAll(drinksPreferitiClone);
         setDefaultButtonSalva();
     }
 
     //metodo che permette cambiamenti grafici una volta premuto il bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setChangesButtonSalva() {
-        buttonPrefe_Salva_Preferito.setBackgroundColor(0xFFDAA520);
+        mButtonPrefe_Salva_Preferito.setBackgroundColor(0xFFDAA520);
         Drawable drawable = getResources().getDrawable(android.R.drawable.btn_star_big_on);
-        buttonPrefe_Salva_Preferito.setForeground(drawable);
-        buttonPrefe_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
+        mButtonPrefe_Salva_Preferito.setForeground(drawable);
+        mButtonPrefe_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
     }
 
     //metodo che permette di riportare i valori di default al bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setDefaultButtonSalva() {
-        buttonPrefe_Salva_Preferito.setBackgroundColor(0xFFCA4700);
-        buttonPrefe_Salva_Preferito.setForeground(null);
+        mButtonPrefe_Salva_Preferito.setBackgroundColor(0xFFCA4700);
+        mButtonPrefe_Salva_Preferito.setForeground(null);
     }
 
     //DA NON USARE
