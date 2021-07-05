@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -21,10 +20,10 @@ import com.example.drinkup.RandomDrink;
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private HomeViewModel view;
-    private ImageButton imagebuttonedrinkingredient;
-    private ImageButton imagebuttonedrink;
-    private ImageButton imagebuttonIngredient;
-    private ImageButton imagebuttonRandom;
+    private ImageButton mImagebuttonedrinkingredient;
+    private ImageButton mImagebuttonedrink;
+    private ImageButton mImagebuttonIngredient;
+    private ImageButton mImagebuttonRandom;
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
 
@@ -32,17 +31,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         view = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        imagebuttonedrinkingredient = (ImageButton) root.findViewById(R.id.imageButton_DrinkPerIngredient);
-        imagebuttonedrinkingredient.setOnClickListener(this);
+        mImagebuttonedrinkingredient = (ImageButton) root.findViewById(R.id.imageButton_DrinkPerIngredient);
+        mImagebuttonedrinkingredient.setOnClickListener(this);
 
-        imagebuttonedrink = (ImageButton) root.findViewById(R.id.imageButtonDrink);
-        imagebuttonedrink.setOnClickListener(this);
+        mImagebuttonedrink = (ImageButton) root.findViewById(R.id.imageButtonDrink);
+        mImagebuttonedrink.setOnClickListener(this);
 
-        imagebuttonIngredient = (ImageButton) root.findViewById(R.id.imagebutton_Ingredient);
-        imagebuttonIngredient.setOnClickListener(this);
+        mImagebuttonIngredient = (ImageButton) root.findViewById(R.id.imagebutton_Ingredient);
+        mImagebuttonIngredient.setOnClickListener(this);
 
-        imagebuttonRandom = (ImageButton) root.findViewById(R.id.imagebutton_randomDrink);
-        imagebuttonRandom.setOnClickListener(this);
+        mImagebuttonRandom = (ImageButton) root.findViewById(R.id.imagebutton_randomDrink);
+        mImagebuttonRandom.setOnClickListener(this);
 
         return root;
     }
