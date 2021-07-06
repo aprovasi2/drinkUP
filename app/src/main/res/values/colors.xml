@@ -20,5 +20,5 @@
     <color name="toast_warn_opaque">#e1bb00</color>
     <color name="toast_error">#F44336</color>
     <color name="toast_confirm">#00a400</color>
-
+    <color name="yellow">#FFEB3B</color>
 </resources>

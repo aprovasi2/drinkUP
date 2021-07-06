@@ -159,8 +159,9 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             } // se non è presente, significa che l'utente lo vuole salvare
             else{
                 try {
-                    Toast toastSalvataggio= Toast.makeText(this, "Il drink selezionato è ora nella tua lista preferiti", Toast.LENGTH_LONG);
-                    toastSalvataggio.show();
+                    //Toast toastSalvataggio= Toast.makeText(this, "Il drink selezionato è ora nella tua lista preferiti", Toast.LENGTH_LONG);
+                    //toastSalvataggio.show();
+                    ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_SUCCESS,"Il drink selezionato è ora nella tua lista preferiti").show();
                     salvaIdDrink(idDrink);
                     RecuperaDrinkPreferiti();
                     setChangesButtonSalva();

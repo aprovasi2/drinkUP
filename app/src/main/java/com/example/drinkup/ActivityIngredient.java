@@ -70,8 +70,9 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
             ingredientDaCercare.setText("");
         }
         else{
-            Toast toastErrore = Toast.makeText(this, "Spiacenti! Inserire il nome dell'ingrediente da cercare", Toast.LENGTH_LONG);
-            toastErrore.show();
+            //Toast toastErrore = Toast.makeText(this, "Spiacenti! Inserire il nome dell'ingrediente da cercare", Toast.LENGTH_LONG);
+            //toastErrore.show();
+            ToastCustom.makeText(this,ToastCustom.TYPE_WARN,"Inserire il nome dell'ingrediente da cercare").show();
         }
     }
 

@@ -131,7 +131,8 @@
                         android:layout_marginRight="4dp"
                         android:text="@string/gradazione_Drink"
                         android:textSize="25sp"
-                        android:textStyle="bold|italic" />
+                        android:textStyle="bold|italic"
+                        />
 
                     <TextView
                         android:id="@+id/textView_Alchool_Drink"
@@ -142,7 +143,8 @@
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
                         android:fontFamily="@font/inter"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"

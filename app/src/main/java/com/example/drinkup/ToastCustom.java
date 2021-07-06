@@ -1,6 +1,7 @@
-package com.example.drinkup.models;
+package com.example.drinkup;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +9,6 @@ import android.view.ViewManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.drinkup.R;
 
 public class ToastCustom {
 
@@ -38,6 +37,7 @@ public class ToastCustom {
     }
 
     public static ToastCustom makeText(Context context, int type, String message) {
+        Log.d("toast", "sono in makeText");
         return new ToastCustom(context, type, message, LENGTH_SHORT);
     }
 
@@ -70,7 +70,8 @@ public class ToastCustom {
 
         if (type == TYPE_WARN) {
             image.setImageResource(R.drawable.toast_ic_warn);
-            layout.setBackgroundColor(convertView.getResources().getColor(R.color.toast_warn));
+            layout.setBackgroundColor(convertView.getResources().getColor(R.color.yellow));
+            text.setTextColor(convertView.getResources().getColor(R.color.black));
         }
 
         if (type == TYPE_ERROR) {
@@ -80,7 +81,7 @@ public class ToastCustom {
 
         if (type == TYPE_SUCCESS) {
             image.setImageResource(R.drawable.toast_ic_success);
-            layout.setBackgroundColor(convertView.getResources().getColor(R.color.toast_confirm));
+            layout.setBackgroundColor(convertView.getResources().getColor(R.color.orange_dark));
         }
 
     }
