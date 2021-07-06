@@ -150,12 +150,15 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
                 e.printStackTrace();
             }
             ToastCustom.makeText(requireActivity().getApplication(),ToastCustom.TYPE_REMOVE,"Il drink è stato rimosso dalla lista preferiti").show();
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.detach(PreferitiFragment.this).attach(PreferitiFragment.this).commit();
+            Reload();
 
         }
     }
 
+    // Metodo per ricaricare il fragment
+    public void Reload(){
+        getActivity().getSupportFragmentManager().beginTransaction().replace(PreferitiFragment.this.getId(), new PreferitiFragment()).commit();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void visualizzaDrink(int posizione) {
