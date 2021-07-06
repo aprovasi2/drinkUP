@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
         if (location != null)
             updateGUI(location);
         if (locationManager != null && locationManager.isProviderEnabled(providerId))

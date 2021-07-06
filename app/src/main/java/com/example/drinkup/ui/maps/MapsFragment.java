@@ -37,6 +37,7 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PointOfInterest;
 
 import java.util.Date;
 import java.util.Locale;
@@ -55,7 +56,6 @@ public class MapsFragment extends Fragment {
 
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
-
         mMapView.onResume(); // needed to get the map to display immediately
 
         try {
@@ -86,6 +86,17 @@ public class MapsFragment extends Fragment {
                 googleMap.getUiSettings().isMyLocationButtonEnabled();
                 googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 
+               // googleMap.setOnPoiClickListener(GoogleMap.OnPoiClickListener listener);
+                googleMap.setOnPoiClickListener(new GoogleMap.OnPoiClickListener() {
+                    @Override
+                    public void onPoiClick(PointOfInterest pointOfInterest) {
+                        Toast.makeText(getContext(), "Hai cliccato: " +
+                                        pointOfInterest.name,
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(mia).zoom(20).build();
@@ -96,6 +107,8 @@ public class MapsFragment extends Fragment {
 
         return rootView;
     }
+
+
 
     @Override
     public void onResume() {
