@@ -117,13 +117,11 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Toast toastRimozione= Toast.makeText(this, "Il drink è stato rimosso dalla Lista Preferiti", Toast.LENGTH_LONG);
-                toastRimozione.show();
+                ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_REMOVE,"Il drink è stato rimosso dalla lista preferiti").show();
             } // se non è presente, significa che l'utente lo vuole salvare
             else{
                 try {
-                    Toast toastSalvataggio= Toast.makeText(this, "Il drink selezionato è ora nella tua lista preferiti", Toast.LENGTH_LONG);
-                    toastSalvataggio.show();
+                    ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_SUCCESS,"Il drink è stato inserito nella lista preferiti").show();
                     salvaIdDrink(idDrink);
                     RecuperaDrinkPreferiti();
                     setChangesButtonSalva();
@@ -143,8 +141,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
                 sPOSIZIONE = 0;
             }
             else{
-                Toast toastErrore = Toast.makeText(this, "Spiacenti! Inserire il nome dell'ingrediente da cercare", Toast.LENGTH_LONG);
-                toastErrore.show();
+                ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_WARN,"Inserire il nome dell'ingrediente da cercare").show();
             }
 
         }
@@ -161,8 +158,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
             mDrinkRepository.fetchDrinks(mNomiDrink.get(sPOSIZIONE));
         }
         else{
-            Toast toastErrore = Toast.makeText(this, "Spiacenti! Non sono presenti drink con questo ingrediente", Toast.LENGTH_LONG);
-            toastErrore.show();
+            ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_INFO,"Non sono presenti drink con questo ingrediente").show();
         }
 
     }
@@ -177,8 +173,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
             attivaBottoni();
         }
         else{
-            Toast toastErrore = Toast.makeText(this, "Spiacenti! Non sono presenti drink con questo ingrediente", Toast.LENGTH_LONG);
-            toastErrore.show();
+            ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_INFO,"Non sono presenti drink con questo ingrediente").show();
         }
 
     }
@@ -186,13 +181,13 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
     //Metodo che verrà invocato se la chiamata API non andrà a buon fine
     @Override
     public void onFailure(String msg) {
-        Toast toastOnFailure = Toast.makeText(this, "ERRORE nella ricerca!", Toast.LENGTH_LONG);
-        toastOnFailure.show();
+        ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_ERROR,"Errore inserimento").show();
     }
 
     //metodo che permette di visualizzare il drink
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void visualizzaDrink(int posizione){
+
         //Inizializzazione delle varie textbox con gli elementi associati al drink che vogliamo visualizzare.
         mTextView_Nome_Drink.setText(mDrinksWithDrinksApi.get(posizione).getStrDrink());
         mTextView_Alchool_Drink.setText(mDrinksWithDrinksApi.get(posizione).getStrAlcoholic());
@@ -447,8 +442,6 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         File file = new File(path, "ElencoPreferiti.txt");
         Integer value = new Integer(id);
         String daRimuovere = value.toString();
-        //Toast.makeText(this, daRimuovere, Toast.LENGTH_LONG).show();
-
         //Parte nuova, al posto di lavorare sull'arrayList originale, se ne si fa una copia e si lavora su quella
         List<String> drinksPreferitiClone = new ArrayList<>();
         drinksPreferitiClone.addAll(mDrinksPreferiti);

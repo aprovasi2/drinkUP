@@ -126,8 +126,8 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     //Metodo di fallimento chiamata API
     @Override
     public void onFailure(String msg) {
-        Toast toastFailure= Toast.makeText(requireActivity().getApplication(), "NON HAI DRINK PREFERITI", Toast.LENGTH_LONG);
-        toastFailure.show();
+        ToastCustom.makeText(requireActivity().getApplication(),ToastCustom.TYPE_INFO,"La lista preferiti è vuota").show();
+
     }
 
     //Metodo che gestisce il click sui vari bottoni
@@ -149,7 +149,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            ToastCustom.makeText(requireActivity().getApplication(),ToastCustom.TYPE_SUCCESS,"Il drink è stato rimosso dalla tua lista preferiti").show();
+            ToastCustom.makeText(requireActivity().getApplication(),ToastCustom.TYPE_REMOVE,"Il drink è stato rimosso dalla lista preferiti").show();
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.detach(PreferitiFragment.this).attach(PreferitiFragment.this).commit();
 
@@ -168,14 +168,13 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         mTextViewPrefe_Preparazione_Drink.setText(mDrinksPreferitiWithDrinksApi.get(posizione).getStrInstructionsIT());
         imgGlide(mDrinksPreferitiWithDrinksApi.get(posizione).getStrDrinkThumb());
         mCardView_InfoDrinkPrefe.setVisibility(View.VISIBLE);
-        //attivaBottoni();
+        attivaBottoni();
     }
 
     //Metodo che attiva o disattiva i bottoni a seconda delle esigenze
     public void attivaBottoni() {
 
         if (sPosizionePref == 0 && mElencoIdDrink.size() == 1) {
-            Log.d("attivaBottoni", "posizionePref: "+sPosizionePref+"\n"+"elencoIdDrinkk: "+mElencoIdDrink.size());
             mButtonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
             mButtonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
 

@@ -23,6 +23,7 @@ public class ToastCustom {
     public static final int TYPE_WARN = 2;
     public static final int TYPE_ERROR = 3;
     public static final int TYPE_SUCCESS = 4;
+    public static final int TYPE_REMOVE = 5;
 
     private View layout;
     private Context context;
@@ -65,12 +66,13 @@ public class ToastCustom {
 
         if (type == TYPE_INFO) {
             image.setImageResource(R.drawable.toast_ic_info);
-            layout.setBackgroundColor(convertView.getResources().getColor(R.color.toast_info));
+            layout.setBackgroundColor(convertView.getResources().getColor(R.color.red_dark));
         }
 
         if (type == TYPE_WARN) {
             image.setImageResource(R.drawable.toast_ic_warn);
-            layout.setBackgroundColor(convertView.getResources().getColor(R.color.yellow));
+            image.setColorFilter(R.color.black);
+            layout.setBackgroundColor(convertView.getResources().getColor(R.color.toast_warn_div));
             text.setTextColor(convertView.getResources().getColor(R.color.black));
         }
 
@@ -81,7 +83,12 @@ public class ToastCustom {
 
         if (type == TYPE_SUCCESS) {
             image.setImageResource(R.drawable.toast_ic_success);
-            layout.setBackgroundColor(convertView.getResources().getColor(R.color.orange_dark));
+            layout.setBackgroundColor(convertView.getResources().getColor(R.color.Orange));
+        }
+
+        if (type == TYPE_REMOVE) {
+            image.setImageResource(R.drawable.toast_ic_remove);
+            layout.setBackgroundColor(convertView.getResources().getColor(R.color.Orange));
         }
 
     }
@@ -109,12 +116,14 @@ public class ToastCustom {
 
         if (type == TYPE_INFO) {
             image.setImageResource(R.drawable.toast_ic_info);
-            layout.setBackgroundColor(convertView.getResources().getColor(R.color.toast_info));
+            layout.setBackgroundColor(convertView.getResources().getColor(R.color.red_dark));
         }
 
         if (type == TYPE_WARN) {
             image.setImageResource(R.drawable.toast_ic_warn);
-            layout.setBackgroundColor(convertView.getResources().getColor(R.color.toast_warn));
+            image.setColorFilter(R.color.black);
+            layout.setBackgroundColor(convertView.getResources().getColor(R.color.toast_warn_div));
+            text.setTextColor(convertView.getResources().getColor(R.color.black));
         }
 
         if (type == TYPE_ERROR) {
@@ -124,7 +133,12 @@ public class ToastCustom {
 
         if (type == TYPE_SUCCESS) {
             image.setImageResource(R.drawable.toast_ic_success);
-            layout.setBackgroundColor(convertView.getResources().getColor(R.color.toast_confirm));
+            layout.setBackgroundColor(convertView.getResources().getColor(R.color.orange_dark));
+        }
+
+        if (type == TYPE_REMOVE) {
+            image.setImageResource(R.drawable.toast_ic_remove);
+            layout.setBackgroundColor(convertView.getResources().getColor(R.color.orange_dark));
         }
 
     }

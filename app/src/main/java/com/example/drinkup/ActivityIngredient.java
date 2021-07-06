@@ -70,8 +70,6 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
             ingredientDaCercare.setText("");
         }
         else{
-            //Toast toastErrore = Toast.makeText(this, "Spiacenti! Inserire il nome dell'ingrediente da cercare", Toast.LENGTH_LONG);
-            //toastErrore.show();
             ToastCustom.makeText(this,ToastCustom.TYPE_WARN,"Inserire il nome dell'ingrediente da cercare").show();
         }
     }
@@ -79,8 +77,7 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
     // metodo contente la risposta in caso di insuccesso al collegamento con l'API
     @Override
     public void onFailure(String msg) {
-        Toast toastErrore = Toast.makeText(this, "ERRORE!", Toast.LENGTH_LONG);
-        toastErrore.show();
+        ToastCustom.makeText(this,ToastCustom.TYPE_ERROR,"Errore inserimento").show();
     }
 
     // metodo contente la risposta dall'API
@@ -91,8 +88,7 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
             visualizzaIngredient(0);
         }
         else{
-            Toast toastErrore = Toast.makeText(this, "Spiacenti! L'ingrediente cercato non è disponibile", Toast.LENGTH_LONG);
-            toastErrore.show();
+            ToastCustom.makeText(this,ToastCustom.TYPE_INFO,"L'ingrediente cercato non è disponibile").show();
         }
     }
 

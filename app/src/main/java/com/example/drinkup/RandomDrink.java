@@ -94,13 +94,11 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Toast toastRimozione= Toast.makeText(this, "Il drink è stato rimosso dalla Lista Preferiti", Toast.LENGTH_LONG);
-            toastRimozione.show();
+            ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_REMOVE,"Il drink è stato rimosso dalla lista preferiti").show();
         }
         else{
             try {
-                Toast toastSalvataggio= Toast.makeText(this, "Il drink selezionato è ora nella tua lista preferiti", Toast.LENGTH_LONG);
-                toastSalvataggio.show();
+                ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_SUCCESS,"Il drink è stato inserito nella lista preferiti").show();
                 salvaIdDrink(idDrink);
                 RecuperaDrinkPreferiti();
                 setChangesButtonSalva();
@@ -119,8 +117,7 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onFailure(String msg) {
-        Toast toastFailure= Toast.makeText(this.getApplication(), "Errore", Toast.LENGTH_LONG);
-        toastFailure.show();
+        ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_ERROR,"Errore").show();
     }
 
     // DA NON USARE

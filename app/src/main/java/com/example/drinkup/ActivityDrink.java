@@ -128,8 +128,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             setDefaultButtonSalva();
             String ricerca = drinkDaCercare.getText().toString();
             if(ricerca.equals("")) {
-                Toast toastErroreRicerca = Toast.makeText(this, "Spiacenti! Inserire il nome del drink da cercare", Toast.LENGTH_LONG);
-                toastErroreRicerca.show();
+                ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_WARN,"Inserire il nome del drink da cercare").show();
             }
             else{
                 posizione = 0;
@@ -154,14 +153,11 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Toast toastRimozione= Toast.makeText(this, "Il drink è stato rimosso dalla Lista Preferiti", Toast.LENGTH_LONG);
-                toastRimozione.show();
+                ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_REMOVE,"Il drink è stato rimosso dalla lista preferiti").show();
             } // se non è presente, significa che l'utente lo vuole salvare
             else{
                 try {
-                    //Toast toastSalvataggio= Toast.makeText(this, "Il drink selezionato è ora nella tua lista preferiti", Toast.LENGTH_LONG);
-                    //toastSalvataggio.show();
-                    ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_SUCCESS,"Il drink selezionato è ora nella tua lista preferiti").show();
+                    ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_SUCCESS,"Il drink è stato inserito nella lista preferiti").show();
                     salvaIdDrink(idDrink);
                     RecuperaDrinkPreferiti();
                     setChangesButtonSalva();
@@ -193,15 +189,14 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
             visualizzaDrink(posizione);
         }else{
             posizione = 9999999;
-            Toast toastErrore = Toast.makeText(this, "Spiacenti! Il drink ricercato non è disponibile", Toast.LENGTH_LONG);
-            toastErrore.show();
+            ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_INFO,"Il drink cercato non è disponibile").show();
+
         }
     }
     //Metodo di fallimento chiamata API
     @Override
     public void onFailure(String msg) {
-        Toast toastOnFailure = Toast.makeText(this, "ERRORE!", Toast.LENGTH_LONG);
-        toastOnFailure.show();
+        ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_ERROR,"Errore inserimento").show();
     }
     // //Metodo che permette di scaricare l'immagine associata all'url passata
     private void imgGlide(String urlPassata){
@@ -465,7 +460,6 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         File file = new File(path, "ElencoPreferiti.txt");
         Integer value = new Integer(id);
         String daRimuovere = value.toString();
-        //Toast.makeText(this, daRimuovere, Toast.LENGTH_LONG).show();
 
         //Parte nuova, al posto di lavorare sull'arrayList originale, se ne si fa una copia e si lavora su quella
         List<String> drinksPreferitiClone = new ArrayList<>();

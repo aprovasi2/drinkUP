@@ -45,12 +45,9 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 public class MapsFragment extends Fragment {
 
-
-
     MapView mMapView;
 
     private GoogleMap googleMap;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
