@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import android.widget.Toast;
@@ -36,8 +37,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.drinkup.GestioneFile.*;
 
+public class MainActivity extends AppCompatActivity {
 
     public static double longitude = 20;
     public static double latitude = 30;
@@ -54,14 +56,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onProviderEnabled(String provider) {
-// attivo GPS su dispositivo
+            // attivo GPS su dispositivo
             // updateText(R.id.enabled, "TRUE");
-
         }
 
         @Override
         public void onProviderDisabled(String provider) {
-// disattivo GPS su dispositivo
+            // disattivo GPS su dispositivo
             //updateText(R.id.enabled, "FALSE");
         }
 
@@ -77,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
 
     }
 
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
-           // public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            // public void onRequestPermissionsResult(int requestCode, String[] permissions,
             //                                 int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
@@ -109,15 +108,15 @@ public class MainActivity extends AppCompatActivity {
                     Manifest.permission.ACCESS_COARSE_LOCATION
             }, 0);
 
-           
+            MyPermission.askWritePermission(this);
+            MyPermission.askReadPermission(this);
+
             return;
         }
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null)
             updateGUI(location);
         if (locationManager != null && locationManager.isProviderEnabled(providerId))
-
-
             locationManager.requestLocationUpdates(providerId, MIN_PERIOD, MIN_DIST, locationListener);
     }
 

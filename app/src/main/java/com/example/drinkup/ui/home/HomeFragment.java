@@ -6,22 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.drinkup.ActivityDrink;
+import com.example.drinkup.ActivityIngredient;
+import com.example.drinkup.DrinkByIngredient;
 import com.example.drinkup.R;
-import com.example.drinkup.ui.maps.MapsFragment;
+import com.example.drinkup.RandomDrink;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private HomeViewModel view;
-    private ImageButton imagebuttonebeer;
-    private ImageButton imagebuttonedrink;
+    private ImageButton mImagebuttonedrinkingredient;
+    private ImageButton mImagebuttonedrink;
+    private ImageButton mImagebuttonIngredient;
+    private ImageButton mImagebuttonRandom;
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
 
@@ -29,15 +31,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         view = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        mImagebuttonedrinkingredient = (ImageButton) root.findViewById(R.id.imageButton_DrinkPerIngredient);
+        mImagebuttonedrinkingredient.setOnClickListener(this);
 
+        mImagebuttonedrink = (ImageButton) root.findViewById(R.id.imageButtonDrink);
+        mImagebuttonedrink.setOnClickListener(this);
 
-        imagebuttonebeer = (ImageButton) root.findViewById(R.id.imageButtonBeer);
-        imagebuttonebeer.setOnClickListener(this);
+        mImagebuttonIngredient = (ImageButton) root.findViewById(R.id.imagebutton_Ingredient);
+        mImagebuttonIngredient.setOnClickListener(this);
 
-        imagebuttonedrink = (ImageButton) root.findViewById(R.id.imageButtonDrink);
-        imagebuttonedrink.setOnClickListener(this);
-
-
+        mImagebuttonRandom = (ImageButton) root.findViewById(R.id.imagebutton_randomDrink);
+        mImagebuttonRandom.setOnClickListener(this);
 
         return root;
     }
@@ -49,21 +53,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.imageButtonDrink:
                //azione da compiere dopo aver cliccato bottone drink
-
-
-
-                Intent intent = new Intent(getActivity(), ActivityDrink.class);
-
-                startActivity(intent);
+                Intent intentNomeDrink = new Intent(getActivity(), ActivityDrink.class);
+                startActivity(intentNomeDrink);
                 break;
 
-            case R.id.imageButtonBeer:
+            case R.id.imageButton_DrinkPerIngredient:
                 //azione da compiere dopo aver cliccato bottone beer
-                Toast.makeText(this.getContext(), "cliccatobeer", Toast.LENGTH_LONG).show();
+                Intent intentByIngredient = new Intent(getActivity(), DrinkByIngredient.class);
+                startActivity(intentByIngredient);
                 break;
 
-        }
+            case R.id.imagebutton_Ingredient:
+                //azione da compiere dopo aver cliccato bottone drink
+                Intent intentIngredient = new Intent(getActivity(), ActivityIngredient.class);
+                startActivity(intentIngredient);
+                break;
 
+            case R.id.imagebutton_randomDrink:
+                //azione da compiere dopo aver cliccato bottone beer
+                Intent intentRandom = new Intent(getActivity(), RandomDrink.class);
+                startActivity(intentRandom);
+                break;
+        }
 
     }
 }

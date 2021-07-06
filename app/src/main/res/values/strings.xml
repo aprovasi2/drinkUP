@@ -8,5 +8,16 @@
     <string name="button_ricerca">Cerca</string>
     <string name="google_maps_key">AIzaSyC6StaSpJBDH-uaHdyj5c7hE8bgfMWbuus</string>
     <string name="title_activity_maps">Map</string>
-
+    <string name="button_precedente">Precedente</string>
+    <string name="button_successivo">Successivo</string>
+    <string name="nome_Drink">Nome Drink</string>
+    <string name="gradazione_Drink">Gradazione</string>
+    <string name="ingredienti_Drink">Ingredienti</string>
+    <string name="quantitaIngredienti_Drink">Quantità</string>
+    <string name="preparazione_Drink">Preparazione</string>
+    <string name="hint_Search_Posizione">Inserisci il luogo da cercare</string>
+    <string name="hint_Search_Ingredient">Inserisci il nome dell\'ingrediente</string>
+    <string name="descrizione_Ingredient">Descrizione</string>
+    <string name="alcolico_Ingredient">Alcolico</string>
+    <string name="tipo_Ingredient">Tipologia</string>
 </resources>
