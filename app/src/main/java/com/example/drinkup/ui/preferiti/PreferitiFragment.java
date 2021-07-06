@@ -1,8 +1,10 @@
 package com.example.drinkup.ui.preferiti;
 
+import android.app.FragmentManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +18,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.drinkup.R;
+import com.example.drinkup.ToastCustom;
 import com.example.drinkup.models.Drink;
 import com.example.drinkup.models.Ingredient;
 import com.example.drinkup.repositories.DrinkRepository;
@@ -36,6 +40,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PreferitiFragment extends Fragment implements ResponseCallback, View.OnClickListener {
+
+    private static final String TAG = "PreferitiFragment";
 
     //Dichiarazione variabili
     private PreferitiViewModel preferitiViewModel;
@@ -130,16 +136,12 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     public void onClick(View v) {
 
         if (v.getId() == R.id.buttonPrefe_Precedente_Drink) {
-           // attivaBottoni();
             sPosizionePref = sPosizionePref - 1;
             mDrinkRepository.fetchPreferitiDrinks(mElencoIdDrink.get(sPosizionePref));
-            attivaBottoni();
         }
         if (v.getId() == R.id.buttonPrefe_Successivo_Drink) {
-          //  attivaBottoni();
             sPosizionePref = sPosizionePref + 1;
             mDrinkRepository.fetchPreferitiDrinks(mElencoIdDrink.get(sPosizionePref));
-            attivaBottoni();
         }
         if (v.getId() == R.id.buttonPrefe_Salva_Preferito) {
             try {
@@ -147,16 +149,13 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            setDefaultButtonSalva();
-            Toast toastRimosso= Toast.makeText(requireActivity().getApplication(), "Il drink" + mElencoIdDrink.get(sPosizionePref)+" è stato rimosso dalla tua lista preferiti", Toast.LENGTH_LONG);
-            toastRimosso.show();
-            mElencoIdDrink.remove(sPosizionePref);
-            mDrinksPreferitiWithDrinksApi.remove(sPosizionePref);
-            sPosizionePref =0;
-            visualizzaDrink(sPosizionePref);
+            ToastCustom.makeText(requireActivity().getApplication(),ToastCustom.TYPE_SUCCESS,"Il drink è stato rimosso dalla tua lista preferiti").show();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.detach(PreferitiFragment.this).attach(PreferitiFragment.this).commit();
 
         }
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void visualizzaDrink(int posizione) {
@@ -169,18 +168,18 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         mTextViewPrefe_Preparazione_Drink.setText(mDrinksPreferitiWithDrinksApi.get(posizione).getStrInstructionsIT());
         imgGlide(mDrinksPreferitiWithDrinksApi.get(posizione).getStrDrinkThumb());
         mCardView_InfoDrinkPrefe.setVisibility(View.VISIBLE);
-        attivaBottoni();
-
+        //attivaBottoni();
     }
 
     //Metodo che attiva o disattiva i bottoni a seconda delle esigenze
     public void attivaBottoni() {
 
-        if (sPosizionePref == 0 && mElencoIdDrink.size() == 0) {
+        if (sPosizionePref == 0 && mElencoIdDrink.size() == 1) {
+            Log.d("attivaBottoni", "posizionePref: "+sPosizionePref+"\n"+"elencoIdDrinkk: "+mElencoIdDrink.size());
             mButtonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
             mButtonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
 
-        } else if (sPosizionePref == 0 && mElencoIdDrink.size() != 0) {
+        } else if (sPosizionePref == 0 && mElencoIdDrink.size() != 1) {
             mButtonPrefe_Successivo_Drink.setVisibility(View.VISIBLE);
             mButtonPrefe_Precedente_Drink.setVisibility(View.INVISIBLE);
 
@@ -402,7 +401,6 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         //Per farlo prima liberiamo la lista, con il clear crasha quindi si crea nuova
         mElencoIdDrink = new ArrayList<>();
         mElencoIdDrink.addAll(drinksPreferitiClone);
-        setDefaultButtonSalva();
     }
 
     //metodo che permette cambiamenti grafici una volta premuto il bottone "Salva Preferito"
@@ -412,13 +410,6 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         Drawable drawable = getResources().getDrawable(android.R.drawable.btn_star_big_on);
         mButtonPrefe_Salva_Preferito.setForeground(drawable);
         mButtonPrefe_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
-    }
-
-    //metodo che permette di riportare i valori di default al bottone "Salva Preferito"
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void setDefaultButtonSalva() {
-        mButtonPrefe_Salva_Preferito.setBackgroundColor(0xFFCA4700);
-        mButtonPrefe_Salva_Preferito.setForeground(null);
     }
 
     //DA NON USARE

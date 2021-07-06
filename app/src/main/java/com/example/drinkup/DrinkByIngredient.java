@@ -354,13 +354,13 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
     //Metodo che attiva o disattiva i bottoni a seconda delle esigenze
     public void attivaBottoni(){
 
-        if (sPOSIZIONE ==0 && mNomiDrink.size()==0)
+        if (sPOSIZIONE == 0 && mNomiDrink.size() == 1)
         {
             mButton_Successivo_Drink.setVisibility(View.INVISIBLE);
             mButton_Precedente_Drink.setVisibility(View.INVISIBLE);
 
         }
-        else if (sPOSIZIONE ==0 && mNomiDrink.size()!=0)
+        else if (sPOSIZIONE == 0 && mNomiDrink.size() != 1)
         {
             mButton_Successivo_Drink.setVisibility(View.VISIBLE);
             mButton_Precedente_Drink.setVisibility(View.INVISIBLE);
