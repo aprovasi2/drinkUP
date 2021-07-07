@@ -1,24 +1,13 @@
 package com.example.drinkup;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 
-import android.widget.Toast;
-
-import com.example.drinkup.repositories.DrinkRepository;
-import com.example.drinkup.repositories.IDrinkRepository;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -30,26 +19,22 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import com.example.drinkup.GestioneFile.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static double longitude = 20;
-    public static double latitude = 30;
-    private GoogleMap googleMap;
-    private String providerId = LocationManager.GPS_PROVIDER;
-    private Geocoder geo = null;
-    private LocationManager locationManager = null;
+    public static double mLongitude = 20;
+    public static double mLatitude = 30;
+    private GoogleMap mGoogleMap;
+    private String mProviderId = LocationManager.GPS_PROVIDER;
+    private Geocoder mGeo = null;
+    private LocationManager mLocationManager = null;
     private static final int MIN_DIST = 20;
     private static final int MIN_PERIOD = 30000;
-    private LocationListener locationListener = new LocationListener() {
+    private LocationListener mLocationListener = new LocationListener() {
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
         }
@@ -93,16 +78,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        geo = new Geocoder(this, Locale.getDefault());
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        mGeo = new Geocoder(this, Locale.getDefault());
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            // public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                 int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION
@@ -113,20 +92,20 @@ public class MainActivity extends AppCompatActivity {
 
             return;
         }
-        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Location location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
         if (location != null)
             updateGUI(location);
-        if (locationManager != null && locationManager.isProviderEnabled(providerId))
-            locationManager.requestLocationUpdates(providerId, MIN_PERIOD, MIN_DIST, locationListener);
+        if (mLocationManager != null && mLocationManager.isProviderEnabled(mProviderId))
+            mLocationManager.requestLocationUpdates(mProviderId, MIN_PERIOD, MIN_DIST, mLocationListener);
     }
 
     private void updateGUI(Location location) {
         Date timestamp = new Date(location.getTime());
 
-        latitude = location.getLatitude();
+        mLatitude = location.getLatitude();
 
-        longitude = location.getLongitude();
+        mLongitude = location.getLongitude();
 
     }
 }
