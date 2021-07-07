@@ -385,7 +385,6 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         String idDrink = ""+data+"\n";
 
         File file = new File(path, "ElencoPreferiti.txt");
-        Log.d("testPath2", file.toString());
         if(!file.exists()){
             FileOutputStream stream = new FileOutputStream(file);
             try {

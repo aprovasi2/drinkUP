@@ -52,6 +52,7 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
 
         mDrinkRepository = new DrinkRepository(this, this.getApplication());
         mDrinkRandomWithDrinksApi = new ArrayList<>();
+        mDrinksPreferiti = new ArrayList<>();
         temp = new ArrayList<>();
 
         //Inizializzazione
@@ -77,11 +78,10 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         int idDrink = mDrinkRandomWithDrinksApi.get(0).getIdDrink();
-        boolean trovato=false;
-        for(int i = 0; i< mDrinksPreferiti.size(); i++)
-        {
-            if(Integer.parseInt(mDrinksPreferiti.get(i))==idDrink){
-                trovato=true;
+        boolean trovato = false;
+        for (int i = 0; i < mDrinksPreferiti.size(); i++) {
+            if (Integer.parseInt(mDrinksPreferiti.get(i)) == idDrink) {
+                trovato = true;
             }
         }
         if(trovato==true){
@@ -114,17 +114,6 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onFailure(String msg) {
         ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE_ERROR,"Errore").show();
-    }
-
-    // DA NON USARE
-    @Override
-    public void onResponseI(List<Ingredient> ingredientList) {
-
-    }
-
-    @Override
-    public void onResponseNome(List<Drink> nomeDrink) {
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -209,10 +198,12 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
         if (mDrinkRandomWithDrinksApi.get(posizione).getStrIngredient15() != null) {
             listaIngredienti.add(mDrinkRandomWithDrinksApi.get(posizione).getStrIngredient15());
         }
-        for (int i = 0; i < (listaIngredienti.size()) - 1; i++) {
-            ingredienti += listaIngredienti.get(i) + "\n";
+        if(!listaIngredienti.isEmpty()){
+            for (int i = 0; i < (listaIngredienti.size()) - 1; i++) {
+                ingredienti += listaIngredienti.get(i) + "\n";
+            }
+            ingredienti = ingredienti.concat(listaIngredienti.get(listaIngredienti.size() - 1) + "");
         }
-        ingredienti = ingredienti.concat(listaIngredienti.get(listaIngredienti.size() - 1) + "");
         return ingredienti;
     }
 
@@ -265,14 +256,17 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
         if (mDrinkRandomWithDrinksApi.get(posizione).getStrMeasure15() != null) {
             listaQuantita.add(mDrinkRandomWithDrinksApi.get(posizione).getStrMeasure15());
         }
-        for (int i = 0; i < (listaQuantita.size()) - 1; i++) {
-            quantita += listaQuantita.get(i) + "\n";
+        if(!listaQuantita.isEmpty()){
+            for (int i = 0; i < (listaQuantita.size()) - 1; i++) {
+                quantita += listaQuantita.get(i) + "\n";
+            }
+            quantita = quantita.concat(listaQuantita.get(listaQuantita.size() - 1) + "");
         }
-        quantita = quantita.concat(listaQuantita.get(listaQuantita.size() - 1) + "");
         return quantita;
     }
 
     private void salvaIdDrink(int idDrink) throws IOException {
+        Log.d("testPath2", "voglio salvare "+idDrink);
         scriviFile(idDrink);
     }
 
@@ -376,5 +370,17 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
         Drawable drawable = getResources().getDrawable(android.R.drawable.btn_star_big_on);
         mButton_Salva_Preferito.setForeground(drawable);
         mButton_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
+    }
+
+    // DA NON USARE
+    @Override
+    public void onResponseI(List<Ingredient> ingredientList) {
+
+    }
+
+    // DA NON USARE
+    @Override
+    public void onResponseNome(List<Drink> nomeDrink) {
+
     }
 }
