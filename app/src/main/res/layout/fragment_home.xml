@@ -38,6 +38,7 @@
                 android:layout_weight="0.3"
                 android:src="@drawable/cocktail"
                 android:text="@string/buttonDrink"
+                android:fontFamily="@font/jcandlestick"
                 android:textSize="30dp"
                 app:backgroundTint="#FF9800"
                 app:icon="@drawable/cocktail" />
@@ -54,6 +55,7 @@
                 android:layout_weight="0.3"
                 android:src="@drawable/ingredient"
                 android:text="@string/buttonDrinkIngredient"
+                android:fontFamily="@font/summit_bold_display"
                 android:textSize="30dp"
                 app:backgroundTint="#FF9800"
                 app:icon="@drawable/ingredient" />
@@ -70,6 +72,7 @@
                 android:layout_weight="0.3"
                 android:src="@drawable/wikipedia"
                 android:text="@string/buttonIngredient"
+                android:fontFamily="@font/wikid"
                 android:textSize="30dp"
                 app:backgroundTint="#FF9800"
                 app:icon="@drawable/wikipedia" />
@@ -86,6 +89,7 @@
                 android:layout_weight="0.3"
                 android:src="@drawable/casuale"
                 android:text="@string/buttonRandom"
+                android:fontFamily="@font/vimland"
                 android:textSize="30dp"
                 app:backgroundTint="#FF9800"
                 app:icon="@drawable/casuale" />
