@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.example.drinkup.GestioneFile.*;
+
 
 public class ActivityDrink extends AppCompatActivity implements View.OnClickListener, ResponseCallback {
     //dichiarazione variabili
