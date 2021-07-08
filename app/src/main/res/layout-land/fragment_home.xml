@@ -58,7 +58,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButtonDrink"
+                    android:id="@+id/ButtonDrink"
                     style="@android:style/Widget.Holo.ImageButton"
                     android:layout_width="0px"
                     android:layout_height="fill_parent"
@@ -71,7 +71,7 @@
                     />
 
                 <ImageButton
-                    android:id="@+id/imageButton_DrinkPerIngredient"
+                    android:id="@+id/Button_DrinkPerIngredient"
                     style="@android:style/Widget.Holo.ImageButton"
                     android:layout_width="0px"
                     android:layout_height="fill_parent"
@@ -93,7 +93,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imagebutton_Ingredient"
+                    android:id="@+id/button_Ingredient"
                     style="@android:style/Widget.Holo.ImageButton"
                     android:layout_width="0px"
                     android:layout_height="fill_parent"
@@ -106,7 +106,7 @@
                     />
 
                 <ImageButton
-                    android:id="@+id/imagebutton_randomDrink"
+                    android:id="@+id/button_randomDrink"
                     style="@android:style/Widget.Holo.ImageButton"
                     android:layout_width="0px"
                     android:layout_height="fill_parent"

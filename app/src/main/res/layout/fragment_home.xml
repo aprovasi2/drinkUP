@@ -26,8 +26,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/imageButtonDrink"
+            <Button
+                android:id="@+id/ButtonDrink"
                 style="@android:style/Widget.Holo.ImageButton"
                 android:layout_width="fill_parent"
                 android:layout_height="0px"
@@ -36,10 +36,14 @@
                 android:layout_marginRight="10px"
                 android:layout_marginBottom="10px"
                 android:layout_weight="0.3"
-                android:src="@drawable/cocktail" />
+                android:src="@drawable/cocktail"
+                android:text="@string/buttonDrink"
+                android:textSize="30dp"
+                app:backgroundTint="#FF9800"
+                app:icon="@drawable/cocktail" />
 
-            <ImageButton
-                android:id="@+id/imageButton_DrinkPerIngredient"
+            <Button
+                android:id="@+id/Button_DrinkPerIngredient"
                 style="@android:style/Widget.Holo.ImageButton"
                 android:layout_width="fill_parent"
                 android:layout_height="0px"
@@ -48,10 +52,14 @@
                 android:layout_marginRight="10px"
                 android:layout_marginBottom="10px"
                 android:layout_weight="0.3"
-                android:src="@drawable/ingredient" />
+                android:src="@drawable/ingredient"
+                android:text="@string/buttonDrinkIngredient"
+                android:textSize="30dp"
+                app:backgroundTint="#FF9800"
+                app:icon="@drawable/ingredient" />
 
-            <ImageButton
-                android:id="@+id/imagebutton_Ingredient"
+            <Button
+                android:id="@+id/button_Ingredient"
                 style="@android:style/Widget.Holo.ImageButton"
                 android:layout_width="fill_parent"
                 android:layout_height="0px"
@@ -60,10 +68,14 @@
                 android:layout_marginRight="10px"
                 android:layout_marginBottom="10px"
                 android:layout_weight="0.3"
-                android:src="@drawable/wikipedia" />
+                android:src="@drawable/wikipedia"
+                android:text="@string/buttonIngredient"
+                android:textSize="30dp"
+                app:backgroundTint="#FF9800"
+                app:icon="@drawable/wikipedia" />
 
-            <ImageButton
-                android:id="@+id/imagebutton_randomDrink"
+            <Button
+                android:id="@+id/button_randomDrink"
                 style="@android:style/Widget.Holo.ImageButton"
                 android:layout_width="fill_parent"
                 android:layout_height="0px"
@@ -72,7 +84,11 @@
                 android:layout_marginRight="10px"
                 android:layout_marginBottom="10px"
                 android:layout_weight="0.3"
-                android:src="@drawable/casuale" />
+                android:src="@drawable/casuale"
+                android:text="@string/buttonRandom"
+                android:textSize="30dp"
+                app:backgroundTint="#FF9800"
+                app:icon="@drawable/casuale" />
 
         </LinearLayout>
     </ScrollView>

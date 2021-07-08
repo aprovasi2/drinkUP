@@ -20,4 +20,18 @@
     <string name="descrizione_Ingredient">Descrizione</string>
     <string name="alcolico_Ingredient">Alcolico</string>
     <string name="tipo_Ingredient">Tipologia</string>
+    <string name="buttonIngredient">WIKI ingredient</string>
+    <string name="buttonRandom">Mi sento FORTUNATO</string>
+    <string name="buttonDrinkIngredient">Ricerca per INGREDIENTE</string>
+    <string name="buttonDrink">Ricerca per NOME</string>
+
+
+
+
+
+
+
+
+
+
 </resources>
