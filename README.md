@@ -15,11 +15,9 @@ Work in progress:
 	- gestione preferiti da ricerca per ingrediente -> fatto
 	- sistemare bottoni prec/succ del fragment preferiti -> fatto
 	- sistemare eliminazione dal fragment preferiti -> fatto
-	- sistemare grafica generale
-	- eliminare layout fragment h2, fragment drink
-	- controllare l'utilità delle classi in gestione file
+	- sistemare grafica generale -> fatto
+	- eliminare layout fragment h2, fragment drink -> fatto
+	- controllare l'utilità delle classi in gestione file -> fatto
 
 - Mappa
-	- aggiungere barra di ricerca -> fatto
-	- gestire la ricerca
-	- sistemare i markers
+	- fine
