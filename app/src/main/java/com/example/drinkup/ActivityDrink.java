@@ -3,6 +3,7 @@ package com.example.drinkup;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 
 import android.graphics.drawable.Drawable;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,7 +63,7 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
     private TextView textView_Preparazione_Drink;
     private Button button_Successivo_Drink;
     private Button button_Precedente_Drink;
-    private Button button_Salva_Preferito;
+    private ImageButton button_Salva_Preferito;
     public static int posizione = 999;
 
     @Override
@@ -482,21 +484,25 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         setDefaultButtonSalva();
     }
 
-    // metodo che permette di riportare i valori di default al bottone "Salva Preferito"
+    //metodo che permette di riportare i valori di default al bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setDefaultButtonSalva(){
-        button_Salva_Preferito.setBackgroundColor(0xFFCA4700);
-        button_Salva_Preferito.setForeground(null);
+        int icona = android.R.drawable.btn_star_big_off;
+        button_Salva_Preferito.setImageDrawable(
+                ContextCompat.getDrawable(getApplicationContext(), icona));
     }
 
-    // metodo che permette cambiamenti grafici una volta premuto il bottone "Salva Preferito"
+    //metodo che permette cambiamenti grafici una volta premuto il bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setChangesButtonSalva(){
-        button_Salva_Preferito.setBackgroundColor(0xFFDAA520);
-        Drawable drawable = getResources().getDrawable(android.R.drawable.btn_star_big_on);
-        button_Salva_Preferito.setForeground(drawable);
-        button_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
+        int icona = android.R.drawable.btn_star_big_on;
+        button_Salva_Preferito.setImageDrawable(
+                ContextCompat.getDrawable(getApplicationContext(), icona));
     }
+
+
+
+
 
     // DA NON USARE
     @Override

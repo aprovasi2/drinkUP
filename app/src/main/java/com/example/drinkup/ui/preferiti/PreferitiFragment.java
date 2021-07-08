@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -58,7 +60,7 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     private ImageView mImageViewPrefe_Drink;
     private Button mButtonPrefe_Precedente_Drink;
     private Button mButtonPrefe_Successivo_Drink;
-    private Button mButtonPrefe_Salva_Preferito;
+    private ImageButton mButtonPrefe_Salva_Preferito;
     public static int sPosizionePref = 999;
     private CardView mCardView_InfoDrinkPrefe;
 
@@ -405,14 +407,18 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         mElencoIdDrink.addAll(drinksPreferitiClone);
     }
 
+
+
     //metodo che permette cambiamenti grafici una volta premuto il bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void setChangesButtonSalva() {
-        mButtonPrefe_Salva_Preferito.setBackgroundColor(0xFFDAA520);
-        Drawable drawable = getResources().getDrawable(android.R.drawable.btn_star_big_on);
-        mButtonPrefe_Salva_Preferito.setForeground(drawable);
-        mButtonPrefe_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
+    public void setChangesButtonSalva(){
+        int icona = android.R.drawable.btn_star_big_on;
+        mButtonPrefe_Salva_Preferito.setImageDrawable(
+                ContextCompat.getDrawable(requireActivity().getApplication(), icona));
     }
+
+
+
 
     //DA NON USARE
     @Override

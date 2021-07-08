@@ -102,8 +102,9 @@
 
                                 <TextView
                                     android:id="@+id/textView_Nome_Drink"
-                                    android:layout_width="329dp"
-                                    android:layout_height="35dp"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.7"
                                     android:layout_marginStart="4dp"
                                     android:layout_marginLeft="4dp"
                                     android:layout_marginEnd="4dp"
@@ -114,13 +115,14 @@
                                     android:textSize="30sp"
                                     android:textStyle="bold" />
 
-                                <Button
+                                <ImageButton
                                     android:id="@+id/button_Salva_Preferito"
-                                    android:layout_width="55dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
-                                    android:gravity="center|start"
-                                    app:icon="@android:drawable/btn_star_big_on"
-                                    app:iconSize="20dp" />
+                                    android:layout_weight="0.3"
+                                    android:padding="30dp"
+                                    android:src="@android:drawable/btn_star_big_off"
+                                    app:iconSize="15dp" />
                             </LinearLayout>
 
                         </androidx.cardview.widget.CardView>
