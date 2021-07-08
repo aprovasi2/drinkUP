@@ -67,6 +67,7 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
         mTextView_Preparazione_Drink = (TextView) findViewById(R.id.textViewR_Preparazione_Drink);
         mImageView_Drink = (ImageView) findViewById(R.id.imageViewR_Drink);
         mCardView_InfoDrink = (CardView) findViewById(R.id.CardView_InfoDrinkR);
+        mCardView_InfoDrink.setVisibility(View.INVISIBLE);
 
         try {
             RecuperaDrinkPreferiti();
@@ -120,7 +121,8 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void visualizzaDrink(int posizione) {
-
+        
+        mCardView_InfoDrink.setVisibility(View.VISIBLE);
         //Inizializzazione delle varie textbox con gli elementi associati al drink che vogliamo visualizzare.
         mTextView_Ingredienti_Drink.setText(recuperaIngredienti(posizione));
         mTextView_QuantitaIngredienti_Drink.setText(recuperaQuantitaIngredienti(posizione));
