@@ -88,7 +88,7 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
             visualizzaIngredient(0);
         }
         else{
-            ToastCustom.makeText(this,ToastCustom.TYPE_INFO,"L'ingrediente cercato non è disponibile").show();
+            ToastCustom.makeText(this,ToastCustom.TYPE_INFO,"L'ingrediente cercato non è stato trovato").show();
         }
     }
 
