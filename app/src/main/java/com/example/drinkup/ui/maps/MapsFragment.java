@@ -1,6 +1,7 @@
 package com.example.drinkup.ui.maps;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PointOfInterest;
 
@@ -62,6 +64,9 @@ public class MapsFragment extends Fragment {
                 googleMap.getUiSettings().setMapToolbarEnabled(true);
                 googleMap.getUiSettings().isMyLocationButtonEnabled();
                 googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+                googleMap.setMapStyle(new MapStyleOptions(getResources()
+                        .getString(R.string.mappa_json)));
 
                // googleMap.setOnPoiClickListener(GoogleMap.OnPoiClickListener listener);
                 googleMap.setOnPoiClickListener(new GoogleMap.OnPoiClickListener() {
