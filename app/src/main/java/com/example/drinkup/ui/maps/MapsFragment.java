@@ -1,26 +1,47 @@
 package com.example.drinkup.ui.maps;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.drinkup.MainActivity;
 import com.example.drinkup.R;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PointOfInterest;
+
+import java.util.Date;
+import java.util.Locale;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class MapsFragment extends Fragment {
 
@@ -34,6 +55,7 @@ public class MapsFragment extends Fragment {
 
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
+
         mMapView.onResume(); // needed to get the map to display immediately
 
         try {
@@ -53,9 +75,8 @@ public class MapsFragment extends Fragment {
                 // For dropping a marker at a point on the Map
                 LatLng sydney = new LatLng(-34, 151);
                 LatLng milan = new LatLng(45.464664, 9.188540);
-                LatLng mia = new LatLng(MainActivity.mLatitude, MainActivity.mLongitude);
-                //toast per debug
-                //Toast.makeText(getContext(), " "+MainActivity.mLatitude + MainActivity.mLongitude, Toast.LENGTH_LONG).show();
+                LatLng mia = new LatLng(MainActivity.latitude, MainActivity.longitude);
+                Toast.makeText(getContext(), " "+MainActivity.latitude + MainActivity.longitude, Toast.LENGTH_LONG).show();
 
                 googleMap.addMarker(new MarkerOptions().position(mia).title("Marker Title").snippet("Marker Description"));
                 googleMap.getUiSettings().isScrollGesturesEnabled();
@@ -64,20 +85,6 @@ public class MapsFragment extends Fragment {
                 googleMap.getUiSettings().setMapToolbarEnabled(true);
                 googleMap.getUiSettings().isMyLocationButtonEnabled();
                 googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-
-                googleMap.setMapStyle(new MapStyleOptions(getResources()
-                        .getString(R.string.mappa_json)));
-
-               // googleMap.setOnPoiClickListener(GoogleMap.OnPoiClickListener listener);
-                googleMap.setOnPoiClickListener(new GoogleMap.OnPoiClickListener() {
-                    @Override
-                    public void onPoiClick(PointOfInterest pointOfInterest) {
-                        Toast.makeText(getContext(), "Hai cliccato: " +
-                                        pointOfInterest.name,
-                                Toast.LENGTH_SHORT).show();
-
-                    }
-                });
 
 
                 // For zooming automatically to the location of the marker
@@ -89,8 +96,6 @@ public class MapsFragment extends Fragment {
 
         return rootView;
     }
-
-
 
     @Override
     public void onResume() {

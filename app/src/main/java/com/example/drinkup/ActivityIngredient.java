@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import com.bumptech.glide.Glide;
@@ -20,54 +20,54 @@ import java.util.List;
 
 public class ActivityIngredient extends AppCompatActivity implements View.OnClickListener, ResponseCallback {
 
-    private IIngredientRepository mIngredientRepository;
-    private Button mButton_Search_Ingredient;
-    private EditText mIngredientDaCercare;
-    private TextView mTextView_Nome_Ingredient;
-    private TextView mTextView_Tipo_Ingredient;
-    private TextView mTextView_Alcolico_Ingredient;
-    private TextView mTextView_Gradazione_Ingredient;
-    private TextView mTextView_Descrizione_Ingredient;
-    private CardView mCardView_InfoIngredient;
-    private ImageView mImageView_Ingredient;
-    private String mRicercaImmagine = "https://www.thecocktaildb.com/images/ingredients/";
-    private String mRicerca = "";
-    private List<Ingredient> mListaIngredienti;
+    private IIngredientRepository ingredientRepository;
+    private Button button_Search_Ingredient;
+    private EditText ingredientDaCercare;
+    private TextView textView_Nome_Ingredient;
+    private TextView textView_Tipo_Ingredient;
+    private TextView textView_Alcolico_Ingredient;
+    private TextView textView_Gradazione_Ingredient;
+    private TextView textView_Descrizione_Ingredient;
+    private CardView cardView_InfoIngredient;
+    private ImageView imageView_Ingredient;
+    private String ricercaImmagine = "https://www.thecocktaildb.com/images/ingredients/";
+    private String ricerca = "";
+    private List<Ingredient> listaIngredienti;
 
     // metodo contente le istruzioni dell'operazione di creazione dell'activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient);
 
-        mTextView_Nome_Ingredient = findViewById(R.id.textView_Nome_Ingredient);
-        mTextView_Tipo_Ingredient = findViewById(R.id.textView_Tipo_Ingredient);
-        mTextView_Alcolico_Ingredient = findViewById(R.id.textView_Alcolico_Ingredient);
-        mTextView_Gradazione_Ingredient = findViewById(R.id.textView_Gradazione_Ingredient);
-        mTextView_Descrizione_Ingredient = findViewById(R.id.textView_Descrizione_Ingredient);
+        textView_Nome_Ingredient = findViewById(R.id.textView_Nome_Ingredient);
+        textView_Tipo_Ingredient = findViewById(R.id.textView_Tipo_Ingredient);
+        textView_Alcolico_Ingredient = findViewById(R.id.textView_Alcolico_Ingredient);
+        textView_Gradazione_Ingredient = findViewById(R.id.textView_Gradazione_Ingredient);
+        textView_Descrizione_Ingredient = findViewById(R.id.textView_Descrizione_Ingredient);
 
-        mButton_Search_Ingredient = findViewById(R.id.button_Search_Ingredient);
-        mButton_Search_Ingredient.setOnClickListener(this);
+        button_Search_Ingredient = findViewById(R.id.button_Search_Ingredient);
+        button_Search_Ingredient.setOnClickListener(this);
 
-        mIngredientDaCercare = findViewById(R.id.editTextText_IngredientSearch);
+        ingredientDaCercare = findViewById(R.id.editTextText_IngredientSearch);
 
-        mCardView_InfoIngredient = findViewById(R.id.cardView_InfoIngredient);
-        mCardView_InfoIngredient.setVisibility(View.INVISIBLE);
-        mListaIngredienti = new ArrayList<>();
+        cardView_InfoIngredient = findViewById(R.id.cardView_InfoIngredient);
+        cardView_InfoIngredient.setVisibility(View.INVISIBLE);
+        listaIngredienti = new ArrayList<>();
 
-        mImageView_Ingredient = findViewById(R.id.imageView_Ingredient);
-        mIngredientRepository = new IngredientRepository(this, this.getApplication());
+        imageView_Ingredient = findViewById(R.id.imageView_Ingredient);
+        ingredientRepository = new IngredientRepository(this, this.getApplication());
 
     }
 
     // metodo contente le istruzioni dell'operazione di click dei bottoni presenti nell'activity
     @Override
     public void onClick(View v) {
-        mRicerca ="";
-        mListaIngredienti.clear();
-        mRicerca = mIngredientDaCercare.getText().toString();
-        if(!mRicerca.equals("")){
-            mIngredientRepository.fetchIngredient(mRicerca);
-            mIngredientDaCercare.setText("");
+        ricerca="";
+        listaIngredienti.clear();
+        ricerca = ingredientDaCercare.getText().toString();
+        if(!ricerca.equals("")){
+            ingredientRepository.fetchIngredient(ricerca);
+            ingredientDaCercare.setText("");
         }
         else{
             ToastCustom.makeText(this,ToastCustom.TYPE_WARN,"Inserire il nome dell'ingrediente da cercare").show();
@@ -84,11 +84,11 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
     @Override
     public void onResponseI(List<Ingredient> ingredientList) {
         if(ingredientList != null){
-            mListaIngredienti.addAll(ingredientList);
+            listaIngredienti.addAll(ingredientList);
             visualizzaIngredient(0);
         }
         else{
-            ToastCustom.makeText(this,ToastCustom.TYPE_INFO,"L'ingrediente cercato non è stato trovato").show();
+            ToastCustom.makeText(this,ToastCustom.TYPE_INFO,"L'ingrediente cercato non è disponibile").show();
         }
     }
 
@@ -102,7 +102,7 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
             // Download the image associated with the article
             Glide.with(ActivityIngredient.this)
                     .load(newUrl)
-                    .into(mImageView_Ingredient);
+                    .into(imageView_Ingredient);
         }
 
     }
@@ -110,33 +110,33 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
     // metodo per la visualizzazione dei risulati della ricerca
     public void visualizzaIngredient(int pos){
 
-        if(mListaIngredienti.get(pos).getStrType() == null){
-            mTextView_Tipo_Ingredient.setText("-");
+        if(listaIngredienti.get(pos).getStrType() == null){
+            textView_Tipo_Ingredient.setText("-");
         }
         else{
-            mTextView_Tipo_Ingredient.setText(mListaIngredienti.get(pos).getStrType());
+            textView_Tipo_Ingredient.setText(listaIngredienti.get(pos).getStrType());
         }
-        if(mListaIngredienti.get(pos).getStrAlcohol() == null){
-            mTextView_Alcolico_Ingredient.setText("No");
-        }
-        else{
-            mTextView_Alcolico_Ingredient.setText(mListaIngredienti.get(pos).getStrAlcohol());
-        }
-        if(mListaIngredienti.get(pos).getStrABV() == null){
-            mTextView_Gradazione_Ingredient.setText("-");
+        if(listaIngredienti.get(pos).getStrAlcohol() == null){
+            textView_Alcolico_Ingredient.setText("No");
         }
         else{
-            mTextView_Gradazione_Ingredient.setText(mListaIngredienti.get(pos).getStrABV());
+            textView_Alcolico_Ingredient.setText(listaIngredienti.get(pos).getStrAlcohol());
         }
-        if(mListaIngredienti.get(pos).getStrDescription() == null){
-            mTextView_Descrizione_Ingredient.setText("-");
+        if(listaIngredienti.get(pos).getStrABV() == null){
+            textView_Gradazione_Ingredient.setText("-");
         }
         else{
-            mTextView_Descrizione_Ingredient.setText(mListaIngredienti.get(pos).getStrDescription());
+            textView_Gradazione_Ingredient.setText(listaIngredienti.get(pos).getStrABV());
         }
-        mTextView_Nome_Ingredient.setText(mListaIngredienti.get(pos).getStrIngredient());
-        mCardView_InfoIngredient.setVisibility(View.VISIBLE);
-        imgGlide(mRicercaImmagine + mRicerca +".png");
+        if(listaIngredienti.get(pos).getStrDescription() == null){
+            textView_Descrizione_Ingredient.setText("-");
+        }
+        else{
+            textView_Descrizione_Ingredient.setText(listaIngredienti.get(pos).getStrDescription());
+        }
+        textView_Nome_Ingredient.setText(listaIngredienti.get(pos).getStrIngredient());
+        cardView_InfoIngredient.setVisibility(View.VISIBLE);
+        imgGlide(ricercaImmagine+ricerca+".png");
 
     }
 
