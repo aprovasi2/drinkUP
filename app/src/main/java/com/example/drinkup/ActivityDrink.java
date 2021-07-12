@@ -71,7 +71,6 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
         //Inizializzazione variabili al momento della creazione dell'Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink);
-
         cardView_InfoDrink= findViewById(R.id.CardView_InfoDrink);
         text_gradazione = findViewById(R.id.text_Gradazione);
         text_ingredienti = findViewById(R.id.text_Ingredienti);
