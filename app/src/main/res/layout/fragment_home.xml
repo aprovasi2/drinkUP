@@ -36,7 +36,16 @@
                 android:layout_marginRight="10px"
                 android:layout_marginBottom="10px"
                 android:layout_weight="0.3"
+<<<<<<< HEAD
                 android:src="@drawable/cocktail" />
+=======
+                android:text="@string/buttonDrink"
+                android:fontFamily="@font/jcandlestick"
+                android:textSize="30dp"
+                app:backgroundTint="#FF9800"
+                app:icon="@drawable/cocktail"
+                tools:ignore="MissingPrefix" />
+>>>>>>> parent of 2da17bc (Risolto problema preferiti)
 
             <ImageButton
                 android:id="@+id/imageButton_DrinkPerIngredient"
@@ -48,7 +57,16 @@
                 android:layout_marginRight="10px"
                 android:layout_marginBottom="10px"
                 android:layout_weight="0.3"
+<<<<<<< HEAD
                 android:src="@drawable/ingredient" />
+=======
+                android:text="@string/buttonDrinkIngredient"
+                android:fontFamily="@font/jcandlestick"
+                android:textSize="30dp"
+                app:backgroundTint="#FF9800"
+                app:icon="@drawable/ingredient"
+                tools:ignore="MissingPrefix" />
+>>>>>>> parent of 2da17bc (Risolto problema preferiti)
 
             <ImageButton
                 android:id="@+id/imagebutton_Ingredient"
@@ -72,7 +90,16 @@
                 android:layout_marginRight="10px"
                 android:layout_marginBottom="10px"
                 android:layout_weight="0.3"
+<<<<<<< HEAD
                 android:src="@drawable/casuale" />
+=======
+                android:text="@string/buttonRandom"
+                android:fontFamily="@font/jcandlestick"
+                android:textSize="25dp"
+                app:backgroundTint="#FF9800"
+                app:icon="@drawable/casuale"
+                tools:ignore="MissingPrefix" />
+>>>>>>> parent of 2da17bc (Risolto problema preferiti)
 
         </LinearLayout>
     </ScrollView>
