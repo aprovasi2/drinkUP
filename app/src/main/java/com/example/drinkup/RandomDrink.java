@@ -56,7 +56,6 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
         mDrinkRandomWithDrinksApi = new ArrayList<>();
         mDrinksPreferiti = new ArrayList<>();
         temp = new ArrayList<>();
-
         //Inizializzazione
         mButton_Salva_Preferito = (ImageButton) findViewById(R.id.buttonR_Salva_Preferito);
         mButton_Salva_Preferito.setOnClickListener(this);
