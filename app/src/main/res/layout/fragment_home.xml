@@ -38,7 +38,7 @@
                 android:layout_weight="0.3"
                 android:text="@string/buttonDrink"
                 android:fontFamily="@font/jcandlestick"
-                android:textSize="30dp"
+                android:textSize="27dp"
                 app:backgroundTint="#FF9800"
                 app:icon="@drawable/cocktail"
                 tools:ignore="MissingPrefix" />
@@ -55,7 +55,7 @@
                 android:layout_weight="0.3"
                 android:text="@string/buttonDrinkIngredient"
                 android:fontFamily="@font/jcandlestick"
-                android:textSize="30dp"
+                android:textSize="27dp"
                 app:backgroundTint="#FF9800"
                 app:icon="@drawable/ingredient"
                 tools:ignore="MissingPrefix" />
@@ -89,7 +89,7 @@
                 android:layout_weight="0.3"
                 android:text="@string/buttonRandom"
                 android:fontFamily="@font/jcandlestick"
-                android:textSize="25dp"
+                android:textSize="27dp"
                 app:backgroundTint="#FF9800"
                 app:icon="@drawable/casuale"
                 tools:ignore="MissingPrefix" />

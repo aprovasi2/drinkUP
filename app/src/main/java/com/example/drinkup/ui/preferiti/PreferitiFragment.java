@@ -122,7 +122,6 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     public void onResponse(List<Drink> drinkList) {
         mDrinksPreferitiWithDrinksApi.addAll(drinkList);
         visualizzaDrink(sPosizionePref);
-        attivaBottoni();
     }
 
     //Metodo di fallimento chiamata API
@@ -190,10 +189,9 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         } else if (sPosizionePref == mElencoIdDrink.size() - 1) {
             mButtonPrefe_Successivo_Drink.setVisibility(View.INVISIBLE);
             mButtonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
-
         } else {
             mButtonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
-            mButtonPrefe_Precedente_Drink.setVisibility(View.VISIBLE);
+            mButtonPrefe_Successivo_Drink.setVisibility(View.VISIBLE);
         }
 
     }
