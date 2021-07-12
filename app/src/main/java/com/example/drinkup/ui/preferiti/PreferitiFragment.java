@@ -195,7 +195,6 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
         }
 
     }
-
     //Metodo che permette di scaricare l'immagine associata all'url passata
     private void imgGlide(String urlPassata) {
 
