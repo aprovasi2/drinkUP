@@ -12,12 +12,7 @@
         android:icon="@android:drawable/star_big_on"
         android:title="@string/title_preferiti" />
 
-    <item
-        android:id="@+id/navigation_profilo"
-        android:icon="@drawable/icon_user"
-        android:title="@string/title_profilo" />
-
-    <item
+     <item
         android:id="@+id/navigation_maps"
         android:icon="@drawable/icon_map"
         android:title="@string/title_maps" />

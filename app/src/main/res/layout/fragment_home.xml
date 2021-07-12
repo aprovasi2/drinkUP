@@ -26,53 +26,73 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/imageButtonDrink"
+            <Button
+                android:id="@+id/ButtonDrink"
                 style="@android:style/Widget.Holo.ImageButton"
                 android:layout_width="fill_parent"
                 android:layout_height="0px"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="16px"
                 android:layout_marginTop="10px"
-                android:layout_marginRight="10px"
+                android:layout_marginRight="16px"
                 android:layout_marginBottom="10px"
                 android:layout_weight="0.3"
-                android:src="@drawable/cocktail" />
+                android:text="@string/buttonDrink"
+                android:fontFamily="@font/jcandlestick"
+                android:textSize="27dp"
+                app:backgroundTint="#FF9800"
+                app:icon="@drawable/cocktail"
+                tools:ignore="MissingPrefix" />
 
-            <ImageButton
-                android:id="@+id/imageButton_DrinkPerIngredient"
+            <Button
+                android:id="@+id/Button_DrinkPerIngredient"
                 style="@android:style/Widget.Holo.ImageButton"
                 android:layout_width="fill_parent"
                 android:layout_height="0px"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="16px"
                 android:layout_marginTop="10px"
-                android:layout_marginRight="10px"
+                android:layout_marginRight="16px"
                 android:layout_marginBottom="10px"
                 android:layout_weight="0.3"
-                android:src="@drawable/ingredient" />
+                android:text="@string/buttonDrinkIngredient"
+                android:fontFamily="@font/jcandlestick"
+                android:textSize="27dp"
+                app:backgroundTint="#FF9800"
+                app:icon="@drawable/ingredient"
+                tools:ignore="MissingPrefix" />
 
-            <ImageButton
-                android:id="@+id/imagebutton_Ingredient"
+            <Button
+                android:id="@+id/button_Ingredient"
                 style="@android:style/Widget.Holo.ImageButton"
                 android:layout_width="fill_parent"
                 android:layout_height="0px"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="16px"
                 android:layout_marginTop="10px"
-                android:layout_marginRight="10px"
+                android:layout_marginRight="16px"
                 android:layout_marginBottom="10px"
                 android:layout_weight="0.3"
-                android:src="@drawable/wikipedia" />
+                android:text="@string/buttonIngredient"
+                android:fontFamily="@font/wikid"
+                android:textSize="30dp"
+                app:backgroundTint="#FF9800"
+                app:icon="@drawable/wikipedia"
+                tools:ignore="MissingPrefix" />
 
-            <ImageButton
-                android:id="@+id/imagebutton_randomDrink"
+            <Button
+                android:id="@+id/button_randomDrink"
                 style="@android:style/Widget.Holo.ImageButton"
                 android:layout_width="fill_parent"
                 android:layout_height="0px"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="16px"
                 android:layout_marginTop="10px"
-                android:layout_marginRight="10px"
+                android:layout_marginRight="16px"
                 android:layout_marginBottom="10px"
                 android:layout_weight="0.3"
-                android:src="@drawable/casuale" />
+                android:text="@string/buttonRandom"
+                android:fontFamily="@font/jcandlestick"
+                android:textSize="27dp"
+                app:backgroundTint="#FF9800"
+                app:icon="@drawable/casuale"
+                tools:ignore="MissingPrefix" />
 
         </LinearLayout>
     </ScrollView>

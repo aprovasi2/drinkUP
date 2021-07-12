@@ -3,6 +3,8 @@ package com.example.drinkup;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +47,7 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
     private TextView mTextView_Preparazione_Drink;
     private Button mButton_Successivo_Drink;
     private Button mButton_Precedente_Drink;
-    private Button mButton_Salva_Preferito;
+    private ImageButton mButton_Salva_Preferito;
 
     private List<String> mNomiDrink;
     public static int sPOSIZIONE = 999;
@@ -385,7 +388,6 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         String idDrink = ""+data+"\n";
 
         File file = new File(path, "ElencoPreferiti.txt");
-        Log.d("testPath2", file.toString());
         if(!file.exists()){
             FileOutputStream stream = new FileOutputStream(file);
             try {
@@ -467,18 +469,23 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
     //metodo che permette di riportare i valori di default al bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setDefaultButtonSalva(){
-        mButton_Salva_Preferito.setBackgroundColor(0xFFCA4700);
-        mButton_Salva_Preferito.setForeground(null);
+        int icona = android.R.drawable.btn_star_big_off;
+        mButton_Salva_Preferito.setImageDrawable(
+                ContextCompat.getDrawable(getApplicationContext(), icona));
     }
 
     //metodo che permette cambiamenti grafici una volta premuto il bottone "Salva Preferito"
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setChangesButtonSalva(){
-        mButton_Salva_Preferito.setBackgroundColor(0xFFDAA520);
-        Drawable drawable = getResources().getDrawable(android.R.drawable.btn_star_big_on);
-        mButton_Salva_Preferito.setForeground(drawable);
-        mButton_Salva_Preferito.setForegroundGravity(View.TEXT_ALIGNMENT_GRAVITY);
+        int icona = android.R.drawable.btn_star_big_on;
+        mButton_Salva_Preferito.setImageDrawable(
+                ContextCompat.getDrawable(getApplicationContext(), icona));
     }
+
+
+
+
+
 
     // DA NON USARE
     @Override

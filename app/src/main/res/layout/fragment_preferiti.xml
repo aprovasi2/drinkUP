@@ -24,7 +24,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/CardView_InfoDrinkPrefe"
                 android:layout_width="match_parent"
-                android:layout_height="641dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
@@ -36,6 +36,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:drawable/screen_background_light_transparent"
                     android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
@@ -53,25 +54,27 @@
 
                             <TextView
                                 android:id="@+id/textViewPrefe_Nome_Drink"
-                                android:layout_width="329dp"
-                                android:layout_height="35dp"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginStart="4dp"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginEnd="4dp"
                                 android:layout_marginRight="4dp"
+                                android:layout_weight="0.7"
                                 android:fontFamily="@font/hello_avocado"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                 android:textColor="#FFCA4700"
                                 android:textSize="30sp"
                                 android:textStyle="bold" />
 
-                            <Button
+                            <ImageButton
                                 android:id="@+id/buttonPrefe_Salva_Preferito"
-                                android:layout_width="55dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:gravity="left|end"
-                                app:icon="@android:drawable/btn_star_big_on"
-                                app:iconSize="20dp" />
+                                android:layout_weight="0.3"
+                                android:padding="30dp"
+                                android:src="@android:drawable/btn_star_big_off"
+                                app:iconSize="15dp" />
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -96,7 +99,7 @@
                         android:layout_marginLeft="4dp"
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
-                        android:fontFamily="sans-serif-light"
+                        android:fontFamily="@font/inter"
                         android:textColor="@color/black" />
 
                     <LinearLayout
@@ -133,7 +136,7 @@
                                     android:layout_marginLeft="4dp"
                                     android:layout_marginEnd="4dp"
                                     android:layout_marginRight="4dp"
-                                    android:fontFamily="sans-serif-light"
+                                    android:fontFamily="@font/inter"
                                     android:textColor="@color/black" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -164,7 +167,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="4dp"
                                     android:layout_marginRight="4dp"
-                                    android:fontFamily="sans-serif-light"
+                                    android:fontFamily="@font/inter"
                                     android:textColor="@color/black" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -191,7 +194,7 @@
                         android:layout_marginLeft="4dp"
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
-                        android:fontFamily="sans-serif-light"
+                        android:fontFamily="@font/inter"
                         android:textColor="@color/black" />
 
                     <ImageView
