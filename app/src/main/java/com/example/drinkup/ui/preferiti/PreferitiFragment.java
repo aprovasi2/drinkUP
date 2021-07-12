@@ -44,7 +44,6 @@ import java.util.List;
 public class PreferitiFragment extends Fragment implements ResponseCallback, View.OnClickListener {
 
     private static final String TAG = "PreferitiFragment";
-
     //Dichiarazione variabili
     private PreferitiViewModel preferitiViewModel;
     private IDrinkRepository mDrinkRepository;
