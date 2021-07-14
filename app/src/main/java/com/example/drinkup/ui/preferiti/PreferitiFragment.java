@@ -126,7 +126,13 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     //Metodo di fallimento chiamata API
     @Override
     public void onFailure(String msg) {
-        ToastCustom.makeText(requireActivity().getApplication(),ToastCustom.TYPE_INFO,"La lista preferiti è vuota").show();
+        try{
+            ToastCustom.makeText(requireActivity().getApplication(),ToastCustom.TYPE_INFO,"La lista preferiti è vuota").show();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 
