@@ -481,13 +481,8 @@ public class DrinkByIngredient extends AppCompatActivity implements View.OnClick
         mButton_Salva_Preferito.setImageDrawable(
                 ContextCompat.getDrawable(getApplicationContext(), icona));
     }
-
-
-
-
-
-
-    // DA NON USARE
+    
+    //Non necessari in questa activity
     @Override
     public void onResponseI(List<Ingredient> ingredientList) {
     }

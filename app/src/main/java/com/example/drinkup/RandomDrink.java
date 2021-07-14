@@ -129,22 +129,19 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
         mTextView_Alchool_Drink.setText(mDrinkRandomWithDrinksApi.get(posizione).getStrAlcoholic());
         mTextView_Preparazione_Drink.setText(mDrinkRandomWithDrinksApi.get(posizione).getStrInstructionsIT());
         imgGlide(mDrinkRandomWithDrinksApi.get(posizione).getStrDrinkThumb());
-        //setChangesButtonSalva();
+
     }
 
+    //metodo che permette di scaricare dall'url l'immagine relativa al drink
     private void imgGlide(String urlPassata) {
 
         String url = urlPassata;
         String newUrl = null;
 
         if (url != null) {
-            // This action is a possible alternative to manage HTTP addresses that don't work
-            // in the apps that target API level 28 or higher.
-            // If it doesn't work, the other option is this one:
-            // https://developer.android.com/guide/topics/manifest/application-element#usesCleartextTraffic
+
             newUrl = url.replace("http://", "https://").trim();
 
-            // Download the image associated with the article
             Glide.with(this)
                     .load(newUrl)
                     .into(mImageView_Drink);
@@ -269,7 +266,6 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
     }
 
     private void salvaIdDrink(int idDrink) throws IOException {
-        Log.d("testPath2", "voglio salvare "+idDrink);
         scriviFile(idDrink);
     }
 
@@ -322,7 +318,7 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
 
     //metodo che permette di salvare in una lista l'elenco dei drink preferiti letti dal file, invoca il metodo esterno leggiFile
     private void RecuperaDrinkPreferiti() throws IOException {
-        File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
+        File path = this.getFilesDir();
         File file = new File(path, "ElencoPreferiti.txt");
         String stringElencoPreferiti = leggiFile(file);
         mDrinksPreferiti = Arrays.asList(stringElencoPreferiti.split("\n"));
@@ -331,11 +327,10 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
     //Metodo che permette di cancellare un drink tra i preferiti nel file locale
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void cancellaDrinkdaFile(int id) throws IOException {
-        File path = this.getFilesDir(); //==> data/data/com.example.drinkup/files
+        File path = this.getFilesDir();
         File file = new File(path, "ElencoPreferiti.txt");
         Integer value = new Integer(id);
         String daRimuovere = value.toString();
-        //Toast.makeText(this, daRimuovere, Toast.LENGTH_LONG).show();
 
         //Parte nuova, al posto di lavorare sull'arrayList originale, se ne si fa una copia e si lavora su quella
         List<String> drinksPreferitiClone = new ArrayList<>();
@@ -375,13 +370,13 @@ public class RandomDrink extends AppCompatActivity implements View.OnClickListen
                 ContextCompat.getDrawable(getApplicationContext(), icona));
     }
 
-    // DA NON USARE
+    // Non necessari in questa activity
     @Override
     public void onResponseI(List<Ingredient> ingredientList) {
 
     }
 
-    // DA NON USARE
+    // Non necessari in questa activity
     @Override
     public void onResponseNome(List<Drink> nomeDrink) {
 

@@ -503,12 +503,12 @@ public class ActivityDrink extends AppCompatActivity implements View.OnClickList
 
 
 
-    // DA NON USARE
+    //Non necessari in questa activity
     @Override
     public void onResponseI(List<Ingredient> ingredientList) {
     }
 
-    // DA NON USARE
+    //Non necessari in questa activity
     @Override
     public void onResponseNome(List<Drink> nomeDrink) {
 

@@ -126,7 +126,13 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
     //Metodo di fallimento chiamata API
     @Override
     public void onFailure(String msg) {
-        ToastCustom.makeText(requireActivity().getApplication(),ToastCustom.TYPE_INFO,"La lista preferiti è vuota").show();
+        try{
+            ToastCustom.makeText(requireActivity().getApplication(),ToastCustom.TYPE_INFO,"La lista preferiti è vuota").show();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -416,12 +422,12 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
 
 
-    //DA NON USARE
+    //Non necessari in questa activity
     @Override
     public void onResponseI(List<Ingredient> ingredientList) {
     }
 
-    // DA NON USARE
+    //Non necessari in questa activity
     @Override
     public void onResponseNome(List<Drink> nomeDrink) {
     }
