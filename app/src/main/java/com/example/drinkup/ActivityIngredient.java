@@ -140,12 +140,12 @@ public class ActivityIngredient extends AppCompatActivity implements View.OnClic
 
     }
 
-    //DA NON USARE
+    //Non necessari in questa activity
     @Override
     public void onResponse(List<Drink> ingredientList) {
     }
 
-    // DA NON USARE
+    //Non necessari in questa activity
     @Override
     public void onResponseNome(List<Drink> nomeDrink) {
     }

@@ -12,8 +12,7 @@ import android.widget.Toast;
 
 public class ToastCustom {
 
-    // per usare il toast personalizzato
-    // ToastCustom.makeText(getApplicationContext(),ToastCustom.TYPE," - messaggio - ").show();
+    //Classe che gestisce l'aspetto grafico dei toast
 
     public static final int LENGTH_SHORT = Toast.LENGTH_SHORT;
     public static final int LENGTH_LONG = Toast.LENGTH_LONG;

@@ -47,15 +47,8 @@ public class MapsFragment extends Fragment {
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
 
-                // For showing a move to my location button
-                //googleMap.setMyLocationEnabled(true);
-
-                // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(-34, 151);
-                LatLng milan = new LatLng(45.464664, 9.188540);
                 LatLng mia = new LatLng(MainActivity.mLatitude, MainActivity.mLongitude);
-                //toast per debug
-                //Toast.makeText(getContext(), " "+MainActivity.mLatitude + MainActivity.mLongitude, Toast.LENGTH_LONG).show();
+
 
                 googleMap.addMarker(new MarkerOptions().position(mia).title("Marker Title").snippet("Marker Description"));
                 googleMap.getUiSettings().isScrollGesturesEnabled();
@@ -68,7 +61,7 @@ public class MapsFragment extends Fragment {
                 googleMap.setMapStyle(new MapStyleOptions(getResources()
                         .getString(R.string.mappa_json)));
 
-               // googleMap.setOnPoiClickListener(GoogleMap.OnPoiClickListener listener);
+
                 googleMap.setOnPoiClickListener(new GoogleMap.OnPoiClickListener() {
                     @Override
                     public void onPoiClick(PointOfInterest pointOfInterest) {
@@ -80,7 +73,7 @@ public class MapsFragment extends Fragment {
                 });
 
 
-                // For zooming automatically to the location of the marker
+                //Gestione zoom sulla mappa
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(mia).zoom(20).build();
 
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));

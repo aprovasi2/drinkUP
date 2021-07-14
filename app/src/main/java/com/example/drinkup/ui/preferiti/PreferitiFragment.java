@@ -422,12 +422,12 @@ public class PreferitiFragment extends Fragment implements ResponseCallback, Vie
 
 
 
-    //DA NON USARE
+    //Non necessari in questa activity
     @Override
     public void onResponseI(List<Ingredient> ingredientList) {
     }
 
-    // DA NON USARE
+    //Non necessari in questa activity
     @Override
     public void onResponseNome(List<Drink> nomeDrink) {
     }

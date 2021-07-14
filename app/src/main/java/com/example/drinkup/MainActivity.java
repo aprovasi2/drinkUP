@@ -63,9 +63,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //gestione BottomNavView
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_preferiti, R.id.navigation_maps, R.id.navigation_profilo, R.id.activityDrink)
                 .build();
@@ -75,9 +74,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
+
     protected void onResume() {
         super.onResume();
+
+        //Gestione localizzazione
         mGeo = new Geocoder(this, Locale.getDefault());
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
